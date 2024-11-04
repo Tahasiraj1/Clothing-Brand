@@ -13,7 +13,7 @@ const Hero = () => {
             Explore our curated collection of stylish<br /> clothing and accessories tailored to your unique taste.
         </p>
         <Button
-        className='w-[150px] h-[54px] hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 shadow-2xl rounded-lg shadow-zinc-600 text-black sm:mb-20 lg:mb-0'
+        className='w-[150px] h-[54px] hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-lg text-black sm:mb-20 lg:mb-0'
         >
             EXPLORE NOW
         </Button>
@@ -23,7 +23,7 @@ const Hero = () => {
       alt='Hero-Model'
       width={1000}
       height={1000}
-      className='flex-1 w-full h-[600px] rounded-xl shadow-2xl shadow-zinc-600'
+      className='flex-1 w-full h-[500px] sm:ml-10 lg:ml-0 rounded-xl drop-shadow-2xl'
       />
     </div>
   )

@@ -26,14 +26,6 @@ const products = [
     {id: 18, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
     {id: 19, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
     {id: 20, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 21, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 22, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 23, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 24, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 25, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 26, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 27, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 28, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
 ]
 
 const Products = () => {
@@ -58,7 +50,7 @@ const Products = () => {
                     </p>
                 </div>
                 <div className='flex justify-between items-center mt-4 mb-8'> 
-                    <Button className='w-24 items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 shadow-2xl rounded-lg shadow-zinc-600 text-black'>
+                    <Button className='w-24 items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl shadow-slate-400 rounded-lg text-black'>
                         Order Now
                     </Button>
                     <RiShoppingCart2Line size={25} />
@@ -68,7 +60,7 @@ const Products = () => {
     </div>
     <Link href="/products">
         <Button className='h-12 mb-10 flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
-                    Explore All <FaArrowRightLong />
+            Explore All <FaArrowRightLong />
         </Button>
     </Link>
     </div>

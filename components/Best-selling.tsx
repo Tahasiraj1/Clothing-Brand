@@ -9,7 +9,7 @@ const Bestselling = () => {
   return (
     <div className='lg:py-20 px-20 bg-lime-200 flex flex-col items-center justify-center'>
 
-      <h1 className='font-roboto text-4xl mb-6 text-emerald-800'>
+      <h1 className='font-bold text-5xl mb-6 text-emerald-800'>
         Best Selling
       </h1>
       <p className='font-poppins mb-10 text-lg text-emerald-900'>
@@ -84,7 +84,7 @@ const Bestselling = () => {
             </div>
         </div>
       </div>
-        <Button className='h-12 w-64 mb-10 flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
+        <Button className='h-12 w-64 mb-10 flex items-center drop-shadow-2xl bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
             Explore All <FaArrowRightLong />
         </Button>
         <hr className='w-full h-1 bg-emerald-800' />
