@@ -55,7 +55,7 @@ const ProductsPage = () => {
                         </p>
                     </div>
                     <div className='flex justify-between items-center mt-4 mb-8'> 
-                        <Button className='w-24 items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 shadow-2xl rounded-lg shadow-zinc-600 text-black'>
+                        <Button className='w-24 items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
                             Order Now
                         </Button>
                         <RiShoppingCart2Line size={25} />

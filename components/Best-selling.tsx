@@ -9,11 +9,11 @@ import Autoplay from "embla-carousel-autoplay";
 
 const Bestselling = () => {
     const plugin = React.useRef(
-        Autoplay({ delay: 3000, stopOnInteraction: true })
+        Autoplay({ delay: 2000, stopOnInteraction: true })
       )
 
   return (
-    <div className='lg:py-20 px-20 flex flex-col items-center justify-center'>
+    <div className='py-20 px-20 flex flex-col items-center justify-center'>
 
       <h1 className='font-bold text-5xl mb-6 text-emerald-800'>
         Best Selling
