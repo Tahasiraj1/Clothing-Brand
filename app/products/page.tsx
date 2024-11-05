@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { RiShoppingCart2Line } from "react-icons/ri";
-import { FaArrowRightLong } from "react-icons/fa6";
 
 const products = [
     {id: 1, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
