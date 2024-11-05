@@ -30,8 +30,8 @@ const products = [
 
 const Products = () => {
   return (
-    <div className='w-full flex flex-col bg-lime-200 pb-10 items-center justify-center'>
-    <div className='bg-lime-200 py-10 px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+    <div className='w-full flex flex-col pb-10 items-center justify-center'>
+    <div className='py-10 px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
         {products.map((product) => (
             <div key={product.id}>
                 <Image 
@@ -50,7 +50,7 @@ const Products = () => {
                     </p>
                 </div>
                 <div className='flex justify-between items-center mt-4 mb-8'> 
-                    <Button className='w-24 items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl shadow-slate-400 rounded-lg text-black'>
+                    <Button className='w-24 items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
                         Order Now
                     </Button>
                     <RiShoppingCart2Line size={25} />
@@ -59,7 +59,7 @@ const Products = () => {
         ))}
     </div>
     <Link href="/products">
-        <Button className='h-12 mb-10 flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
+        <Button className='h-12 mb-10 drop-shadow-2xl rounded-none flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
             Explore All <FaArrowRightLong />
         </Button>
     </Link>

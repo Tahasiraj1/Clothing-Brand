@@ -14,6 +14,7 @@ const config: Config = {
 			'xl': '1440px',
 			'lg': '1024px',
 			'md': '768px',
+			'sm+': '500px',
 			'sm': '320px',
 		},
   		fontFamily: {
