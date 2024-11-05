@@ -19,7 +19,6 @@ const config: Config = {
 		},
   		fontFamily: {
 			roboto: ['Roboto Slab', 'serif'],
-			elephant: ['Elephant', 'serif'],
   			rufina: ['Rufina', 'serif'],
   			poppins: ['Poppins', 'sans-serif']
   		},
