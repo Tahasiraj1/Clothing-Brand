@@ -14,15 +14,15 @@ const Footer = () => {
         </h2>
       </div>
       <div className='flex gap-4 items-center justify-center'>
-          <Link href="https://www.linkedin.com/in/taha-siraj-521b512b7/" target='_blank'>
+          <Link href="https://www.facebook.com/" target='_blank'>
             <FaFacebook size={26} className='text-blue-700 active:scale-95 transition-transform transform duration-300 ' />
           </Link>
 
-          <Link href="https://www.instagram.com/taha__siraj/" target='_blank'>
+          <Link href="https://www.instagram.com/" target='_blank'>
             <AiFillInstagram size={30} className='text-pink-600 active:scale-95 transition-transform transform duration-300 ' />
           </Link>
 
-          <Link href="https://wa.me/923311245238" target='_blank'>
+          <Link href="https://www.whatsapp.com/" target='_blank'>
             <IoLogoWhatsapp size={26} className='text-green-600 active:scale-95 transition-transform transform duration-300 ' />
           </Link>
       </div>

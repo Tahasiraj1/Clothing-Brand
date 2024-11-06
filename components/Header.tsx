@@ -10,11 +10,11 @@ const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <div className='font-poppins bg-lime-300 border border-emerald-900 text-xl w-full h-20 flex items-center justify-between text-emerald-950 px-8 sticky top-0 z-50 opacity-70'>
-      <h1 className='font-elephant'>
+    <div className='font-poppins animate-in slide-in-from-top-full transition-transform transform duration-300 bg-lime-300 border border-emerald-900 text-xl w-full h-20 flex items-center justify-between drop-shadow-2xl text-emerald-950 px-8 sticky top-0 z-50 opacity-70'>
+      <h1 className='font-bold text-2xl'>
         NAME
       </h1>
-      <div className='hidden lg:block font-bold'>
+      <div className='hidden lg:block font-semibold'>
         <ul className='flex gap-4'>
         <Link href="/">
           <li>HOME</li>
@@ -41,7 +41,7 @@ const Header = () => {
         </button>
       </div>
       {open && (
-        <div className='absolute top-20 animate-in slide-in-from-bottom-full transition-transform transfrom duration-300 right-2 bg-emerald-600 border-emerald-950 rounded-lg lg:hidden'>
+        <div className='absolute top-20 animate-in slide-in-from-bottom-full transition-transform transfrom duration-300 right-2 bg-lime-400 border-emerald-950 rounded-lg lg:hidden'>
           <ul className='flex flex-col text-white font-poppins'>
             <Link href="/"><li className='px-4 pt-2'>Home</li></Link>
             <hr className='w-full mb-2' />
