@@ -12,12 +12,12 @@ const About = () => {
         height={300}
         />
         <p className='text-center sm:mt-10 lg:mt-0 font-mono text-lg'>
-        Welcome to "Your Brand Name", where style meets substance. 
+        Welcome to &ldquo;Your Brand Name&ldquo;, where style meets substance. 
         Founded with a passion for quality and a commitment to timeless 
         design, we create clothing that reflects individuality and empowers 
         self-expression. Each piece is crafted with attention to detail, 
         using premium materials sourced responsibly, ensuring both comfort 
-        and durability. At "Your Brand Name", we believe in celebrating 
+        and durability. At &ldquo;Your Brand Name&ldquo;, we believe in celebrating 
         diversity and inclusivity, embracing unique styles that resonate with 
         every story. Whether you&apos;re seeking classic essentials or statement 
         pieces, our collections are designed to elevate your everyday wardrobe 
