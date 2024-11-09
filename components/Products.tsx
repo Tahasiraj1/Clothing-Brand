@@ -28,10 +28,13 @@ const Products = () => {
                     </p>
                 </div>
                 <div className='flex justify-between items-center mt-4 mb-8 px-2'> 
-                    <Button variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-                    className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
-                        Order Now
-                    </Button>
+                    <Link key={product.id} href={`/products/${product.id}`} passHref>
+                        <Button 
+                        variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
+                        className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
+                            Order Now
+                        </Button>
+                    </Link>
                     <RiShoppingCart2Line size={25} />
                 </div>
             </div>
