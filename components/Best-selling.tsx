@@ -187,8 +187,10 @@ const Bestselling = () => {
         <CarouselNext className='-translate-y-20' />
       </Carousel>
 
-        <Button className='h-12 w-64 mb-10 flex items-center drop-shadow-2xl rounded-none bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
-            Explore All <FaArrowRightLong />
+        <Button 
+         variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
+        className='h-12 w-64 mb-10 flex items-center drop-shadow-2xl rounded-none bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
+            Explore All
         </Button>
         <hr className='w-full h-1 bg-emerald-800' />
     </div>

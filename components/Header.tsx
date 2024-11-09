@@ -5,6 +5,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { RiMenu3Line } from "react-icons/ri";
 import Link from 'next/link';
+import { Button } from './ui/button';
 
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -14,34 +15,51 @@ const Header = () => {
       <h1 className='font-bold text-2xl'>
         NAME
       </h1>
-      <div className='hidden lg:block font-semibold'>
-        <ul className='flex gap-4'>
-        <Link href="/">
-          <li>HOME</li>
+      <div className='hidden md:block font-semibold'>
+        <ul className='flex'>
+
+          <Button 
+          variant="linkHover2">
+            <Link href="/">
+            <li className='font-semibold text-lg'>HOME</li>
+            </Link>
+          </Button>
+
+          <Button 
+          variant="linkHover2">
+            <Link href="/products">
+            <li className='font-semibold text-lg'>PRODUCTS</li>
           </Link>
-          <Link href="/products">
-            <li>PRODUCTS</li>
-          </Link>
+          </Button>
+
+          <Button 
+          variant="linkHover2">
           <Link href="/about">
-          <li>ABOUT</li>
+          <li className='font-semibold text-lg'>ABOUT</li>
           </Link>
+          </Button>
+
+          <Button 
+          variant="linkHover2">
           <Link href="/contact">
-          <li>CONTACT</li>
+          <li className='font-semibold text-lg'>CONTACT</li>
           </Link>
+          </Button>
+
         </ul>
       </div>
       <div className='flex gap-4 items-center justify-center'>
         <HiOutlineShoppingBag className='w-6 h-6' />
         <FaRegCircleUser className='w-6 h-6' />
         <button
-        className='lg:hidden bg-transparent hover:bg-transparent'
+        className='md:hidden bg-transparent hover:bg-transparent'
         onClick={() => setOpen(!open)}
         >
           <RiMenu3Line className='w-6 h-6' />
         </button>
       </div>
       {open && (
-        <div className='absolute top-20 animate-in slide-in-from-bottom-full transition-transform transfrom duration-300 right-2 bg-lime-400 border-emerald-950 rounded-lg lg:hidden'>
+        <div className='absolute top-20 animate-in slide-in-from-bottom-full transition-transform transfrom duration-300 right-2 bg-lime-400 border-emerald-950 rounded-lg md:hidden'>
           <ul className='flex flex-col text-white font-poppins'>
             <Link href="/"><li className='px-4 pt-2'>Home</li></Link>
             <hr className='w-full mb-2' />

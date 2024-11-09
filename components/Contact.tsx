@@ -46,10 +46,11 @@ const Contact = () => {
           />
 
           <Button
+          variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
             type='submit' // Set button type to 'submit'
-            className='mt-4 w-36 mx-auto rounded-none bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'
+            className='mt-4 mx-auto rounded-none bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'
           >
-            Send <FaArrowRightLong />
+            Send
           </Button>
         </form>
       </div>

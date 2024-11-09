@@ -4,29 +4,7 @@ import { Button } from './ui/button';
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Link from 'next/link';
-
-const products = [
-    {id: 1, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 2, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 3, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 4, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 5, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 6, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 7, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 8, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 9, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 10, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 11, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 12, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 13, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 14, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 15, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 16, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 17, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-    {id: 18, name: 'product 1', price: 100, image: '/images/bestselling3.jpg' },
-    {id: 19, name: 'product 1', price: 100, image: '/images/bestselling1.jpg' },
-    {id: 20, name: 'product 1', price: 100, image: '/images/bestselling2.jpg' },
-]
+import  products  from '@/lib/productsData';
 
 const Products = () => {
   return (
@@ -39,9 +17,9 @@ const Products = () => {
                 alt={product.name}
                 width={1000}
                 height={1000}
-                className='w-full h-auto object-cover'
+                className='w-full h-auto object-cover scale-95 hover:scale-100 transition-transform transform duration-300'
                 />
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center px-2'>
                     <h2 className='text-lg font-poppins mt-2'>
                         {product.name}
                     </h2>
@@ -49,8 +27,9 @@ const Products = () => {
                         PKR {product.price}
                     </p>
                 </div>
-                <div className='flex justify-between items-center mt-4 mb-8'> 
-                    <Button className='w-24 items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
+                <div className='flex justify-between items-center mt-4 mb-8 px-2'> 
+                    <Button variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
+                    className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
                         Order Now
                     </Button>
                     <RiShoppingCart2Line size={25} />
@@ -59,8 +38,9 @@ const Products = () => {
         ))}
     </div>
     <Link href="/products">
-        <Button className='h-12 mb-10 drop-shadow-2xl rounded-none flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
-            Explore All <FaArrowRightLong />
+        <Button  variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
+        className='w-64 h-12 mb-10 drop-shadow-2xl rounded-none flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
+            Explore All
         </Button>
     </Link>
     </div>

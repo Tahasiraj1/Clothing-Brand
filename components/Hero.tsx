@@ -13,6 +13,7 @@ const Hero = () => {
             Explore our curated collection of stylish<br /> clothing and accessories tailored to your unique taste.
         </p>
         <Button
+        variant="gooeyRight"
         className='w-[150px] h-[54px] hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black sm:mb-20 lg:mb-0'
         >
             EXPLORE NOW
