@@ -1,20 +1,68 @@
 "use client"
 
+import React, { useState } from 'react';
 import products from '@/lib/productsData';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay";
+import { useCart } from '@/lib/CartContext';
+import { ArrowLeft } from 'lucide-react';
 import { Heart } from 'lucide-react';
 import { TiStar } from "react-icons/ti";
 import { RiShoppingCart2Line } from "react-icons/ri";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { FaArrowRightLong } from "react-icons/fa6";
+
 
 const ProductDetails = () => {
+    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+    const [selectedSize, setSelectedSize] = useState<string | null>(null)
+
+    const plugin = React.useRef(
+        Autoplay({ delay: 2000, stopOnInteraction: true })
+      )
+
+      const { addToCart } = useCart();
+
+      const handleAddToCart = () => {
+        if (selectedColor && selectedSize) {
+            addToCart({
+                id: product?.id as string,
+                image: product?.image as string,
+                name: product?.name as string,
+                price: product?.price as number,
+                quantity: 1,
+                color: selectedColor,
+                size: selectedSize,
+            });
+        } else {
+            alert('Please select a size and color.');
+        }
+      };
+
     const params = useParams();
     const productId = params.id;
     const product = products.find((product) => product.id === productId);
 
-    if (!product) return <p className='h-screen items-center flex justify-center font-bold text-2xl text-red-500'>Product not found</p>;
+    if (!product) return (
+        <div className='h-screen items-center flex flex-col gap-2 justify-center'>
+            <p className='font-bold text-2xl text-red-500'>
+                Product not found
+            </p>
+            <Link href="/products">
+                <Button 
+                variant="expandIcon"
+                iconPlacement='left'
+                Icon={ArrowLeft}
+                className='border gap-1 text-lg font-semibold border-emerald-600 rounded-none bg-lime-100 hover:bg-emerald-700 text-black hover:text-white'
+                >
+                    Back to Products page
+                </Button>
+            </Link>
+        </div>
+    )
 
     return(
         <>
@@ -52,7 +100,9 @@ const ProductDetails = () => {
                     <label>Colors:</label>
                     {product.colors.map((color) => (
                         <Button
-                        className='border rounded-none bg-lime-100 hover:bg-gray-200 text-black border-gray-500 hover:border-gray-800'
+                        key={color}
+                        onClick={() => setSelectedColor(color)}
+                        className='border rounded-none bg-lime-100 hover:bg-gray-200 text-black border-gray-500 hover:border-gray-800 active:scale-95 duration-300 transition-transform transform'
                         >
                             {color}
                         </Button>
@@ -62,7 +112,9 @@ const ProductDetails = () => {
                     <label>Sizes:</label>
                     {product.sizes.map((size) => (
                         <Button
-                        className='border rounded-none bg-lime-100 hover:bg-gray-200 text-black border-gray-500 hover:border-gray-800'
+                        key={size}
+                        onClick={() => setSelectedSize(size)}
+                        className='border rounded-none bg-lime-100 hover:bg-gray-200 text-black border-gray-500 hover:border-gray-800 active:scale-95 duration-300 transition-transform transform'
                         >
                             {size}
                         </Button>
@@ -73,7 +125,8 @@ const ProductDetails = () => {
                     variant="expandIcon"
                     Icon={RiShoppingCart2Line}
                     iconPlacement='right'
-                    className='border text-lg font-semibold border-emerald-600 w-full rounded-none bg-lime-100 hover:bg-emerald-700 text-black hover:text-white'
+                    className='border text-lg font-semibold border-emerald-600 w-full rounded-none bg-lime-100 hover:bg-emerald-700 active:bg-emerald-900 active:scale-95 duration-300 transition-transform transform text-black hover:text-white'
+                    onClick={handleAddToCart}
                     >
                         ADD TO CART
                     </Button>
@@ -93,6 +146,9 @@ const ProductDetails = () => {
             opts={{
                 loop: true,
             }}
+            plugins={[plugin.current]}
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
             >
                 <CarouselContent>
                         {products.slice(0, 6).map((product, index) => (
@@ -104,12 +160,24 @@ const ProductDetails = () => {
                                 height={1000}
                                 className='w-[300px] h-[400px] '
                                 />
-                                <h2>
-                                    {product.name}
-                                </h2>
-                                <p>
-                                    PKR {product.price}
-                                </p>
+                                <div className='flex items-center justify-between'>
+                                    <h2>
+                                        {product.name}
+                                    </h2>
+                                    <p>
+                                        PKR {product.price}
+                                    </p>
+                                </div>
+                                <div className='flex justify-between items-center mt-4 mb-8'> 
+                                <Link key={product.id} href={`/products/${product.id}`} passHref>
+                                    <Button 
+                                    variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
+                                    className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
+                                        Order Now
+                                    </Button>
+                                </Link>
+                                    <RiShoppingCart2Line size={25} />
+                                </div>
                             </CarouselItem>
                         ))}
                 </CarouselContent>

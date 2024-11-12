@@ -49,7 +49,9 @@ const Header = () => {
         </ul>
       </div>
       <div className='flex gap-4 items-center justify-center'>
+        <Link href="/cart">
         <HiOutlineShoppingBag className='w-6 h-6' />
+        </Link>
         <FaRegCircleUser className='w-6 h-6' />
         <button
         className='md:hidden bg-transparent hover:bg-transparent'
