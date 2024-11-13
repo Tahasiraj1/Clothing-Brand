@@ -14,6 +14,7 @@ import { Heart } from 'lucide-react';
 import { TiStar } from "react-icons/ti";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 
 const ProductDetails = () => {
@@ -30,7 +31,7 @@ const ProductDetails = () => {
         if (selectedColor && selectedSize) {
             addToCart({
                 id: product?.id as string,
-                image: product?.image as string,
+                image: product?.images ? product.images[0] : '',
                 name: product?.name as string,
                 price: product?.price as number,
                 quantity: 1,
@@ -67,22 +68,21 @@ const ProductDetails = () => {
     return(
         <>
         <div className='flex lg:flex-row sm:flex-col py-20 px-5'>
-            <div className='grid grid-cols-2 gap-1'>
-            <Image
-                src={product.image}
-                width={1000}
-                height={1000}
-                alt={product.name}
-                className='w-[400px] h-[500px] object-cover'
-            />
-            <Image
-                src={product.image}
-                width={1000}
-                height={1000}
-                alt={product.name}
-                className='w-[400px] h-[500px] object-cover'
-            />
-            </div>
+                <ScrollArea>
+                <div className='flex space-x-2'>
+                    {product.images.map((image, index) => (
+                        <Image
+                        key={index}
+                        src={image}
+                        alt={`Image ${index + 1} of ${product.name}`}
+                        width={1000}
+                        height={1000}
+                        className='w-[400px] h-[500px] object-cover'
+                        />
+                    ))}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                </ScrollArea>
             <div className='flex flex-col lg:pl-20 pr-5 w-full max-w-2xl'>
                 <h1 className='text-5xl mb-9 mt-5 font-bold'>
                     {product.name}
@@ -154,7 +154,7 @@ const ProductDetails = () => {
                         {products.slice(0, 6).map((product, index) => (
                             <CarouselItem key={index} className='flex flex-col md:basis-1/2 lg:basis-1/3 xl:basis-1/4'>
                                 <Image
-                                src={product.image}
+                                src={product.images[0]}
                                 alt='product'
                                 width={1000}
                                 height={1000}
@@ -191,3 +191,19 @@ const ProductDetails = () => {
 
 export default ProductDetails;
 
+
+
+{/* <Image
+src={product.image}
+width={1000}
+height={1000}
+alt={product.name}
+className='w-[400px] h-[500px] object-cover'
+/>
+<Image
+src={product.image}
+width={1000}
+height={1000}
+alt={product.name}
+className='w-[400px] h-[500px] object-cover'
+/> */}

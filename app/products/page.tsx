@@ -12,7 +12,7 @@ const ProductsPage = () => {
             {products.map((product) => (
                 <div key={product.id}>
                     <Image 
-                    src={product.image} 
+                    src={product.images[0]} 
                     alt={product.name}
                     width={1000}
                     height={1000}
