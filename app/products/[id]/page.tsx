@@ -15,6 +15,7 @@ import { TiStar } from "react-icons/ti";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Select, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, SelectContent } from '@/components/ui/select';
 
 
 const ProductDetails = () => {
@@ -96,29 +97,39 @@ const ProductDetails = () => {
                 <p>
                     {product.description}
                 </p>
-                <div className='flex gap-2 mt-9 items-center'>
-                    <label>Colors:</label>
-                    {product.colors.map((color) => (
-                        <Button
-                        key={color}
-                        onClick={() => setSelectedColor(color)}
-                        className='border rounded-none bg-lime-100 hover:bg-gray-200 text-black border-gray-500 hover:border-gray-800 active:scale-95 duration-300 transition-transform transform'
-                        >
-                            {color}
-                        </Button>
-                    ))}
+                <div className='mt-9 items-center justify-center'>
+                    <Select onValueChange={setSelectedColor}>
+                        <SelectTrigger className='w-[180px] rounded-none bg-lime-100'>
+                            <SelectValue placeholder="Select Color:" />
+                        </SelectTrigger>
+                        <SelectContent className='bg-lime-200 w-[180px] rounded-none border border-emerald-700 drop-shadow-2xl'>
+                            <SelectGroup>
+                                <SelectLabel>Colors</SelectLabel>
+                                {product.colors.map((color) => (
+                                    <SelectItem key={color} value={color}>
+                                        {color}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
-                <div className='flex gap-2 mt-9 items-center'>
-                    <label>Sizes:</label>
-                    {product.sizes.map((size) => (
-                        <Button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className='border rounded-none bg-lime-100 hover:bg-gray-200 text-black border-gray-500 hover:border-gray-800 active:scale-95 duration-300 transition-transform transform'
-                        >
-                            {size}
-                        </Button>
-                    ))}
+                <div className='mt-4 flex items-center'>
+                    <Select onValueChange={setSelectedSize}>
+                        <SelectTrigger className='w-[180px] rounded-none bg-lime-100'>
+                            <SelectValue placeholder="Select Size:" />
+                        </SelectTrigger>
+                        <SelectContent className='bg-lime-200 w-[180px] rounded-none border border-emerald-700 drop-shadow-2xl'>
+                            <SelectGroup>
+                                <SelectLabel>Sizes</SelectLabel>
+                                {product.sizes.map((size) => (
+                                    <SelectItem key={size} value={size}>
+                                        {size}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
                 <div className='flex items-center justify-center mt-10 gap-2 drop-shadow-2xl'>
                     <Button
@@ -207,3 +218,17 @@ height={1000}
 alt={product.name}
 className='w-[400px] h-[500px] object-cover'
 /> */}
+
+
+{/* <div className='flex gap-2 mt-9 items-center'>
+<label>Colors:</label>
+{product.colors.map((color) => (
+    <Button
+    key={color}
+    onClick={() => setSelectedColor(color)}
+    className='border rounded-none bg-lime-100 hover:bg-gray-200 text-black border-gray-500 hover:border-gray-800 active:scale-95 duration-300 transition-transform transform'
+    >
+        {color}
+    </Button>
+))}
+</div> */}
