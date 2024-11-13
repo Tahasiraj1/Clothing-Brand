@@ -183,8 +183,8 @@ const Bestselling = () => {
             </div>
             </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious className='-translate-y-20' />
-        <CarouselNext className='-translate-y-20' />
+        <CarouselPrevious className='-translate-y-20 active:scale-95 transition-transform transform duration-300' />
+        <CarouselNext className='-translate-y-20 active:scale-95 transition-transform transform duration-300' />
       </Carousel>
 
         <Button 

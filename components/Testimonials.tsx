@@ -177,8 +177,8 @@ const Testimonials = () => {
                 </div>
             </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className='active:scale-95 transition-transform transform duration-300' />
+        <CarouselNext className='active:scale-95 transition-transform transform duration-300' />
       </Carousel>
 
     </div>

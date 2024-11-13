@@ -3,7 +3,7 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div className='flex items-center justify-center py-20 px-20'>
+    <div className='flex items-center justify-center py-20 px-20 bg-lime-50 min-h-screen'>
       <div className='flex sm:flex-col lg:flex-row items-center sm:space-x-0 lg:space-x-20'>
         <Image
         src="/images/bestselling1.jpg"

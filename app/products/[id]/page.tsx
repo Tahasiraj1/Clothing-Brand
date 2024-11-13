@@ -181,8 +181,8 @@ const ProductDetails = () => {
                             </CarouselItem>
                         ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className='-translate-y-16' />
+                <CarouselNext className='-translate-y-16' />
             </Carousel>
         </div>
         </>
