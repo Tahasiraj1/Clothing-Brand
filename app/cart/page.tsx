@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 import { Trash2 } from 'lucide-react';
 import { Plus } from 'lucide-react';
 import { Minus } from 'lucide-react';
+import { FaArrowRightLong } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
 
 const CartPage = () => {
@@ -122,6 +123,7 @@ const CartPage = () => {
                         <span><strong>{totalPrice + 100}</strong></span>
                     </div>
                     <Button
+                    variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
                     className='rounded-none bg-lime-100 text-black font-bold text-lg hover:bg-emerald-800 hover:text-white'
                     >
                         Proceed

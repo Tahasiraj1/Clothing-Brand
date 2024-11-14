@@ -131,18 +131,18 @@ const ProductDetails = () => {
                         </SelectContent>
                     </Select>
                 </div>
-                <div className='flex items-center justify-center mt-10 gap-2 drop-shadow-2xl'>
+                <div className='flex items-center justify-center mt-10 gap-2'>
                     <Button
                     variant="expandIcon"
                     Icon={RiShoppingCart2Line}
                     iconPlacement='right'
-                    className='border text-lg font-semibold border-emerald-600 w-full rounded-none bg-lime-100 hover:bg-emerald-700 active:bg-emerald-900 active:scale-95 duration-300 transition-transform transform text-black hover:text-white'
+                    className='border text-lg font-semibold border-emerald-600 w-full rounded-none bg-lime-100 hover:bg-emerald-700 active:bg-emerald-900 active:scale-95 duration-300 transition-transform transform text-black hover:text-white drop-shadow-xl'
                     onClick={handleAddToCart}
                     >
                         ADD TO CART
                     </Button>
                     <Button
-                    className='w-18 rounded-none border border-emerald-600 bg-lime-100 hover:bg-gray-200 text-black'
+                    className='w-18 rounded-none border border-emerald-600 bg-lime-100 hover:bg-gray-200 text-black drop-shadow-xl'
                     >
                         <Heart />
                     </Button>
@@ -183,7 +183,7 @@ const ProductDetails = () => {
                                 <Link key={product.id} href={`/products/${product.id}`} passHref>
                                     <Button 
                                     variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-                                    className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-2xl rounded-none text-black'>
+                                    className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-xl rounded-none text-black'>
                                         Order Now
                                     </Button>
                                 </Link>

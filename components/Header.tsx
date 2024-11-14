@@ -6,6 +6,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { RiMenu3Line } from "react-icons/ri";
 import Link from 'next/link';
 import { Button } from './ui/button';
+import { signIn, signOut } from "next-auth/react";
 
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -59,6 +60,8 @@ const Header = () => {
         >
           <RiMenu3Line className='w-6 h-6' />
         </button>
+        <button onClick={() => signIn("google")}>Sign in with Google</button>
+        <button onClick={() => signOut()}>Sign Out</button>
       </div>
       {open && (
         <div className='absolute top-20 animate-in slide-in-from-bottom-full transition-transform transfrom duration-300 right-2 bg-lime-400 border-emerald-950 rounded-lg md:hidden'>
