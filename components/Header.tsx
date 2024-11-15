@@ -60,20 +60,43 @@ const Header = () => {
         >
           <RiMenu3Line className='w-6 h-6' />
         </button>
-        <button onClick={() => signIn("google")}>Sign in with Google</button>
-        <button onClick={() => signOut()}>Sign Out</button>
+        <div className='hidden md:block font-semibold'>
+          <Button 
+          className='rounded-none bg-emerald-900 hover:bg-emerald-950 mr-2'
+          onClick={() => signIn("google")}>
+            Sign in
+          </Button>
+          <Button 
+          className='rounded-none bg-emerald-900 hover:bg-emerald-950'
+          onClick={() => signOut()}>
+            Sign Out
+          </Button>
+        </div>
       </div>
       {open && (
-        <div className='absolute top-20 animate-in slide-in-from-bottom-full transition-transform transfrom duration-300 right-2 bg-lime-400 border-emerald-950 rounded-lg md:hidden'>
-          <ul className='flex flex-col text-white font-poppins'>
+        <div className='absolute top-20 animate-in slide-in-from-bottom-full transition-transform transfrom duration-300 right-2 bg-emerald-800 text-center border-emerald-950 rounded-none md:hidden'>
+          <ul className='flex flex-col text-white font-poppins gap-2'>
             <Link href="/"><li className='px-4 pt-2'>Home</li></Link>
             <hr className='w-full mb-2' />
             <Link href="/products"><li className='px-4'>Products</li></Link>
             <hr className='w-full mb-2' />
             <Link href="/about"><li className='px-4'>About</li></Link>
             <hr className='w-full mb-1' />
-            <Link href="/contact"><li className='px-4 mb-2'>Contact</li></Link>
+            <Link href="/contact"><li className='px-4'>Contact</li></Link>
             <hr className='w-full' />
+            <Button 
+            className='bg-transparent hover:bg-transparent p-0 m-0'
+            onClick={() => signIn("google")}
+            >
+              <li className='text-lg'>Sign in</li>
+            </Button>
+            <hr className='w-full' />
+            <Button 
+            className='bg-transparent hover:bg-transparent p-0 m-0'
+            onClick={() => signOut()}
+            >
+              <li className='text-lg'>Sign Out</li>
+            </Button>
           </ul>
         </div>
       )}
