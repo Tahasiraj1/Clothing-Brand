@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '../api/auth/[...nextauth]/authOptions';
 import { redirect } from 'next/navigation';
 import Cart from '@/components/Cart'
 import React from 'react'
@@ -19,4 +19,4 @@ const CartPage = async () => {
   )
 }
 
-export default CartPage
+export default CartPage;
