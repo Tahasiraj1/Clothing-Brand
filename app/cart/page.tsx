@@ -9,8 +9,20 @@ import { Plus } from 'lucide-react';
 import { Minus } from 'lucide-react';
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
 
-const CartPage = () => {
+
+const CartPage = async () => {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      redirect('/auth/signin'); // Redirect unauthenticated users to sign-in page
+      return null;
+    }
+
+
     const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useCart();
 
     const totalPrice = cart.reduce((sum, item) => item.price * item.quantity + sum, 0 );
