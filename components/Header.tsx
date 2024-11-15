@@ -62,12 +62,12 @@ const Header = () => {
         </button>
         <div className='hidden md:block font-semibold'>
           <Button 
-          className='rounded-none bg-emerald-900 hover:bg-emerald-950 mr-2'
+          className='rounded-none bg-emerald-900 hover:bg-emerald-950 mr-2 active:scale-95 transition-transform transform duration-300'
           onClick={() => signIn("google")}>
             Sign in
           </Button>
           <Button 
-          className='rounded-none bg-emerald-900 hover:bg-emerald-950'
+          className='rounded-none bg-emerald-900 hover:bg-emerald-950 active:scale-95 transition-transform transform duration-300'
           onClick={() => signOut()}>
             Sign Out
           </Button>
