@@ -10,6 +10,7 @@ import { Minus } from 'lucide-react';
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
 import ProtectedPage from '@/components/ProtectedPage';
+import { getSession } from 'next-auth/react';
 
 const CartPage = () => {
     const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useCart();
@@ -137,5 +138,21 @@ const CartPage = () => {
     </ProtectedPage>
   );
 }
+
+
+export const getServerSideProps = async (context: any) => {
+    const session = await getSession(context);
+  
+    if (!session) {
+      return {
+        redirect: {
+          destination: "/api/auth/signin",
+          permanent: false,
+        },
+      };
+    }
+  
+    return { props: {} };
+  };
 
 export default CartPage;
