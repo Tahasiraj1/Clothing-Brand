@@ -1,12 +1,9 @@
 import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
 
 
 const ProtectedPage = ({ children }: { children: ReactNode }) => {
     const { data: session } = useSession();
-    const router = useRouter();
-
 
     useEffect(() => {
         if (!session) {

@@ -37,7 +37,7 @@ const TermsAndConditions = () => {
       <section>
         <h2 className='font-bold text-xl mb-2'>User Conduct</h2>
         <p>
-          You agree to use our website only for lawful purposes and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of the website. Prohibited behaviors include harassment, causing distress or inconvenience to any other user, and distributing obscene or offensive content.
+          You agree to use our website only for lawful purposes and in a way that does not infringe the rights of, restrict, or inhibit anyone else&apos;s use and enjoyment of the website. Prohibited behaviors include harassment, causing distress or inconvenience to any other user, and distributing obscene or offensive content.
         </p>
       </section>
 
