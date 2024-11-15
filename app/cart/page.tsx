@@ -9,6 +9,7 @@ import { Plus } from 'lucide-react';
 import { Minus } from 'lucide-react';
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
+import ProtectedPage from '@/components/ProtectedPage';
 
 const CartPage = () => {
     const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useCart();
@@ -20,6 +21,7 @@ const CartPage = () => {
     };
 
   return (
+    <ProtectedPage>
     <div className='flex sm:flex-col md:flex-row w-full min-h-screen bg-gray-100'>
         <div className='flex-1 pt-10 md:pb-20 w-full'>
             {cart.length === 0 ? (
@@ -132,6 +134,7 @@ const CartPage = () => {
             </div>
         )}
     </div>
+    </ProtectedPage>
   );
 }
 
