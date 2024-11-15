@@ -12,7 +12,7 @@ const CartPage = async () => {
     }
   
   
-  return (
+  if (session) return (
     <>
       <Cart />
     </>

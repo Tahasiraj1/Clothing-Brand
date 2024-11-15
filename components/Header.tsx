@@ -7,6 +7,7 @@ import { RiMenu3Line } from "react-icons/ri";
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { signIn, signOut } from "next-auth/react";
+import { VscChromeClose } from "react-icons/vsc";
 
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -58,15 +59,22 @@ const Header = () => {
         className='md:hidden bg-transparent hover:bg-transparent'
         onClick={() => setOpen(!open)}
         >
-          <RiMenu3Line className='w-6 h-6' />
+          {open ? (
+            <VscChromeClose className='w-6 h-6 active:scale-0 transition-transform duration-200 transform' />
+          ) : (
+            <RiMenu3Line className='w-6 h-6 active:scale-0 transition-transform duration-200 transform' />
+          )}
+          
         </button>
         <div className='hidden md:block font-semibold'>
           <Button 
+          variant="gooeyLeft"
           className='rounded-none bg-emerald-900 hover:bg-emerald-950 mr-2 active:scale-95 transition-transform transform duration-300'
           onClick={() => signIn("google")}>
             Sign in
           </Button>
           <Button 
+          variant="gooeyLeft"
           className='rounded-none bg-emerald-900 hover:bg-emerald-950 active:scale-95 transition-transform transform duration-300'
           onClick={() => signOut()}>
             Sign Out
