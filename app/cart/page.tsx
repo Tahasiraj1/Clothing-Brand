@@ -10,9 +10,13 @@ const CartPage = async () => {
     if (!session) {
       redirect('/auth/signin'); // Redirect if user is not authenticated
     }
+
+    if (session) {
+        redirect('/cart');
+    }
   
   
-  if (session) return (
+  return (
     <>
       <Cart />
     </>
