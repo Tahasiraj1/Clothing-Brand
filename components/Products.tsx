@@ -10,7 +10,7 @@ const Products = () => {
   return (
     <div className='w-full flex flex-col pb-10 items-center justify-center'>
     <div className='py-10 px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
-        {products.map((product) => (
+        {products.slice(0, 8).map((product) => (
             <div key={product.id}>
                 <Image 
                 src={product.images[0]} 
@@ -24,7 +24,7 @@ const Products = () => {
                         {product.name}
                     </h2>
                     <p>
-                        PKR {product.price}
+                        PKR <strong>{product.price}</strong>
                     </p>
                 </div>
                 <div className='flex justify-between items-center mt-4 mb-8 px-2'> 

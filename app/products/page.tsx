@@ -18,15 +18,15 @@ const ProductsPage = () => {
                     height={1000}
                     className='w-full h-auto object-cover scale-95 hover:scale-100 duration-300 transition-transform transform'
                     />
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between items-center px-2'>
                         <h2 className='text-lg font-poppins mt-2'>
                             {product.name}
                         </h2>
                         <p>
-                            PKR {product.price}
+                            PKR <strong>{product.price}</strong>
                         </p>
                     </div>
-                    <div className='flex justify-between items-center mt-4 mb-8'> 
+                    <div className='flex justify-between items-center mt-4 mb-8 px-2'> 
                     <Link key={product.id} href={`/products/${product.id}`} passHref>
                         <Button 
                         variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
