@@ -20,7 +20,7 @@ const products = [
         price: 100, 
         images: [
             '/images/bestselling2.jpg',
-            '/images/bestselling2.1.jpg',
+            '/images/bestselling3.1.jpg',
         ], 
         ratings: "5.0", 
         sizes: ["Small", "Medium", "Large"], 
@@ -33,7 +33,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling3.jpg',
-            '/images/bestselling3.1.jpg',
+            '/images/bestselling1.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -44,7 +44,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling1.jpg',
-            '/images/bestselling1.1.jpg',
+            '/images/bestselling2.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -55,7 +55,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling2.jpg',
-            '/images/bestselling2.1.jpg',
+            '/images/bestselling3.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -66,7 +66,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling3.jpg',
-            '/images/bestselling3.1.jpg',
+            '/images/bestselling1.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -77,7 +77,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling1.jpg',
-            '/images/bestselling1.1.jpg',
+            '/images/bestselling2.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -88,7 +88,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling2.jpg',
-            '/images/bestselling2.1.jpg',
+            '/images/bestselling3.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -99,7 +99,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling3.jpg',
-            '/images/bestselling3.1.jpg',
+            '/images/bestselling1.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -110,7 +110,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling1.jpg',
-            '/images/bestselling1.1.jpg',
+            '/images/bestselling2.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -121,7 +121,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling2.jpg',
-            '/images/bestselling2.1.jpg',
+            '/images/bestselling3.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -132,7 +132,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling3.jpg',
-            '/images/bestselling3.1.jpg',
+            '/images/bestselling1.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -143,7 +143,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling1.jpg',
-            '/images/bestselling1.1.jpg',
+            '/images/bestselling2.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -154,7 +154,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling2.jpg',
-            '/images/bestselling2.1.jpg',
+            '/images/bestselling3.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -165,7 +165,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling3.jpg',
-            '/images/bestselling3.1.jpg',
+            '/images/bestselling1.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -176,7 +176,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling1.jpg',
-            '/images/bestselling1.1.jpg',
+            '/images/bestselling2.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -187,7 +187,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling2.jpg',
-            '/images/bestselling2.1.jpg',
+            '/images/bestselling3.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -198,7 +198,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling3.jpg',
-            '/images/bestselling3.1.jpg',
+            '/images/bestselling1.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -209,7 +209,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling1.jpg',
-            '/images/bestselling1.1.jpg',
+            '/images/bestselling2.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
@@ -220,7 +220,7 @@ const products = [
         quantity: 10, price: 100, 
         images: [
             '/images/bestselling2.jpg',
-            '/images/bestselling2.1.jpg',
+            '/images/bestselling3.1.jpg',
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
