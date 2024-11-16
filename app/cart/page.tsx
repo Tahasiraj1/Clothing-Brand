@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../api/auth/[...nextauth]/authOptions';
 import { redirect } from 'next/navigation';
-import Cart from '@/components/Cart'
-import React from 'react'
+import Cart from '@/components/Cart';
+import React from 'react';
 
 const CartPage = async () => {
     const session = await getServerSession(authOptions);

@@ -6,7 +6,7 @@ const products = [
         price: 100, 
         images: [
             '/images/bestselling1.jpg',
-            '/images/bestselling1.1.jpg',
+            '/images/bestselling2.1.jpg',
         ], 
         ratings: "5.0", 
         sizes: ["Small", "Medium", "Large"], 

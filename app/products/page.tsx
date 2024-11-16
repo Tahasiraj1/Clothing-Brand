@@ -11,13 +11,22 @@ const ProductsPage = () => {
         <div className='py-10 px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
             {products.map((product) => (
                 <div key={product.id}>
+                    <div className="relative w-full">
                     <Image 
-                    src={product.images[0]} 
-                    alt={product.name}
-                    width={1000}
-                    height={1000}
-                    className='w-full h-auto object-cover scale-95 hover:scale-100 duration-300 transition-transform transform'
+                        src={product.images[0]} 
+                        alt={product.name}
+                        width={1000}
+                        height={1000}
+                        className="w-full h-auto object-cover opacity-100 hover:opacity-0 duration-300"
                     />
+                    <Image 
+                        src={product.images[1]} 
+                        alt={product.name}
+                        width={1000}
+                        height={1000}
+                        className="w-full h-auto object-cover absolute top-0 left-0 opacity-0 hover:opacity-100 duration-300"
+                    />
+                    </div>
                     <div className='flex justify-between items-center px-2'>
                         <h2 className='text-lg font-poppins mt-2'>
                             {product.name}
