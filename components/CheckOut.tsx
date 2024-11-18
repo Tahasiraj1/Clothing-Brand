@@ -33,6 +33,7 @@ const Checkout = () => {
                 <MyForm />
             </div>
                 <div className='w-full md:w-[40%] h-fit flex flex-col border sticky top-36 py-4 px-2'>
+                    <h1 className='text-2xl font-bold pb-4'>In your Cart</h1>
                     {cart.map((item) => (
                         <div key={item.id} className='flex items-center gap-4 rounded-none'>
                         <div>
