@@ -13,7 +13,11 @@ const page = async () => {
 
   return (
     <>
-      <Checkout />
+        {session ? (
+            <Checkout />
+        ) : (
+            <p>Redirecting to login...</p>
+        )}
     </>
   )
 }
