@@ -9,6 +9,7 @@ import { Plus } from 'lucide-react';
 import { Minus } from 'lucide-react';
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const Cart = () => {
     const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useCart();
@@ -103,10 +104,10 @@ const Cart = () => {
             )}
         </div>
         {cart.length > 0 && (
-            <div className='flex w-full md:max-w-[30%] h-fit md:py-20 sm:py-5 px-2 md:translate-y-14'>
-                <div className='flex flex-col bg-white h-auto w-full px-5 pb-5'>
+            <div className='flex w-full md:max-w-[30%] h-fit md:py-20 sm:py-5 px-2 sticky top-36'>
+                <div className='flex flex-col bg-white h-auto w-full px-5 pb-5 border'>
                     <h1 className='my-5 mx-10 items-center justify-center flex font-bold text-3xl'>
-                        Checkout
+                        Order Summary
                     </h1>
                     <hr className='w-full bg-emerald-800 h-[2px]' />
                     <div className='flex items-center justify-between my-5'>
@@ -122,12 +123,14 @@ const Cart = () => {
                         <span className='font-semibold text-lg'>GrandTotal:</span>
                         <span><strong>{totalPrice + 100}</strong></span>
                     </div>
+                    <Link href="/checkout">
                     <Button
                     variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-                    className='rounded-none bg-lime-100 text-black font-bold text-lg hover:bg-emerald-800 hover:text-white'
+                    className='w-full rounded-none bg-lime-100 text-black font-bold text-lg hover:bg-emerald-800 hover:text-white'
                     >
                         Proceed
                     </Button>
+                    </Link>
                 </div>
             </div>
         )}

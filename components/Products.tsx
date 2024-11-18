@@ -1,10 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button } from './ui/button';
-import { RiShoppingCart2Line } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Link from 'next/link';
 import  products  from '@/lib/productsData';
+import { TiStar } from 'react-icons/ti';
 
 const Products = () => {
   return (
@@ -44,7 +44,9 @@ const Products = () => {
                             Order Now
                         </Button>
                     </Link>
-                    <RiShoppingCart2Line size={25} />
+                    <div className='flex'>
+                        <TiStar fill='orange' className='w-6 h-6' /> {product.ratings}
+                    </div>
                 </div>
             </div>
         ))}
