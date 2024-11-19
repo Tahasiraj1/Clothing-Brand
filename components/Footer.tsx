@@ -8,9 +8,9 @@ import { IoLogoWhatsapp } from "react-icons/io";
 const Footer = () => {
   return (
     <div className='flex px-8 h-14 sm:h-20 bg-lime-200 border justify-between items-center'>
-      <div className='flex items-center justify-center gap-10'>
-        <h2 className='flex sm:flex-col md:flex-row'>
-            &copy; Name<Dot /> All rights reserved
+      <div className='flex sm:flex-col md:flex-row items-center justify-center gap-4'>
+        <h2 className='flex'>
+            &copy; Name<Dot />
         </h2>
         <div className='flex gap-5'>
           <Link href="/terms&conditions">
