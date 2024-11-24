@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 import DashboardClient from '@/components/Dashboard'
-import { headers } from 'next/headers'
 
 async function getOrders() {
   try {
