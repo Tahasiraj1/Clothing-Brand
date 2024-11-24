@@ -9,24 +9,24 @@ import { TiStar } from 'react-icons/ti';
 const Products = () => {
   return (
     <div className='w-full flex flex-col pb-10 items-center justify-center'>
-    <div className='py-10 px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+    <div className='py-10 px-5 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5'>
         {products.slice(0, 8).map((product) => (
             <div key={product.id}>
-                    <div className="relative w-full">
-                    <Image 
-                        src={product.images[0]} 
-                        alt={product.name}
-                        width={1000}
-                        height={1000}
-                        className="w-full h-auto object-cover opacity-100 hover:opacity-0 duration-300"
-                    />
-                    <Image 
-                        src={product.images[1]} 
-                        alt={product.name}
-                        width={1000}
-                        height={1000}
-                        className="w-full h-auto object-cover absolute top-0 left-0 opacity-0 hover:opacity-100 duration-300"
-                    />
+                    <div className="relative w-full overflow-hidden">
+                        <Image 
+                            src={product.images[0]} 
+                            alt={product.name}
+                            width={1000}
+                            height={1000}
+                            className="w-full h-auto object-cover opacity-100 hover:opacity-0 duration-300"
+                        />
+                        <Image 
+                            src={product.images[1]} 
+                            alt={product.name}
+                            width={1000}
+                            height={1000}
+                            className="w-full h-auto object-cover absolute top-0 left-0 opacity-0 hover:opacity-100 duration-300 hover:scale-110 transition-transform transform"
+                        />
                     </div>
                 <div className='flex justify-between items-center px-2'>
                     <h2 className='text-lg font-poppins mt-2'>

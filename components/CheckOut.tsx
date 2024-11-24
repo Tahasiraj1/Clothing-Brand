@@ -1,24 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCart, CartItem} from '@/lib/CartContext';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { X } from 'lucide-react';
-import MyForm from './Form';
+import CheckoutForm from '@/components/Form';
 import { useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 
 const Checkout = () => {
     const { cart, clearCart, removeFromCart } = useCart();
-    const { isSignedIn } = useAuth();
+    const { isSignedIn, isLoaded } = useAuth();
     const router = useRouter();
 
-    if  (!isSignedIn) {
-        router.push('/sign-in');
-        return null;
-    }
+    useEffect(() => {
+        if (isLoaded && !isSignedIn) {
+            router.push('/sign-in');
+        }
+    }, [isLoaded, isSignedIn, router]);
 
     const handleRemoveFromCart = (item: CartItem) => {
         removeFromCart(item);
@@ -39,7 +40,7 @@ const Checkout = () => {
         <div className="flex flex-col md:flex-row w-full p-10 justify-between">
             <div className="w-full md:w-[55%]">
                 <h1 className='text-3xl font-bold'>Checkout</h1>
-                <MyForm />
+                <CheckoutForm />
             </div>
                 <div className='w-full md:w-[40%] h-fit flex flex-col border sticky top-36 py-4 px-2'>
                     <h1 className='text-2xl font-bold pb-4'>In your Cart</h1>
