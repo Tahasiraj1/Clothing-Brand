@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import products from "./productsData";
 
 export interface CartItem {
     image: string;
@@ -35,15 +36,23 @@ export default function CartProvider ({ children }: { children: ReactNode }) {
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
 
+
+    const getProductStock = (id: string) => {
+        const product = products.find((p) => p.id === id);
+        return product ? product.quantity : 0; // Return 0 if the product is not found
+    };
+
     const addToCart = (product: CartItem) => {
         setCart((prevCart) => {
             const existingProduct = prevCart.find(
                 (item) => item.id === product.id && item.color === product.color && item.size === product.size
             );
 
+            const productStock = getProductStock(product.id);
+
             if (existingProduct) {
                 return prevCart.map((item) => 
-                item.id === product.id && item.color === product.color && item.size === product.size
+                item.id === product.id && item.color === product.color && item.size === product.size && item.quantity < productStock
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
                 );
@@ -66,9 +75,11 @@ export default function CartProvider ({ children }: { children: ReactNode }) {
     };
 
     const incrementQuantity = (product: CartItem) => {
+        const productStock = getProductStock(product.id);
+
         setCart((prevCart) => 
             prevCart.map((item) => 
-            item.id === product.id && item.color === product.color && item.size === product.size
+            item.id === product.id && item.color === product.color && item.size === product.size && item.quantity < productStock
             ? { ...item, quantity: item.quantity + 1 } 
             : item
             )
