@@ -187,7 +187,9 @@ const ProductDetails = () => {
                                         Order Now
                                     </Button>
                                 </Link>
-                                    <RiShoppingCart2Line size={25} />
+                                    <div className='flex'>
+                                        <TiStar fill='orange' className='w-6 h-6 mr-2' /> {product.ratings}
+                                    </div>
                                 </div>
                             </CarouselItem>
                         ))}
