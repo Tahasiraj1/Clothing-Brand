@@ -1,19 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Order {
   id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  customerDetails  CustomerDetails  @relation(fields: [customerDetailsId], references: [id])
+  customerDetailsId String           @db.ObjectId
+  items            OrderItem[]
+  totalAmount      Float
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
-  customerDetails  CustomerDetails?
-  items            Item[]
-  totalAmount      Float
 }
 
 model CustomerDetails {
@@ -26,17 +27,16 @@ model CustomerDetails {
   houseNo     String
   postalCode  String
   country     String
-  order       Order    @relation(fields: [orderId], references: [id])
-  orderId     String   @unique @db.ObjectId
+  orders      Order[]
 }
 
-model Item {
+model OrderItem {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   price     Float
   quantity  Int
-  color     String
-  size      String
+  color     String?
+  size      String?
   order     Order    @relation(fields: [orderId], references: [id])
   orderId   String   @db.ObjectId
 }
