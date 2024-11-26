@@ -62,12 +62,14 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
+    console.log("Fetching orders from the database...");
     const orders = await prisma.order.findMany({
       include: {
         customerDetails: true,
         items: true
       }
     })
+    console.log("Fetched orders:", orders);
 
     if (!orders || orders.length === 0) {
       return NextResponse.json({ success: false, error: 'No orders found' }, { status: 404 })
