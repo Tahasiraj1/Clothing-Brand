@@ -63,7 +63,7 @@ const Header = () => {
         </div>
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
+            <Button variant="ghost" size="icon" className="md:hidden bg-transparent hover:bg-transparent">
               <RiMenu3Line className='w-6 h-6' />
               <span className="sr-only">Open menu</span>
             </Button>
