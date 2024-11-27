@@ -1,27 +1,27 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 
-
 export async function GET() {
   try {
-    console.log("Fetching orders from the database...");
+    console.log("Attempting to fetch orders from the database...");
     const orders = await prisma.order.findMany({
       include: {
         customerDetails: true,
         items: true
       }
     })
-    console.log("Fetched orders:", JSON.stringify(orders, null, 2));
+    console.log(`Successfully fetched ${orders.length} orders`);
 
     if (!orders || orders.length === 0) {
-      return NextResponse.json({ success: false, error: 'No orders found' }, { status: 404 })
+      console.log("No orders found in the database");
+      return NextResponse.json({ success: false, message: 'No orders found' }, { status: 404 })
     }
 
     return NextResponse.json({ success: true, data: orders })
   } catch (error) {
     console.error('Error fetching orders:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch orders' },
+      { success: false, error: 'Failed to fetch orders', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
