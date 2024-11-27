@@ -17,7 +17,8 @@ interface Order {
   customerDetails: {
     firstName: string;
     lastName: string;
-  } | null;
+    email: string;
+  };
   items: OrderItem[];
 }
 
@@ -40,8 +41,6 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
     return null
   }
 
-  console.log('Orders in DashboardClient:', orders)
-
   if (!orders || orders.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
@@ -59,7 +58,8 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
         {orders.map((order) => (
           <div key={order.id} className="border p-4 rounded shadow-sm hover:shadow-md transition-shadow">
             <h2 className="text-xl font-semibold">Order #{order.id}</h2>
-            <p>Customer: {order.customerDetails?.firstName} {order.customerDetails?.lastName}</p>
+            <p>Customer: {order.customerDetails.firstName} {order.customerDetails.lastName}</p>
+            <p>Email: {order.customerDetails.email}</p>
             <p>Total Amount: PKR {order.totalAmount.toLocaleString()}</p>
             <p>Date: {new Date(order.createdAt).toLocaleString()}</p>
             <h3 className="text-lg font-semibold mt-2">Items:</h3>

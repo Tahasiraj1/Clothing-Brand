@@ -1,39 +1,12 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 
-export async function GET() {
-  try {
-    console.log("Attempting to fetch orders from the database...");
-    const orders = await prisma.order.findMany({
-      include: {
-        customerDetails: true,
-        items: true
-      }
-    })
-    console.log(`Successfully fetched ${orders.length} orders`);
-
-    if (!orders || orders.length === 0) {
-      console.log("No orders found in the database");
-      return NextResponse.json({ success: false, message: 'No orders found' }, { status: 404 })
-    }
-
-    return NextResponse.json({ success: true, data: orders })
-  } catch (error) {
-    console.error('Error fetching orders:', error)
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch orders', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
-    )
-  }
-}
-
 export async function POST(request: Request) {
   try {
     const body = await request.json()
     console.log('Received order data:', JSON.stringify(body, null, 2))
 
     if (!body || typeof body !== 'object') {
-      console.error('Invalid request body:', body)
       return NextResponse.json(
         { success: false, error: 'Invalid request body' },
         { status: 400 }
@@ -43,14 +16,22 @@ export async function POST(request: Request) {
     const { customerDetails, items, totalAmount } = body
 
     if (!customerDetails || !items || typeof totalAmount !== 'number') {
-      console.error('Invalid order data:', { customerDetails, items, totalAmount })
       return NextResponse.json(
         { success: false, error: 'Invalid order data' },
         { status: 400 }
       )
     }
 
-    console.log('Creating order with data:', JSON.stringify({ customerDetails, items, totalAmount }, null, 2))
+    // All fields should be present due to Zod validation, but we'll double-check
+    const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email', 'city', 'houseNo', 'postalCode', 'country']
+    for (const field of requiredFields) {
+      if (!customerDetails[field]) {
+        return NextResponse.json(
+          { success: false, error: `Missing required field: ${field}` },
+          { status: 400 }
+        )
+      }
+    }
 
     const order = await prisma.order.create({
       data: {
@@ -81,6 +62,29 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       { success: false, error: 'Failed to create order', details: errorMessage },
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET() {
+  try {
+    const orders = await prisma.order.findMany({
+      include: {
+        customerDetails: true,
+        items: true
+      }
+    })
+
+    if (!orders || orders.length === 0) {
+      return NextResponse.json({ success: false, message: 'No orders found' }, { status: 404 })
+    }
+
+    return NextResponse.json({ success: true, data: orders })
+  } catch (error) {
+    console.error('Error fetching orders:', error)
+    return NextResponse.json(
+      { success: false, error: 'Failed to fetch orders', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

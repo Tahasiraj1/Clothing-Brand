@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { useCart } from '@/lib/CartContext';
 import { Button } from "@/components/ui/button";
 import {
@@ -15,16 +17,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  city: string;
-  houseNo: string;
-  postalCode: string;
-  country: string;
-}
+const formSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  email: z.string().email("Invalid email address"),
+  city: z.string().min(1, "City is required"),
+  houseNo: z.string().min(1, "House number is required"),
+  postalCode: z.string().min(1, "Postal code is required"),
+  country: z.string().min(1, "Country is required"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function CheckoutForm() {
   const { cart, clearCart } = useCart();
@@ -32,6 +36,7 @@ export default function CheckoutForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -69,7 +74,8 @@ export default function CheckoutForm() {
       });
 
       if (!response.ok) {
-        console.error('Failed to place order', response);
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to place order');
       }
 
       const result = await response.json();

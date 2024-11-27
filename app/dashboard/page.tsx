@@ -3,22 +3,18 @@ import DashboardClient from '@/components/Dashboard'
 
 async function getOrders() {
   try {
-    const baseUrl = process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/orders`, { 
+    const res = await fetch(`${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}/api/orders`, { 
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    console.log('API Response Status:', res.status);
-    const data = await res.json()
-    console.log('API Response Data:', JSON.stringify(data, null, 2))
     if (!res.ok) {
-      throw new Error(`Failed to fetch orders: ${data.error || 'Unknown error'}`)
+      throw new Error('Failed to fetch orders')
     }
-    return data.data || []
+    const data = await res.json()
+    console.log('Fetched orders:', data)
+    return data.data
   } catch (error) {
     console.error('Error fetching orders:', error)
     return []
@@ -27,7 +23,6 @@ async function getOrders() {
 
 export default async function DashboardPage() {
   const orders = await getOrders()
-  console.log('Orders fetched in DashboardPage:', orders.length)
 
   return (
     <div className="container mx-auto px-4 py-8">
