@@ -3,6 +3,8 @@ import DashboardClient from '@/components/Dashboard'
 
 async function getOrders() {
   try {
+    console.log(`${process.env.VERCEL_URL}`);
+    
     const res = await fetch(`${process.env.VERCEL_URL}`, { 
       cache: 'no-store',
       headers: {
