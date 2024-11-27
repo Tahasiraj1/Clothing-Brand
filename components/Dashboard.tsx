@@ -4,6 +4,12 @@ import { useUser } from "@clerk/nextjs"
 import { useRouter } from 'next/navigation'
 import { PackageSearch } from 'lucide-react'
 
+interface OrderItem {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
 interface Order {
   id: string;
   totalAmount: number;
@@ -12,11 +18,7 @@ interface Order {
     firstName: string;
     lastName: string;
   } | null;
-  items: {
-    name: string;
-    quantity: number;
-    price: number;
-  }[];
+  items: OrderItem[];
 }
 
 export default function DashboardClient({ orders }: { orders: Order[] }) {
@@ -38,7 +40,9 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
     return null
   }
 
-  if (orders.length === 0) {
+  console.log('Orders in DashboardClient:', orders)
+
+  if (!orders || orders.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
         <PackageSearch className="w-16 h-16 text-gray-400 mb-4" />

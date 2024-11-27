@@ -1,6 +1,32 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 
+
+export async function GET() {
+  try {
+    console.log("Fetching orders from the database...");
+    const orders = await prisma.order.findMany({
+      include: {
+        customerDetails: true,
+        items: true
+      }
+    })
+    console.log("Fetched orders:", JSON.stringify(orders, null, 2));
+
+    if (!orders || orders.length === 0) {
+      return NextResponse.json({ success: false, error: 'No orders found' }, { status: 404 })
+    }
+
+    return NextResponse.json({ success: true, data: orders })
+  } catch (error) {
+    console.error('Error fetching orders:', error)
+    return NextResponse.json(
+      { success: false, error: 'Failed to fetch orders' },
+      { status: 500 }
+    )
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -55,31 +81,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       { success: false, error: 'Failed to create order', details: errorMessage },
-      { status: 500 }
-    )
-  }
-}
-
-export async function GET() {
-  try {
-    console.log("Fetching orders from the database...");
-    const orders = await prisma.order.findMany({
-      include: {
-        customerDetails: true,
-        items: true
-      }
-    })
-    console.log("Fetched orders:", orders);
-
-    if (!orders || orders.length === 0) {
-      return NextResponse.json({ success: false, error: 'No orders found' }, { status: 404 })
-    }
-
-    return NextResponse.json({ success: true, data: orders })
-  } catch (error) {
-    console.error('Error fetching orders:', error)
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch orders' },
       { status: 500 }
     )
   }

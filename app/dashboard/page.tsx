@@ -16,7 +16,7 @@ async function getOrders() {
       throw new Error('Failed to fetch orders')
     }
     const data = await res.json()
-    console.log('Fetched orders:', data)
+    console.log('Fetched orders:', JSON.stringify(data, null, 2))
     return data.data
   } catch (error) {
     console.error('Error fetching orders:', error)
