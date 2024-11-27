@@ -7,7 +7,7 @@ import { PackageSearch } from 'lucide-react'
 interface Order {
   id: string;
   totalAmount: number;
-  createdAt: Date;
+  createdAt: string;
   customerDetails: {
     firstName: string;
     lastName: string;
