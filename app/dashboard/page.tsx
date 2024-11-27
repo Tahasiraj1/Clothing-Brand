@@ -12,12 +12,13 @@ async function getOrders() {
         'Content-Type': 'application/json',
       },
     })
-    if (!res.ok) {
-      throw new Error('Failed to fetch orders')
-    }
+    console.log('API Response Status:', res.status);
     const data = await res.json()
-    console.log('Fetched orders:', JSON.stringify(data, null, 2))
-    return data.data
+    console.log('API Response Data:', JSON.stringify(data, null, 2))
+    if (!res.ok) {
+      throw new Error(`Failed to fetch orders: ${data.error || 'Unknown error'}`)
+    }
+    return data.data || []
   } catch (error) {
     console.error('Error fetching orders:', error)
     return []
@@ -26,6 +27,7 @@ async function getOrders() {
 
 export default async function DashboardPage() {
   const orders = await getOrders()
+  console.log('Orders fetched in DashboardPage:', orders.length)
 
   return (
     <div className="container mx-auto px-4 py-8">
