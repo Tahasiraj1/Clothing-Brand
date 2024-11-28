@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Confetti from "react-confetti";
+import { useToast } from "@/hooks/use-toast";
 
 type confettiProps = {
   width: number;
@@ -39,6 +40,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function CheckoutForm() {
+  const { toast } = useToast();
   const { cart, clearCart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -52,7 +54,16 @@ export default function CheckoutForm() {
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-}, [])
+  }, [])
+
+  useEffect(() => {
+    if (orderPlaced) {
+      toast({
+        title: "Congratulations!",
+        description: "Your order has been placed successfully.",
+      });
+    }
+  }, [orderPlaced, toast]);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -101,11 +112,8 @@ export default function CheckoutForm() {
       console.log('Order placed successfully:', result);
       setTimeout(() => {
         clearCart();
-        // You can redirect to a thank you page here if needed
-      }, 10000); // 3 seconds delay
+      }, 6000); // 6 seconds delay
       setOrderPlaced(true);
-      alert('Order placed successfully!');
-      // You can redirect to a thank you page here if needed
     } catch (error) {
       console.error('Error placing order:', error);
       setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
