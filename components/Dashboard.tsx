@@ -95,9 +95,9 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
     
   return (
     <div className="min-h-screen">
-      <Table>
+      <Table className="border border-emerald-800 bg-lime-100">
         <TableHeader>
-          <TableRow>
+          <TableRow className="border border-emerald-800">
             <TableHead>Order ID</TableHead>
             <TableHead>Customer Name</TableHead>
             <TableHead>Email</TableHead>
@@ -110,7 +110,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
         </TableHeader>
         <TableBody>
           {currentOrders.map((order) => (
-            <TableRow key={order.id}>
+            <TableRow className="border-emerald-800 hover:bg-lime-200" key={order.id}>
               <TableCell>{order.id}</TableCell>
               <TableCell>{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
               <TableCell>{order.customerDetails.email}</TableCell>
@@ -135,7 +135,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
             key={i}
             onClick={() => paginate(i + 1)}
             className={`mx-1 px-3 py-1 border rounded ${
-              currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
+              currentPage === i + 1 ? 'bg-lime-200 text-black' : 'bg-lime-100 text-black'
             }`}
           >
             {i + 1}
