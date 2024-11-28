@@ -99,7 +99,10 @@ export default function CheckoutForm() {
 
       const result = await response.json();
       console.log('Order placed successfully:', result);
-      clearCart();
+      setTimeout(() => {
+        clearCart();
+        // You can redirect to a thank you page here if needed
+      }, 3000); // 3 seconds delay
       setOrderPlaced(true);
       alert('Order placed successfully!');
       // You can redirect to a thank you page here if needed
