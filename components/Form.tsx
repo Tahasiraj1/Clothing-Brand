@@ -174,9 +174,9 @@ export default function CheckoutForm() {
             name="houseNo"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>House No</FormLabel>
+                <FormLabel>Full Address</FormLabel>
                 <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. Flat no-6" {...field} />
+                  <Input className="rounded-none border-gray-300" placeholder="e.g. Area, Street no, House no." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
