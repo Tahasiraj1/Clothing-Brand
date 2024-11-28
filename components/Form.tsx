@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Confetti from "react-confetti";
 import { useToast } from "@/hooks/use-toast";
+import { Toast } from "@/components/ui/toast";
 
 type confettiProps = {
   width: number;
@@ -110,13 +111,24 @@ export default function CheckoutForm() {
 
       const result = await response.json();
       console.log('Order placed successfully:', result);
+      setOrderPlaced(true);
+      toast({
+        title: "Congratulations!",
+        description: "Your order has been placed successfully.",
+        duration: 5000,
+      });
       setTimeout(() => {
         clearCart();
-      }, 6000); // 6 seconds delay
-      setOrderPlaced(true);
+      }, 8000); // 8 seconds delay
     } catch (error) {
       console.error('Error placing order:', error);
       setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
+      toast({
+        title: "Error",
+        description: "Failed to place order. Please try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -124,6 +136,7 @@ export default function CheckoutForm() {
 
   return (
     <div>
+    <Toast />
     {orderPlaced && (
       <Confetti
         width={windowSize.width}
