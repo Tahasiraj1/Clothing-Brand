@@ -116,7 +116,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
               <TableCell>{order.customerDetails.email}</TableCell>
               <TableCell>{order.customerDetails.phoneNumber}</TableCell>
               <TableCell className="flex flex-col">{`${order.customerDetails.city}, ${order.customerDetails.houseNo}, ${order.customerDetails.postalCode}`}</TableCell>
-              <TableCell>${order.totalAmount.toFixed(2)}</TableCell>
+              <TableCell>PKR {order.totalAmount.toFixed(2)}</TableCell>
               <TableCell>
                 <ul>
                   {order.items.map((item, index) => (
