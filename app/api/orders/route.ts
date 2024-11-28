@@ -22,7 +22,6 @@ export async function POST(request: Request) {
       )
     }
 
-    // All fields should be present due to Zod validation, but we'll double-check
     const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email', 'city', 'houseNo', 'postalCode', 'country']
     for (const field of requiredFields) {
       if (!customerDetails[field]) {
@@ -68,8 +67,8 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  console.log('GET request received for orders')
   try {
-    console.log('GET request received for orders')
     const orders = await prisma.order.findMany({
       include: {
         customerDetails: true,
@@ -77,7 +76,7 @@ export async function GET() {
       }
     })
 
-    console.log(`Found ${orders.length} orders`)
+    console.log(`Found ${orders.length} orders:`, JSON.stringify(orders, null, 2))
 
     if (!orders || orders.length === 0) {
       console.log('No orders found')

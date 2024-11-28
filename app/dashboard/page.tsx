@@ -3,17 +3,22 @@ import DashboardClient from '@/components/Dashboard'
 
 async function getOrders() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, { 
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clothing-brand-beige.vercel.app/api/orders'
+    console.log('Fetching orders from:', apiUrl)
+    
+    const res = await fetch(apiUrl, { 
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },
     })
+    
     if (!res.ok) {
-      throw new Error('Failed to fetch orders')
+      throw new Error(`Failed to fetch orders: ${res.status} ${res.statusText}`)
     }
+    
     const data = await res.json()
-    console.log('Fetched orders:', data)
+    console.log('Fetched orders:', JSON.stringify(data, null, 2))
     return data.data
   } catch (error) {
     console.error('Error fetching orders:', error)
@@ -23,7 +28,7 @@ async function getOrders() {
 
 export default async function DashboardPage() {
   const orders = await getOrders()
-  console.log('Orders in DashboardPage:', orders)
+  console.log('Orders in DashboardPage:', JSON.stringify(orders, null, 2))
 
   return (
     <div className="container mx-auto px-4 py-8">
