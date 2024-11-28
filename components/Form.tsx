@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -16,6 +16,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Confetti from "react-confetti";
+
+type confettiProps = {
+  width: number;
+  height: number;
+}
+
+const confettiColors = ['#A2D9A3', '#1D8348', '#F9E79F', '#F4D03F', '#FFFFFF', '#F1C40F'];
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -34,6 +42,17 @@ export default function CheckoutForm() {
   const { cart, clearCart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [windowSize, setWindowSize] = useState<confettiProps>({width: 0, height: 0});
+  const [orderPlaced, setOrderPlaced] = useState<boolean>(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+        setWindowSize({width: window.innerWidth, height: window.innerHeight})
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+}, [])
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -81,6 +100,7 @@ export default function CheckoutForm() {
       const result = await response.json();
       console.log('Order placed successfully:', result);
       clearCart();
+      setOrderPlaced(true);
       alert('Order placed successfully!');
       // You can redirect to a thank you page here if needed
     } catch (error) {
@@ -92,6 +112,16 @@ export default function CheckoutForm() {
   };
 
   return (
+    <div>
+    {orderPlaced && (
+      <Confetti
+        width={windowSize.width}
+        height={windowSize.height}
+        recycle={false}
+        numberOfPieces={800}
+        colors={confettiColors}
+      />
+    )}
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
         {errorMessage && (
@@ -221,5 +251,6 @@ export default function CheckoutForm() {
         </Button>
       </form>
     </Form>
+    </div>
   );
 }
