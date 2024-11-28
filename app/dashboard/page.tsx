@@ -3,7 +3,7 @@ import DashboardClient from '@/components/Dashboard'
 
 async function getOrders() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/orders`, { 
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}`, { 
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
