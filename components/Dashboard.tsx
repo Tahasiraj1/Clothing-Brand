@@ -23,6 +23,7 @@ interface Order {
 }
 
 export default function DashboardClient({ orders }: { orders: Order[] }) {
+  console.log('Orders received in DashboardClient:', orders)
   const { user, isLoaded } = useUser()
   const router = useRouter()
 
@@ -42,6 +43,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   }
 
   if (!orders || orders.length === 0) {
+    console.log('No orders found in DashboardClient')
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
         <PackageSearch className="w-16 h-16 text-gray-400 mb-4" />
@@ -51,6 +53,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
     )
   }
     
+  console.log('Rendering orders in DashboardClient')
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Orders Dashboard</h1>

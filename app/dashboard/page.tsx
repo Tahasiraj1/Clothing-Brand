@@ -3,7 +3,7 @@ import DashboardClient from '@/components/Dashboard'
 
 async function getOrders() {
   try {
-    const res = await fetch(`${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}/api/orders`, { 
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/orders`, { 
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
@@ -23,6 +23,7 @@ async function getOrders() {
 
 export default async function DashboardPage() {
   const orders = await getOrders()
+  console.log('Orders in DashboardPage:', orders)
 
   return (
     <div className="container mx-auto px-4 py-8">
