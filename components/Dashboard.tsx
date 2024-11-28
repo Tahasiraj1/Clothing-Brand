@@ -94,7 +94,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   console.log('Rendering orders in DashboardClient')
     
   return (
-    <div>
+    <div className="min-h-screen">
       <Table>
         <TableHeader>
           <TableRow>
