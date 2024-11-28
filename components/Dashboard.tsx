@@ -28,6 +28,9 @@ interface Order {
   totalAmount: number;
   createdAt: string;
   customerDetails: {
+    city: string;
+    houseNo: string;
+    postalCode: number;
     phoneNumber: number;
     firstName: string;
     lastName: string;
@@ -99,6 +102,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
             <TableHead>Customer Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Phone Number</TableHead>
+            <TableHead>Address</TableHead>
             <TableHead>Total Amount</TableHead>
             <TableHead>Items</TableHead>
             <TableHead>Date</TableHead>
@@ -111,6 +115,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
               <TableCell>{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
               <TableCell>{order.customerDetails.email}</TableCell>
               <TableCell>{order.customerDetails.phoneNumber}</TableCell>
+              <TableCell className="flex flex-col">{`${order.customerDetails.city}, ${order.customerDetails.houseNo}, ${order.customerDetails.postalCode}`}</TableCell>
               <TableCell>${order.totalAmount.toFixed(2)}</TableCell>
               <TableCell>
                 <ul>
