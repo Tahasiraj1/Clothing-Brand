@@ -1,9 +1,18 @@
 'use client'
 
+import { useState } from "react"
 import { useUser } from "@clerk/nextjs"
 import { useRouter } from 'next/navigation'
 import { PackageSearch } from 'lucide-react'
-import { useEffect } from 'react'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 
 interface OrderItem {
   id: string;
@@ -27,12 +36,17 @@ interface Order {
 }
 
 export default function DashboardClient({ orders }: { orders: Order[] }) {
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const ordersPerPage = 10
+
+  const indexOfLastOrder = currentPage * ordersPerPage
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder)
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
   const { user, isLoaded } = useUser()
   const router = useRouter()
 
-  useEffect(() => {
-    console.log('Orders received in DashboardClient:', JSON.stringify(orders, null, 2))
-  }, [orders])
 
   if (!isLoaded) {
     console.log('User not loaded yet')
@@ -76,25 +90,48 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   console.log('Rendering orders in DashboardClient')
     
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Orders Dashboard</h1>
-      <div className="grid gap-4">
-        {orders.map((order) => (
-          <div key={order.id} className="border p-4 rounded shadow-sm hover:shadow-md transition-shadow">
-            <h2 className="text-xl font-semibold">Order #{order.id}</h2>
-            <p>Customer: {order.customerDetails.firstName} {order.customerDetails.lastName}</p>
-            <p>Email: {order.customerDetails.email}</p>
-            <p>Total Amount: PKR {order.totalAmount.toLocaleString()}</p>
-            <p>Date: {new Date(order.createdAt).toLocaleString()}</p>
-            <h3 className="text-lg font-semibold mt-2">Items:</h3>
-            <ul className="list-disc list-inside">
-              {order.items.map((item) => (
-                <li key={item.id} className="ml-4">
-                  {item.name} - Quantity: {item.quantity}, Price: PKR {item.price.toLocaleString()}, Color: {item.color}, Size: {item.size}
-                </li>
-              ))}
-            </ul>
-          </div>
+    <div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Order ID</TableHead>
+            <TableHead>Customer Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Total Amount</TableHead>
+            <TableHead>Items</TableHead>
+            <TableHead>Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {currentOrders.map((order) => (
+            <TableRow key={order.id}>
+              <TableCell>{order.id}</TableCell>
+              <TableCell>{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
+              <TableCell>{order.customerDetails.email}</TableCell>
+              <TableCell>${order.totalAmount.toFixed(2)}</TableCell>
+              <TableCell>
+                <ul>
+                  {order.items.map((item, index) => (
+                    <li key={index}>{`${item.name} (x${item.quantity})`}</li>
+                  ))}
+                </ul>
+              </TableCell>
+              <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <div className="mt-4 flex justify-center">
+        {Array.from({ length: Math.ceil(orders.length / ordersPerPage) }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => paginate(i + 1)}
+            className={`mx-1 px-3 py-1 border rounded ${
+              currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
+            }`}
+          >
+            {i + 1}
+          </button>
         ))}
       </div>
     </div>
