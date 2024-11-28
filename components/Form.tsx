@@ -102,7 +102,7 @@ export default function CheckoutForm() {
       setTimeout(() => {
         clearCart();
         // You can redirect to a thank you page here if needed
-      }, 3000); // 3 seconds delay
+      }, 10000); // 3 seconds delay
       setOrderPlaced(true);
       alert('Order placed successfully!');
       // You can redirect to a thank you page here if needed
