@@ -18,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import Confetti from "react-confetti";
 import { useToast } from "@/hooks/use-toast";
-import { Toast } from "@/components/ui/toast";
 
 type confettiProps = {
   width: number;
