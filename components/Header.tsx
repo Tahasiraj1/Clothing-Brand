@@ -94,6 +94,11 @@ const Header = () => {
                     <Link href="/contact">CONTACT</Link>
                   </Button>
                 </li>
+                <li>
+                  <Button variant="linkHover2" asChild className="w-full justify-start">
+                    <Link href="/cart">CART</Link>
+                  </Button>
+                </li>
                 {role === 'admin' && (
                   <li>
                     <Button variant="linkHover2" asChild className="w-full justify-start">
