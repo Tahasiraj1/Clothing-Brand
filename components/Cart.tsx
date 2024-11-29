@@ -35,17 +35,11 @@ const Cart = () => {
                 </p>
             ) : (
                 <div className="flex flex-col gap-y-4">
-                    <div className='flex justify-between items-center mx-5'>
+                    <div className='flex justify-start items-center mx-5'>
                         <h1 className='font-bold text-3xl my-5'>Your Cart</h1>
-                        <Button 
-                        variant="destructive"
-                        className='rounded-none gap-2 max-w-36'
-                        onClick={clearCart}>
-                            Clear Cart <Trash2 size={20} />
-                        </Button>
                     </div>
                 {cart.map((item) => (
-                    <div className='flex flex-col border items-center justify-center mx-2 bg-white' 
+                    <div className='flex flex-col border rounded-xl items-center justify-center mx-2 bg-white drop-shadow-lg' 
                     key={`${item.id}-${item.color}-${item.size}`}
                     >
                         <div className='flex justify-between w-full pl-5'>
@@ -55,7 +49,7 @@ const Cart = () => {
                                 alt={item.name}
                                 width={150}
                                 height={150}
-                                className='mr-2'
+                                className='mr-2 rounded-xl drop-shadow-md'
                                 />
                                 <div className='flex flex-col gap-2 w-full items-center'>
                                     <h2 className='font-bold text-xl'>
@@ -67,19 +61,19 @@ const Cart = () => {
                                     <span>
                                         Color: {item.color}
                                     </span>
-                                    <div className='flex items-center w-fit bg-lime-100 pl-2'>
+                                    <div className='flex items-center w-fit bg-lime-100 pl-2 rounded-full'>
                                         <span className='mr-2'>Qty: </span>
-                                        <Button className='bg-lime-100 rounded-none text-black hover:bg-lime-200 active:scale-110 transition-transform transform duration-300' 
+                                        <Button className='bg-lime-100 rounded-l-full text-black hover:bg-lime-200 active:scale-110 transition-transform transform duration-300' 
                                         onClick={() => decrementQuantity(item)}>
                                             <Minus size={15} />
                                         </Button>
                                         <p className='mx-2'><strong>{item.quantity}</strong></p>
-                                        <Button className='bg-lime-100 rounded-none text-black hover:bg-lime-200 active:scale-110 transition-transform transform duration-300' 
+                                        <Button className='bg-lime-100 rounded-r-full text-black hover:bg-lime-200 active:scale-110 transition-transform transform duration-300' 
                                         onClick={() => incrementQuantity(item)}>
                                             <Plus size={15} />
                                         </Button>
                                     </div>
-                                    <div className='flex justify-between items-center w-full bg-lime-100 p-2'>
+                                    <div className='flex justify-between rounded-full items-center w-full bg-lime-100 py-2 px-4'>
                                         <span>
                                             Each: <strong>Rs {item.price}</strong>
                                         </span>
@@ -92,7 +86,7 @@ const Cart = () => {
                             </div>
                             <div>
                                 <button 
-                                className='flex justify-center items-end w-full hover:bg-red-200'
+                                className='flex justify-center rounded-full items-end w-full bg-red-200 hover:bg-red-300'
                                 onClick={() => handleRemoveFromCart(item)}>
                                     <X className='text-red-500 active:rotate-180 transition-transform transform duration-300' />
                                 </button>
@@ -104,9 +98,9 @@ const Cart = () => {
             )}
         </div>
         {cart.length > 0 && (
-            <div className='flex w-full md:max-w-[30%] h-fit md:py-20 sm:py-5 px-2 sticky top-36'>
-                <div className='flex flex-col bg-white h-auto w-full px-5 pb-5 border'>
-                    <h1 className='my-5 mx-10 items-center justify-center flex font-bold text-3xl'>
+            <div className='flex w-full md:max-w-[30%] h-fit md:py-20 sm:py-5 px-2 sticky top-[133px] drop-shadow-lg'>
+                <div className='flex flex-col bg-white h-auto w-full px-5 pb-5 border rounded-xl'>
+                    <h1 className='my-5 mx-10 items-center justify-center flex font-bold text-2xl'>
                         Order Summary
                     </h1>
                     <hr className='w-full bg-emerald-800 h-[2px]' />
@@ -126,11 +120,17 @@ const Cart = () => {
                     <Link href="/checkout">
                     <Button
                     variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-                    className='w-full rounded-none bg-lime-100 text-black font-bold text-lg hover:bg-emerald-800 hover:text-white'
+                    className='w-full rounded-full font-bold text-lg bg-emerald-800 hover:bg-emerald-700 mb-2 text-white'
                     >
                         Proceed
                     </Button>
                     </Link>
+                    <Button 
+                        variant="expandIcon" Icon={Trash2} iconPlacement="right"
+                        className='rounded-full font-bold text-lg hover:bg-red-500 bg-red-600'
+                        onClick={clearCart}>
+                            Clear Cart
+                    </Button>
                 </div>
             </div>
         )}
