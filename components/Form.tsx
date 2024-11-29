@@ -57,14 +57,6 @@ export default function CheckoutForm() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  useEffect(() => {
-    if (orderPlaced) {
-      toast({
-        title: "Congratulations!",
-        description: "Your order has been placed successfully.",
-      });
-    }
-  }, [orderPlaced, toast]);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -136,145 +128,144 @@ export default function CheckoutForm() {
 
   return (
     <div>
-    <Toast />
-    {orderPlaced && (
-      <Confetti
-        width={windowSize.width}
-        height={windowSize.height}
-        recycle={false}
-        numberOfPieces={800}
-        colors={confettiColors}
-      />
-    )}
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
-        {errorMessage && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Error:</strong>
-            <span className="block sm:inline"> {errorMessage}</span>
+      {orderPlaced && (
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={false}
+          numberOfPieces={800}
+          colors={confettiColors}
+        />
+      )}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
+          {errorMessage && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <strong className="font-bold">Error:</strong>
+              <span className="block sm:inline"> {errorMessage}</span>
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name</FormLabel>
+                  <FormControl>
+                    <Input className="rounded-none border-gray-300" placeholder="e.g. John" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name</FormLabel>
+                  <FormControl>
+                    <Input className="rounded-none border-gray-300" placeholder="e.g. Doe" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-        )}
-        <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="firstName"
+            name="phoneNumber"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>Phone Number</FormLabel>
                 <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. John" {...field} />
+                  <Input className="rounded-none border-gray-300" placeholder="e.g. 1234567890" type="tel" {...field} />
                 </FormControl>
+                <FormDescription>We will contact you on this number.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="lastName"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. Doe" {...field} />
+                  <Input className="rounded-none border-gray-300" placeholder="e.g. john@example.com" type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input className="rounded-none border-gray-300" placeholder="e.g. 1234567890" type="tel" {...field} />
-              </FormControl>
-              <FormDescription>We will contact you on this number.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input className="rounded-none border-gray-300" placeholder="e.g. john@example.com" type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. Karachi" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="houseNo"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Full Address</FormLabel>
-                <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. Area, Street no, House no." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="postalCode"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Postal Code</FormLabel>
-                <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. 75950" type="text" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="country"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Country</FormLabel>
-                <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="Pakistan" disabled {...field} />
-                </FormControl>
-                <FormDescription>We deliver goods only in Pakistan.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button 
-          type="submit"
-          disabled={isSubmitting}
-          className='bg-emerald-800 text-white rounded-none hover:bg-emerald-600 w-full text-lg'
-        >
-          {isSubmitting ? 'Processing...' : 'Place Order'}
-        </Button>
-      </form>
-    </Form>
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input className="rounded-none border-gray-300" placeholder="e.g. Karachi" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="houseNo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Address</FormLabel>
+                  <FormControl>
+                    <Input className="rounded-none border-gray-300" placeholder="e.g. Area, Street no, House no." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="postalCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Postal Code</FormLabel>
+                  <FormControl>
+                    <Input className="rounded-none border-gray-300" placeholder="e.g. 75950" type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <FormControl>
+                    <Input className="rounded-none border-gray-300" placeholder="Pakistan" disabled {...field} />
+                  </FormControl>
+                  <FormDescription>We deliver goods only in Pakistan.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button 
+            type="submit"
+            disabled={isSubmitting}
+            className='bg-emerald-800 text-white rounded-none hover:bg-emerald-600 w-full text-lg'
+          >
+            {isSubmitting ? 'Processing...' : 'Place Order'}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 }
