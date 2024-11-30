@@ -16,6 +16,7 @@ import { RiShoppingCart2Line } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Select, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, SelectContent } from '@/components/ui/select';
+import { useToast } from "@/hooks/use-toast";
 
 
 const ProductDetails = () => {
@@ -26,6 +27,7 @@ const ProductDetails = () => {
         Autoplay({ delay: 2000, stopOnInteraction: true })
       )
 
+      const { toast } = useToast();
       const { addToCart } = useCart();
 
       const handleAddToCart = () => {
@@ -39,8 +41,19 @@ const ProductDetails = () => {
                 color: selectedColor,
                 size: selectedSize,
             });
+            toast({
+                title: "Success!",
+                description: "Item is added to cart.",
+                duration: 5000,
+              });
         } else {
-            alert('Please select a size and color.');
+            // alert('Please select a size and color.');
+            toast({
+                title: "Error",
+                description: "Please select a size and color.",
+                variant: "destructive",
+                duration: 5000,
+              });
         }
       };
 
@@ -68,8 +81,8 @@ const ProductDetails = () => {
 
     return(
         <>
-        <div className='flex lg:flex-row sm:flex-col py-20 px-5'>
-                <ScrollArea>
+        <div className='flex lg:flex-row sm:flex-col pt-10 pb-20 px-5'>
+                <ScrollArea className='drop-shadow-lg rounded-2xl'>
                 <div className='flex space-x-2'>
                     {product.images.map((image, index) => (
                         <Image
@@ -78,7 +91,7 @@ const ProductDetails = () => {
                         alt={`Image ${index + 1} of ${product.name}`}
                         width={1000}
                         height={1000}
-                        className='w-[400px] h-[500px] object-cover'
+                        className='w-[400px] h-[500px] object-cover rounded-2xl'
                         />
                     ))}
                     </div>
@@ -99,10 +112,10 @@ const ProductDetails = () => {
                 </p>
                 <div className='mt-9 items-center justify-center'>
                     <Select onValueChange={setSelectedColor}>
-                        <SelectTrigger className='w-[180px] rounded-none bg-lime-100'>
+                        <SelectTrigger className='w-[180px] rounded-full bg-lime-100 border-emerald-600 focus:ring-0'>
                             <SelectValue placeholder="Select Color:" />
                         </SelectTrigger>
-                        <SelectContent className='bg-lime-200 w-[180px] rounded-none border border-emerald-700 drop-shadow-2xl'>
+                        <SelectContent className='bg-lime-200 rounded-xl border border-emerald-600 drop-shadow-2xl'>
                             <SelectGroup>
                                 <SelectLabel>Colors</SelectLabel>
                                 {product.colors.map((color) => (
@@ -116,10 +129,10 @@ const ProductDetails = () => {
                 </div>
                 <div className='mt-4 flex items-center'>
                     <Select onValueChange={setSelectedSize}>
-                        <SelectTrigger className='w-[180px] rounded-none bg-lime-100'>
+                        <SelectTrigger className='w-[180px] rounded-full bg-lime-100 border-emerald-600 focus:ring-0'>
                             <SelectValue placeholder="Select Size:" />
                         </SelectTrigger>
-                        <SelectContent className='bg-lime-200 w-[180px] rounded-none border border-emerald-700 drop-shadow-2xl'>
+                        <SelectContent className='bg-lime-200 rounded-xl border border-emerald-600 drop-shadow-2xl'>
                             <SelectGroup>
                                 <SelectLabel>Sizes</SelectLabel>
                                 {product.sizes.map((size) => (
@@ -136,13 +149,13 @@ const ProductDetails = () => {
                     variant="expandIcon"
                     Icon={RiShoppingCart2Line}
                     iconPlacement='right'
-                    className='border text-lg font-semibold border-emerald-600 w-full rounded-none bg-lime-100 hover:bg-emerald-700 active:bg-emerald-900 active:scale-95 duration-300 transition-transform transform text-black hover:text-white drop-shadow-xl'
+                    className='border text-lg rounded-full font-semibold border-emerald-600 w-full bg-lime-100 hover:bg-emerald-700 active:bg-emerald-900 active:scale-95 duration-300 transition-transform transform text-black hover:text-white drop-shadow-xl'
                     onClick={handleAddToCart}
                     >
                         ADD TO CART
                     </Button>
                     <Button
-                    className='w-18 rounded-none border border-emerald-600 bg-lime-100 hover:bg-gray-200 text-black drop-shadow-xl'
+                    className='w-18 border rounded-full border-emerald-600 bg-lime-100 hover:bg-gray-200 text-black drop-shadow-xl'
                     >
                         <Heart />
                     </Button>
