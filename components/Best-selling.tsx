@@ -65,15 +65,15 @@ const Bestselling = () => {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                    <CarouselPrevious className='absolute top-44 left-0 rounded-lg active:scale-95 transition-transform transform duration-300' />
-                    <CarouselNext className='absolute top-44 right-0 rounded-lg active:scale-95 transition-transform transform duration-300' />
+                    <CarouselPrevious className='absolute top-44 left-0 rounded-lg hover:bg-emerald-800 hover:text-white active:scale-95 transition-transform transform duration-300' />
+                    <CarouselNext className='absolute top-44 right-0 rounded-lg hover:bg-emerald-800 hover:text-white active:scale-95 transition-transform transform duration-300' />
             </Carousel>
 
             <Button 
                 variant="expandIcon" 
                 Icon={FaArrowRightLong} 
                 iconPlacement="right"
-                className='h-12 w-40 mb-10 flex items-center drop-shadow-2xl rounded-full bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'
+                className='h-12 w-40 mb-10 font-semibold text-lg hover:scale-105 flex items-center drop-shadow-2xl rounded-full bg-emerald-800 border border-emerald-800 hover:bg-emerald-700 text-white'
             >
                 Explore All
             </Button>
