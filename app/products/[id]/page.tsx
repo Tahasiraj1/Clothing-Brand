@@ -98,7 +98,7 @@ const ProductDetails = () => {
                     <ScrollBar orientation="horizontal" />
                 </ScrollArea>
             <div className='flex flex-col lg:pl-20 pr-5 w-full max-w-2xl'>
-                <h1 className='text-5xl mb-9 mt-5 font-bold'>
+                <h1 className='text-3xl mb-9 mt-5 font-bold'>
                     {product.name}
                 </h1>
                 <p className='text-lg font-bold mb-5'>
@@ -162,10 +162,10 @@ const ProductDetails = () => {
                 </div>
             </div>
         </div>
-        <h1 className='py-5 text-4xl font-bold sm:px-12 lg:px-40'>
+        <h1 className='py-2 text-3xl lg:text-4xl font-bold px-5 lg:px-40'>
                 You May Also Like
         </h1>
-        <div className='w-full sm:px-12 lg:px-20 py-10 flex justify-center'>
+        <div className='w-full px-5 py-10 flex justify-center'>
             <Carousel className='w-full max-w-[90%] bg-white lg:max-w-[900px] sm:max-w-[290px] md:max-w-[700px] xl:max-w-[1300px]'
             opts={{
                 loop: true,
@@ -182,7 +182,7 @@ const ProductDetails = () => {
                                 alt='product'
                                 width={1000}
                                 height={1000}
-                                className='w-[300px] h-[400px] '
+                                className='w-[300px] h-[400px] relative rounded-2xl'
                                 />
                                 <div className='flex items-center justify-between'>
                                     <h2>
@@ -196,7 +196,7 @@ const ProductDetails = () => {
                                 <Link key={product.id} href={`/products/${product.id}`} passHref>
                                     <Button 
                                     variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-                                    className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-xl rounded-none text-black'>
+                                    className='items-center flex justify-center hover:bg-emerald-800 hover:text-white bg-lime-100 border border-emerald-800 drop-shadow-xl rounded-full text-black'>
                                         Order Now
                                     </Button>
                                 </Link>
@@ -207,8 +207,8 @@ const ProductDetails = () => {
                             </CarouselItem>
                         ))}
                 </CarouselContent>
-                <CarouselPrevious className='-translate-y-16' />
-                <CarouselNext className='-translate-y-16' />
+                <CarouselPrevious className='absolute top-44 left-0 rounded-lg active:scale-95 transition-transform transform duration-300' />
+                <CarouselNext className='absolute top-44 right-0 rounded-lg active:scale-95 transition-transform transform duration-300' />
             </Carousel>
         </div>
         </>

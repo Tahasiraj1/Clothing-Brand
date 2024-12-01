@@ -136,6 +136,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "12", 
@@ -147,6 +148,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "13", 
@@ -158,6 +160,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "14", 
@@ -169,6 +172,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "15", 
@@ -180,6 +184,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "16", 
@@ -191,6 +196,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "17", 
@@ -202,6 +208,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "18", 
@@ -213,6 +220,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "19", 
@@ -224,6 +232,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
     {
         id: "20", 
@@ -235,6 +244,7 @@ const products = [
         ], 
         ratings: "5.0", sizes: ["Small", "Medium", "Large"], 
         colors: ['red', 'blue', 'green'], 
+        tags: [],
         description: 'A slim-fitting lightweight turtleneck thats great for layering or wearing on its own. Whether you are heading into the office or out and about, this timeless sweater gives you that soft touch feel that will make it easy for life on the go.' },
 ];
 

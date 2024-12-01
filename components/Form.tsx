@@ -16,8 +16,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Confetti from "react-confetti";
 import { useToast } from "@/hooks/use-toast";
+import dynamic from 'next/dynamic'
+
+const DynamicConfetti = dynamic(() => import('react-confetti'), {ssr: false})
 
 type confettiProps = {
   width: number;
@@ -128,7 +130,7 @@ export default function CheckoutForm() {
   return (
     <div>
       {orderPlaced && (
-        <Confetti
+        <DynamicConfetti
           width={windowSize.width}
           height={windowSize.height}
           recycle={false}

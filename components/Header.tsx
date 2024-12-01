@@ -20,7 +20,7 @@ const Header = () => {
   const role = user?.publicMetadata?.role;
 
   return (
-    <div className='font-poppins animate-in slide-in-from-top-full transition-transform transform duration-300 bg-lime-300 border border-emerald-900 text-xl w-full h-20 flex items-center justify-between drop-shadow-xl text-emerald-950 px-8 sticky top-0 z-50 opacity-70'>
+    <div className='font-poppins animate-in slide-in-from-top-full transition-transform transform duration-300 bg-emerald-800 text-xl w-full h-20 flex items-center justify-between drop-shadow-xl text-white px-8 sticky top-0 z-50 opacity-90'>
       <h1 className='font-bold text-2xl'>
         NAME
       </h1>
@@ -68,7 +68,7 @@ const Header = () => {
               <span className="sr-only">Open menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className='pt-20 bg-lime-200 border-emerald-800'>
+          <SheetContent side="right" className='pt-20 bg-black text-white border-gray-600'>
             <SheetHeader>
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
             </SheetHeader>

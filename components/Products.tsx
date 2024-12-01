@@ -10,11 +10,11 @@ import { Badge } from '@/components/ui/badge';
 const getBadgeForTag = (tag: string) => {
     switch (tag) {
         case "Best Selling":
-            return <Badge className='bg-emerald-800 hover:bg-emerald-700 text-white rounded-full'>Best Selling</Badge>;
+            return <Badge className='bg-red-600 hover:bg-red-500 text-white rounded-full'>Best Selling</Badge>;
             case 'On Sale':
-                return <Badge className="bg-emerald-800 hover:bg-emerald-700 text-white rounded-full">On Sale</Badge>;
+                return <Badge className="bg-red-600 hover:bg-red-500 text-white rounded-full">On Sale</Badge>;
               case 'Most Rated':
-                return <Badge className="bg-emerald-800 hover:bg-emerald-700 text-white rounded-full">Most Rated</Badge>;
+                return <Badge className="bg-red-600 hover:bg-red-500 text-white rounded-full">Most Rated</Badge>;
               default:
                 return null;
     }
@@ -74,7 +74,7 @@ const Products = () => {
     </div>
     <Link href="/products">
         <Button  variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-        className='w-64 h-12 mb-10 drop-shadow-2xl rounded-none flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
+        className='w-64 h-12 mb-10 drop-shadow-2xl rounded-full flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
             Explore All
         </Button>
     </Link>

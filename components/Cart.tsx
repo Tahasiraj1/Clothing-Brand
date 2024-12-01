@@ -127,7 +127,7 @@ const Cart = () => {
                     </Link>
                     <Button 
                         variant="expandIcon" Icon={Trash2} iconPlacement="right"
-                        className='rounded-full font-bold text-lg hover:bg-red-500 bg-red-600'
+                        className='text-primary-foreground relative bg-primary z-0 overflow-hidden transition-all duration-500 after:absolute after:inset-0 after:-z-10 after:translate-x-[-150%] after:translate-y-[150%] after:scale-[2.5] after:rounded-[100%] after:bg-gradient-to-l from-red-400 after:transition-transform after:duration-1000  hover:after:translate-x-[0%] hover:after:translate-y-[0%] rounded-full font-bold text-lg hover:bg-red-500 bg-red-600'
                         onClick={clearCart}>
                             Clear Cart
                     </Button>
