@@ -1,61 +1,77 @@
-"use client";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { FaArrowRightLong } from "react-icons/fa6";
+import React from 'react'
+import { FaEnvelope, FaPhone, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-const Contact = () => {
+export default function Contact() {
   return (
-    <div className="w-full py-20 px-20 items-center justify-center flex">
-      <div className='w-full max-w-2xl'>
+    <div className="container mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold text-center text-emerald-800 mb-8">Contact Us</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Card className="bg-white shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl font-semibold text-emerald-800">Get in Touch</CardTitle>
+            <CardDescription>We'd love to hear from you!</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <FaEnvelope className="text-emerald-600 text-xl" />
+                <div>
+                  <p className="font-medium">Customer Support:</p>
+                  <a href="mailto:support@yourclothingbrand.com" className="text-emerald-600 hover:underline">support@yourclothingbrand.com</a>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <FaEnvelope className="text-emerald-600 text-xl" />
+                <div>
+                  <p className="font-medium">Business Inquiries:</p>
+                  <a href="mailto:business@yourclothingbrand.com" className="text-emerald-600 hover:underline">business@yourclothingbrand.com</a>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <FaPhone className="text-emerald-600 text-xl" />
+                <div>
+                  <p className="font-medium">Phone:</p>
+                  <a href="tel:+923001234567" className="text-emerald-600 hover:underline">+92 300 1234567</a>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-          <h1 className='py-1 flex justify-center mb-8 font-bold text-3xl text-emerald-800'>
-              Contact us
-          </h1>
+        <Card className="bg-white shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl font-semibold text-emerald-800">Connect With Us</CardTitle>
+            <CardDescription>Follow us on social media for the latest updates and styles!</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex justify-center space-x-6">
+              <a href="https://instagram.com/yourclothingbrand" target="_blank" rel="noopener noreferrer" className="text-3xl text-pink-600 hover:text-pink-700 transition-colors">
+                <FaInstagram />
+                <span className="sr-only">Instagram</span>
+              </a>
+              <a href="https://facebook.com/yourclothingbrand" target="_blank" rel="noopener noreferrer" className="text-3xl text-blue-600 hover:text-blue-700 transition-colors">
+                <FaFacebook />
+                <span className="sr-only">Facebook</span>
+              </a>
+              <a href="https://twitter.com/yourclothingbrand" target="_blank" rel="noopener noreferrer" className="text-3xl text-sky-500 hover:text-sky-600 transition-colors">
+                <FaTwitter />
+                <span className="sr-only">Twitter</span>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        <form className='h-96 bg-opacity-55 flex flex-col justify-center p-4 border-2 border-emerald-700 rounded-none'>
-          <Label htmlFor='name'>Name:</Label>
-          <Input
-            id='name'
-            name='name'
-            type='name'
-            placeholder='Enter your name'
-            required
-            className='items-center rounded-none mt-2 bg-emerald-100'
-          />
-          
-          <Label className='mt-4' htmlFor='email'>Email:</Label>
-          <Input
-            id='email'
-            name='email'
-            type='email' // Correct email type
-            placeholder='Enter your email'
-            required
-            className='items-center rounded-none mt-2 bg-emerald-100'
-          />
-
-          <Label className='mt-4' htmlFor='message'>Message:</Label>
-          <Textarea
-            id='message'
-            name='message'
-            placeholder='Enter your message'
-            rows={3}
-            required
-            className='items-center rounded-none mt-2 bg-emerald-100'
-          />
-
-          <Button
-          variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-            type='submit' // Set button type to 'submit'
-            className='mt-4 mx-auto rounded-none bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'
-          >
-            Send
-          </Button>
-        </form>
+      <div className="mt-16 text-center">
+        <h2 className="text-2xl font-semibold text-emerald-800 mb-4">Visit Our Store</h2>
+        <p className="text-lg">
+          123 Fashion Street, Karachi, Pakistan
+        </p>
+        <p className="text-lg mt-2">
+          Open Monday to Saturday, 10:00 AM - 9:00 PM
+        </p>
       </div>
     </div>
-  );
-};
-
-export default Contact;
+  )
+}
