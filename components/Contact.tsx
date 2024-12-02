@@ -10,7 +10,7 @@ export default function Contact() {
         <Card className="bg-white shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-emerald-800">Get in Touch</CardTitle>
-            <CardDescription>We'd love to hear from you!</CardDescription>
+            <CardDescription>We&apos;d love to hear from you!</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
