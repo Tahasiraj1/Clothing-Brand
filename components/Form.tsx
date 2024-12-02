@@ -154,7 +154,7 @@ export default function CheckoutForm() {
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
                   <FormControl>
-                    <Input className="rounded-none border-gray-300" placeholder="e.g. John" {...field} />
+                    <Input className="rounded-full border-gray-300" placeholder="e.g. John" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -167,7 +167,7 @@ export default function CheckoutForm() {
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
                   <FormControl>
-                    <Input className="rounded-none border-gray-300" placeholder="e.g. Doe" {...field} />
+                    <Input className="rounded-full border-gray-300" placeholder="e.g. Doe" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -181,7 +181,7 @@ export default function CheckoutForm() {
               <FormItem>
                 <FormLabel>Phone Number</FormLabel>
                 <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. 1234567890" type="tel" {...field} />
+                  <Input className="rounded-full border-gray-300" placeholder="e.g. 1234567890" type="tel" {...field} />
                 </FormControl>
                 <FormDescription>We will contact you on this number.</FormDescription>
                 <FormMessage />
@@ -195,7 +195,7 @@ export default function CheckoutForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input className="rounded-none border-gray-300" placeholder="e.g. john@example.com" type="email" {...field} />
+                  <Input className="rounded-full border-gray-300" placeholder="e.g. john@example.com" type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -209,7 +209,7 @@ export default function CheckoutForm() {
                 <FormItem>
                   <FormLabel>City</FormLabel>
                   <FormControl>
-                    <Input className="rounded-none border-gray-300" placeholder="e.g. Karachi" {...field} />
+                    <Input className="rounded-full border-gray-300" placeholder="e.g. Karachi" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -222,7 +222,7 @@ export default function CheckoutForm() {
                 <FormItem>
                   <FormLabel>Full Address</FormLabel>
                   <FormControl>
-                    <Input className="rounded-none border-gray-300" placeholder="e.g. Area, Street no, House no." {...field} />
+                    <Input className="rounded-full border-gray-300" placeholder="e.g. Area, Street no, House no." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -237,7 +237,7 @@ export default function CheckoutForm() {
                 <FormItem>
                   <FormLabel>Postal Code</FormLabel>
                   <FormControl>
-                    <Input className="rounded-none border-gray-300" placeholder="e.g. 75950" type="text" {...field} />
+                    <Input className="rounded-full border-gray-300" placeholder="e.g. 75950" type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -250,7 +250,7 @@ export default function CheckoutForm() {
                 <FormItem>
                   <FormLabel>Country</FormLabel>
                   <FormControl>
-                    <Input className="rounded-none border-gray-300" placeholder="Pakistan" disabled {...field} />
+                    <Input className="rounded-full border-gray-300" placeholder="Pakistan" disabled {...field} />
                   </FormControl>
                   <FormDescription>We deliver goods only in Pakistan.</FormDescription>
                   <FormMessage />
@@ -261,7 +261,7 @@ export default function CheckoutForm() {
           <Button 
             type="submit"
             disabled={isSubmitting}
-            className='bg-emerald-800 text-white rounded-none hover:bg-emerald-600 w-full text-lg'
+            className='bg-emerald-800 text-white rounded-full hover:bg-emerald-600 w-full text-lg'
           >
             {isSubmitting ? 'Processing...' : 'Place Order'}
           </Button>
