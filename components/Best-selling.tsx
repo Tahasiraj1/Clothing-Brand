@@ -73,7 +73,7 @@ const Bestselling = () => {
                 variant="expandIcon" 
                 Icon={FaArrowRightLong} 
                 iconPlacement="right"
-                className='h-12 w-40 mb-10 font-semibold text-lg hover:scale-105 flex items-center drop-shadow-2xl rounded-full bg-emerald-800 border border-emerald-800 hover:bg-emerald-700 text-white'
+                className='w-[180px] h-[60px] mb-10 text-lg font-semibold hover:bg-emerald-800 hover:text-white bg-lime-100 border-2 border-emerald-800 drop-shadow-xl rounded-full text-emerald-800 transition-all duration-300 transform hover:scale-105'
             >
                 Explore All
             </Button>

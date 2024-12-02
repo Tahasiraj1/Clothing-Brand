@@ -74,7 +74,7 @@ const Products = () => {
     </div>
     <Link href="/products">
         <Button  variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
-        className='w-64 h-12 mb-10 drop-shadow-2xl rounded-full flex items-center bg-lime-100 border border-emerald-800 hover:bg-emerald-800 text-black hover:text-white'>
+        className='w-[180px] h-[60px] text-lg font-semibold hover:bg-emerald-800 hover:text-white bg-lime-100 border-2 border-emerald-800 drop-shadow-xl rounded-full text-emerald-800 transition-all duration-300 transform hover:scale-105'>
             Explore All
         </Button>
     </Link>
