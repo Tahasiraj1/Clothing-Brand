@@ -7,7 +7,7 @@ export default function Contact() {
     <div className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold text-center text-emerald-800 mb-8">Contact Us</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="bg-white shadow-lg">
+        <Card className="bg-lime-100 shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-emerald-800">Get in Touch</CardTitle>
             <CardDescription>We&apos;d love to hear from you!</CardDescription>
@@ -39,7 +39,7 @@ export default function Contact() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-lg">
+        <Card className="bg-lime-100 shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-emerald-800">Connect With Us</CardTitle>
             <CardDescription>Follow us on social media for the latest updates and styles!</CardDescription>
