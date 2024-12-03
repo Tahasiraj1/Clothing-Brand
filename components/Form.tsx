@@ -44,12 +44,14 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function CheckoutForm() {
   const { toast } = useToast();
-  const { cart, clearCart } = useCart();
+  // const { cart, clearCart } = useCart();
+  const { cart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [windowSize, setWindowSize] = useState<confettiProps>({width: 0, height: 0});
   const [orderPlaced, setOrderPlaced] = useState<boolean>(false)
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [orderDate, setOrderDate] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -108,6 +110,7 @@ export default function CheckoutForm() {
       const result = await response.json();
       console.log('Order placed successfully:', result);
       setOrderId(result.orderId);
+      setOrderDate(result.orderDate)
       setIsDialogOpen(true);
       setOrderPlaced(true);
       toast({
@@ -115,9 +118,9 @@ export default function CheckoutForm() {
         description: "Your order has been placed successfully.",
         duration: 5000,
       });
-      setTimeout(() => {
-        clearCart();
-      }, 8000); // 8 seconds delay
+      // setTimeout(() => {
+      //   clearCart();
+      // }, 8000); // 8 seconds delay
     } catch (error) {
       console.error('Error placing order:', error);
       setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
@@ -276,7 +279,7 @@ export default function CheckoutForm() {
         <OrderConfirmationDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        orderId={`${orderId}`}
+        orderId={`${orderDate}-${orderId}`}
         />
       )}
     </div>

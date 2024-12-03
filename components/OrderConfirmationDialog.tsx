@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Check, Copy } from 'lucide-react'
+import { useCart } from '@/lib/CartContext';
 
 interface OrderConfirmationDialogProps {
   isOpen: boolean
@@ -11,12 +12,18 @@ interface OrderConfirmationDialogProps {
 
 export default function OrderConfirmationDialog({ isOpen, onClose, orderId }: OrderConfirmationDialogProps) {
   const [isCopied, setIsCopied] = useState(false)
+  const { clearCart } = useCart();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(orderId).then(() => {
       setIsCopied(true)
       setTimeout(() => setIsCopied(false), 2000)
     })
+  }
+
+  const handleDialogClose = () => {
+    onClose();
+    clearCart();
   }
 
   return (
