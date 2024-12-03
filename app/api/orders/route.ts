@@ -50,7 +50,7 @@ export async function POST(request: Request) {
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
 
-    return NextResponse.json({ success: true, data: order }, { status: 201 })
+    return NextResponse.json({ success: true, data: order, orderId: order.id }, { status: 201 })
   } catch (error) {
     console.error('Error creating order:', error)
     

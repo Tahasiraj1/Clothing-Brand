@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import dynamic from 'next/dynamic'
+import OrderConfirmationDialog from './OrderConfirmationDialog';
 
 const DynamicConfetti = dynamic(() => import('react-confetti'), {ssr: false})
 
@@ -48,6 +49,8 @@ export default function CheckoutForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [windowSize, setWindowSize] = useState<confettiProps>({width: 0, height: 0});
   const [orderPlaced, setOrderPlaced] = useState<boolean>(false)
+  const [orderId, setOrderId] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -104,6 +107,8 @@ export default function CheckoutForm() {
 
       const result = await response.json();
       console.log('Order placed successfully:', result);
+      setOrderId(result.orderId);
+      setIsDialogOpen(true);
       setOrderPlaced(true);
       toast({
         title: "Congratulations!",
@@ -267,6 +272,13 @@ export default function CheckoutForm() {
           </Button>
         </form>
       </Form>
+      {orderPlaced && (
+        <OrderConfirmationDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        orderId={`${orderId}`}
+        />
+      )}
     </div>
   );
 }
