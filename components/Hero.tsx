@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Button } from './ui/button';
 import { motion } from 'framer-motion';
+import Bubbles from './Bubbles';
 
 const Hero = () => {
   return (
@@ -49,7 +50,7 @@ const Hero = () => {
         <div className='absolute -bottom-6 -left-6 w-32 h-32 bg-emerald-500 rounded-full opacity-20 z-0'></div>
         <div className='absolute -top-6 -right-6 w-24 h-24 bg-lime-400 rounded-full opacity-20 z-0'></div>
       </motion.div>
-      <div className='absolute top-0 left-0 w-full h-full bg-[url("/pattern.svg")] opacity-5 z-0'></div>
+      <Bubbles />
     </div>
   )
 }

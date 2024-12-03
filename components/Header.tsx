@@ -13,14 +13,59 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import products from "@/lib/productsData";
+import { useRouter } from 'next/navigation'
+import { useState, useRef, useEffect } from "react";
+import { FaSearch, FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
   const { user } = useUser();
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const role = user?.publicMetadata?.role;
 
+  const router = useRouter();
+
+  const getProductsName = (name: string) => {
+    const searchedProduct = products.find((p) => p.name.toLowerCase() === name.toLowerCase())
+    if (searchedProduct) {
+      router.push(`/products/${searchedProduct.id}`)
+      setShowSearch(false);
+      setQuery("");
+    }
+  }
+
+  const handleSearchClick = () => {
+    if (showSearch && query) {
+      getProductsName(query);
+    } else {
+      setShowSearch((prev) => !prev);
+    }
+  }
+
+  // useEffect(() => {
+  //   if (showSearch && searchInputRef.current) {
+  //     searchInputRef.current.focus();
+  //   }
+  // }, [showSearch]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchInputRef.current && !searchInputRef.current.contains(event.target as Node)) {
+        setShowSearch(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className='font-poppins animate-in slide-in-from-top-full transition-transform transform duration-300 bg-emerald-800 text-xl w-full h-20 flex items-center justify-between drop-shadow-xl text-white px-8 sticky top-0 z-50 opacity-90'>
+    <div className='font-poppins animate-in slide-in-from-top-full transition-transform transform duration-300 bg-emerald-800 text-xl w-full h-20 flex items-center justify-between drop-shadow-xl text-white px-4 md:px-8 sticky top-0 z-50 opacity-90'>
       <h1 className='font-bold text-2xl'>
         NAME
       </h1>
@@ -55,16 +100,44 @@ const Header = () => {
           )}
         </ul>
       </div>
-      <div className='flex gap-4 items-center justify-center'>
-        <div className='sm:hidden md:block'>
+      <div className='flex gap-2 items-center justify-center'>
+        <div className="relative">
+          {showSearch && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                getProductsName(query);
+              }}
+              className="absolute animate-in slide-in-from-bottom-full duration-300 md:-right-[80px] lg:right-0 sm+:right-1 lg:top-1/2 sm+:top-1/2 transform sm:translate-y-16 md:translate-y-12 sm:-right-[80px] lg:-translate-y-1/2 sm+:-translate-y-1/2"
+            >
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search product"
+                className="px-4 py-2 rounded-full text-black w-44 md:w-56"
+              />
+            </form>
+          )}
+          <Button
+            type="button"
+            className={`bg-transparent hover:bg-transparent text-white hover:text-emerald-200 rounded-full p-0 m-0 ${showSearch ? 'opacity-0' : 'opacity-100'}`}
+            onClick={handleSearchClick}
+            variant="ghost"
+          >
+            <FaSearch size={16} />
+          </Button>
+        </div>
+        <div className='sm:hidden md:block ml-2'>
           <Link href="/cart">
-            <HiOutlineShoppingBag className='w-6 h-6' />
+            <HiOutlineShoppingBag className='w-6 h-6 text-white hover:text-emerald-200' />
           </Link>
         </div>
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden bg-transparent hover:bg-transparent">
-              <RiMenu3Line className='w-6 h-6' />
+              <RiMenu3Line className='w-6 h-6 text-white hover:text-emerald-200' />
               <span className="sr-only">Open menu</span>
             </Button>
           </SheetTrigger>
@@ -112,7 +185,15 @@ const Header = () => {
         </Sheet>
         <span className='active:scale-95 transition-transform transform duration-300 font-semibold'>
           <SignedOut>
-            <SignInButton />
+            <SignInButton mode="modal">
+              <Button
+              variant="ghost"
+              size="icon"
+              className="text-white bg-transparent hover:bg-transparent hover:text-emerald-200"
+              >
+                <FaUserCircle className="w-6 h-6" />
+              </Button>
+            </SignInButton>
           </SignedOut>
           <SignedIn>
             <UserButton />
