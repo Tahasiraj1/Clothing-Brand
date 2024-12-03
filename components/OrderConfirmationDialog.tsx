@@ -27,7 +27,7 @@ export default function OrderConfirmationDialog({ isOpen, onClose, orderId }: Or
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleDialogClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Order Confirmed!</DialogTitle>
