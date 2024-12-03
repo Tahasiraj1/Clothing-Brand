@@ -25,7 +25,7 @@ export default function OrderConfirmationDialog({ isOpen, onClose, orderId }: Or
         <DialogHeader>
           <DialogTitle>Order Confirmed!</DialogTitle>
           <DialogDescription>
-            Your order has been successfully placed. Here's your order ID:
+            Your order has been successfully placed. Here&apos;s your order ID:
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center justify-between p-4 bg-gray-100 rounded-md">
