@@ -33,7 +33,7 @@ type confettiProps = {
   height: number;
 }
 
-const confettiColors = ['#A2D9A3', '#1D8348', '#F9E79F', '#F4D03F', '#FFFFFF', '#F1C40F'];
+const confettiColors = ['#2C3E50', '#34495E', '#8E44AD', '#D35400', '#C0392B', '#7F8C8D', '#16A085'];
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
