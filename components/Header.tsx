@@ -141,7 +141,7 @@ const Header = () => {
               <span className="sr-only">Open menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className='pt-20 bg-black text-white border-gray-600'>
+          <SheetContent side="right" className='pt-20 bg-emerald-800 text-white border-gray-600'>
             <SheetHeader>
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
             </SheetHeader>
