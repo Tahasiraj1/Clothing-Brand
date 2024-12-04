@@ -42,13 +42,13 @@ const Checkout = () => {
                 <h1 className='text-3xl font-bold'>Checkout</h1>
                 <CheckoutForm />
             </div>
-                <div className='w-full md:w-[40%] h-fit flex flex-col border sticky top-36 py-4 px-2'>
+                <div className='w-full md:w-[40%] h-fit flex flex-col border sticky top-36 py-4 px-2 rounded-2xl'>
                     <h1 className='text-2xl font-bold pb-4'>In your Cart</h1>
                     {cart.map((item) => (
                         <div key={item.id} className='flex items-center gap-4 rounded-none'>
                         <div>
                             <button 
-                            className='flex justify-center hover:bg-red-200'
+                            className='flex justify-center rounded-full hover:bg-red-200'
                             onClick={() => handleRemoveFromCart(item)}>
                                 <X className='text-red-500 active:rotate-180 transition-transform transform duration-300' />
                             </button>
@@ -72,7 +72,7 @@ const Checkout = () => {
                     <div className='mt-8 flex justify-between'>
                         <h2 className='text-xl font-bold'>Total: PKR {cart.reduce((total, item) => total + item.price * item.quantity, 0)}</h2>
                         <Button 
-                        onClick={clearCart} variant="destructive" className='rounded-none'>
+                        onClick={clearCart} variant="destructive" className='rounded-full'>
                             Clear Cart
                         </Button>
                     </div>

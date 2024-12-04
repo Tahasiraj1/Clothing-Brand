@@ -9,25 +9,47 @@ const config: Config = {
   ],
   theme: {
   	extend: {
-		keyframes: {
-			"shine": {
-			  from: { backgroundPosition: '200% 0' },
-			  to: { backgroundPosition: '-200% 0' },
-			},
-		  },
-		  animation: {
-			"shine": "shine 8s ease-in-out infinite",
-		  },
-		screens: {
-			'2xl': '1920px',
-			'xl': '1440px',
-			'lg': '1124px',
-			'md': '768px',
-			'sm+': '500px',
-			'sm': '320px',
-		},
+  		keyframes: {
+  			'shine': {
+  				from: {
+  					backgroundPosition: '200% 0'
+  				},
+  				to: {
+  					backgroundPosition: '-200% 0'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'shine': 'shine 8s ease-in-out infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		screens: {
+  			'2xl': '1920px',
+  			xl: '1440px',
+  			lg: '1124px',
+  			md: '768px',
+  			'sm+': '500px',
+  			sm: '320px'
+  		},
   		fontFamily: {
-			roboto: ['Roboto Slab', 'serif'],
+  			roboto: ['Roboto Slab', 'serif'],
   			rufina: ['Rufina', 'serif'],
   			poppins: ['Poppins', 'sans-serif']
   		},

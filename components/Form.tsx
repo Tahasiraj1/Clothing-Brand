@@ -19,6 +19,12 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import dynamic from 'next/dynamic'
 import OrderConfirmationDialog from './OrderConfirmationDialog';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const DynamicConfetti = dynamic(() => import('react-confetti'), {ssr: false})
 
@@ -266,6 +272,25 @@ export default function CheckoutForm() {
               )}
             />
           </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="bank-transfer">
+              <AccordionTrigger className="text-lg font-semibold">Bank Transfer Details</AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2">
+                  <p><strong>Bank Name:</strong> Example Bank</p>
+                  <p><strong>Account Name:</strong> Your Clothing Brand Ltd.</p>
+                  <p><strong>Account Number:</strong> 1234567890</p>
+                  <p><strong>IBAN:</strong> PK00EXMP0123456789012345</p>
+                  <p><strong>Swift Code:</strong> EXMPPKKA</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Please use your order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
           <Button 
             type="submit"
             disabled={isSubmitting}
