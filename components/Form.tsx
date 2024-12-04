@@ -284,7 +284,8 @@ export default function CheckoutForm() {
                   <p><strong>IBAN:</strong> PK00EXMP0123456789012345</p>
                   <p><strong>Swift Code:</strong> EXMPPKKA</p>
                   <p className="text-sm text-gray-600 mt-2">
-                    Please use your order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+                    Make your payment directly into our bank account. Please share a payment screenshot on this WhatsApp +92 3311245238. Use your Order ID as the payment reference.
+                    Order will be shipped once payment has been confirmed in our account.
                   </p>
                 </div>
               </AccordionContent>
