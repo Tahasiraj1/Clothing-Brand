@@ -124,9 +124,6 @@ export default function CheckoutForm() {
         description: "Your order has been placed successfully.",
         duration: 5000,
       });
-      // setTimeout(() => {
-      //   clearCart();
-      // }, 8000); // 8 seconds delay
     } catch (error) {
       console.error('Error placing order:', error);
       setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
@@ -144,6 +141,7 @@ export default function CheckoutForm() {
   return (
     <div>
       {orderPlaced && (
+        <div className="fixed inset-0 pointer-events-none z-50">
         <DynamicConfetti
           width={windowSize.width}
           height={windowSize.height}
@@ -151,6 +149,7 @@ export default function CheckoutForm() {
           numberOfPieces={800}
           colors={confettiColors}
         />
+      </div>
       )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
