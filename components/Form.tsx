@@ -44,7 +44,7 @@ const formSchema = z.object({
   houseNo: z.string().min(1, "House number is required"),
   postalCode: z.string().min(1, "Postal code is required"),
   country: z.string().min(1, "Country is required"),
-  status: z.string().min(1, "Status is required"), // New field
+  // status: z.string().min(1, "Status is required"), // New field
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -82,7 +82,7 @@ export default function CheckoutForm() {
       houseNo: "",
       postalCode: "",
       country: "Pakistan",
-      status: "Pending", // Default value
+      // status: "Pending", // Default value
     },
   });
 
@@ -100,7 +100,7 @@ export default function CheckoutForm() {
           size: item.size,
         })),
         totalAmount: cart.reduce((total, item) => total + item.price * item.quantity, 0),
-        status: data.status, // Include the status field
+        // status: data.status, // Include the status field
       };
 
       const response = await fetch('/api/orders', {
