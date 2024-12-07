@@ -12,7 +12,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 interface OrderItem {
   id: string;
@@ -51,9 +56,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   const { user, isLoaded } = useUser()
   const router = useRouter()
 
-
   if (!isLoaded) {
-    console.log('User not loaded yet')
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
@@ -62,16 +65,13 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   }
 
   const role = user?.publicMetadata?.role
-  console.log('User role:', role)
 
   if (role !== 'admin') {
-    console.log('User is not an admin, redirecting')
     router.push('/')
     return null
   }
 
   if (!Array.isArray(orders)) {
-    console.error('Orders is not an array:', orders)
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
         <h2 className="text-xl font-semibold text-red-600">Error Loading Orders</h2>
@@ -81,7 +81,6 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   }
 
   if (orders.length === 0) {
-    console.log('No orders found in DashboardClient')
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
         <PackageSearch className="w-16 h-16 text-gray-400 mb-4" />
@@ -91,50 +90,80 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
     )
   }
 
-  console.log('Rendering orders in DashboardClient')
-    
   return (
-    <div className="min-h-screen">
-      <Table className="border border-emerald-800 bg-lime-100">
-        <TableHeader>
-          <TableRow className="border border-emerald-800">
-            <TableHead>Order ID</TableHead>
-            <TableHead>Customer Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Phone Number</TableHead>
-            <TableHead>Address</TableHead>
-            <TableHead>Total Amount</TableHead>
-            <TableHead>Items</TableHead>
-            <TableHead>Date</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {currentOrders.map((order) => (
-            <TableRow className="border-emerald-800 hover:bg-lime-200" key={order.id}>
-              <TableCell>{order.id}</TableCell>
-              <TableCell>{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
-              <TableCell>{order.customerDetails.email}</TableCell>
-              <TableCell>{order.customerDetails.phoneNumber}</TableCell>
-              <TableCell className="flex flex-col">{`${order.customerDetails.city}, ${order.customerDetails.houseNo}, ${order.customerDetails.postalCode}`}</TableCell>
-              <TableCell>PKR {order.totalAmount.toFixed(2)}</TableCell>
-              <TableCell>
-                <ul>
-                  {order.items.map((item, index) => (
-                    <li key={index}>{`${item.name} (x${item.quantity})`}</li>
-                  ))}
-                </ul>
-              </TableCell>
-              <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
+    <div className="min-h-screen p-4">
+      <div className="overflow-x-auto">
+        <Table className="border border-emerald-800 bg-lime-100 w-full">
+          <TableHeader>
+            <TableRow className="border border-emerald-800">
+              <TableHead className="hidden md:table-cell">Order ID</TableHead>
+              <TableHead>Customer</TableHead>
+              <TableHead className="hidden md:table-cell">Email</TableHead>
+              <TableHead className="hidden md:table-cell">Phone</TableHead>
+              <TableHead className="hidden md:table-cell">Address</TableHead>
+              <TableHead>Total</TableHead>
+              <TableHead className="hidden md:table-cell">Items</TableHead>
+              <TableHead className="hidden md:table-cell">Date</TableHead>
             </TableRow>
+          </TableHeader>
+          <TableBody>
+            {currentOrders.map((order) => (
+              <TableRow className="border-emerald-800 hover:bg-lime-200" key={order.id}>
+                <TableCell className="hidden md:table-cell">{order.id}</TableCell>
+                <TableCell>{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
+                <TableCell className="hidden md:table-cell">{order.customerDetails.email}</TableCell>
+                <TableCell className="hidden md:table-cell">{order.customerDetails.phoneNumber}</TableCell>
+                <TableCell className="hidden md:table-cell">{`${order.customerDetails.city}, ${order.customerDetails.houseNo}, ${order.customerDetails.postalCode}`}</TableCell>
+                <TableCell>PKR {order.totalAmount.toFixed(2)}</TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <ul>
+                    {order.items.map((item, index) => (
+                      <li key={index}>{`${item.name} (x${item.quantity})`}</li>
+                    ))}
+                  </ul>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">{new Date(order.createdAt).toLocaleDateString()}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="mt-4 md:hidden">
+        <Accordion type="single" collapsible className="w-full">
+          {currentOrders.map((order) => (
+            <AccordionItem value={order.id} key={order.id}>
+              <AccordionTrigger className="text-sm">
+                Order: {order.id} - {new Date(order.createdAt).toLocaleDateString()}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2 text-sm">
+                  <p><strong>Customer:</strong> {`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</p>
+                  <p><strong>Email:</strong> {order.customerDetails.email}</p>
+                  <p><strong>Phone:</strong> {order.customerDetails.phoneNumber}</p>
+                  <p><strong>Address:</strong> {`${order.customerDetails.city}, ${order.customerDetails.houseNo}, ${order.customerDetails.postalCode}`}</p>
+                  <p><strong>Total:</strong> PKR {order.totalAmount.toFixed(2)}</p>
+                  <div>
+                    <strong>Items:</strong>
+                    <ul className="list-disc list-inside">
+                      {order.items.map((item, index) => (
+                        <li key={index}>{`${item.name} (x${item.quantity})`}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </TableBody>
-      </Table>
+        </Accordion>
+      </div>
+
       <div className="mt-4 flex justify-center">
         {Array.from({ length: Math.ceil(orders.length / ordersPerPage) }, (_, i) => (
           <button
             key={i}
             onClick={() => paginate(i + 1)}
-            className={`mx-1 px-3 py-1 border rounded ${
+            className={`mx-1 px-3 py-1 border rounded-full ${
               currentPage === i + 1 ? 'bg-lime-200 text-black' : 'bg-lime-100 text-black'
             }`}
           >
