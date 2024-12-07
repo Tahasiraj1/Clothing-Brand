@@ -5,7 +5,7 @@ import { RiMenu3Line } from "react-icons/ri";
 import Link from 'next/link';
 import { Button } from './ui/button';
 // import { SignedIn, SignInButton, SignedOut, UserButton } from '@clerk/nextjs';
-import { useUser } from '@clerk/nextjs';
+// import { useUser } from '@clerk/nextjs';
 import {
   Sheet,
   SheetContent,
@@ -22,7 +22,7 @@ import { FaSearch } from "react-icons/fa";
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
-  const { user } = useUser();
+  // const { user } = useUser();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // const role = user?.publicMetadata?.role;
