@@ -6,7 +6,7 @@ const checkout = () => {
     <>
       <Checkout />
     </>
-  )
+  );
 }
 
 export default checkout;

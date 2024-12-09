@@ -7,7 +7,7 @@ const CartPage = async () => {
     <>
       <Cart />
     </>
-  )
+  );
 }
 
 export default CartPage;

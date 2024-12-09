@@ -88,7 +88,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
         <h2 className="text-xl font-semibold text-gray-600">No Confirmed Orders Found</h2>
         <p className="text-gray-500 mt-2">Confirmed orders will appear here.</p>
       </div>
-    )
+    );
   }
 
   return (

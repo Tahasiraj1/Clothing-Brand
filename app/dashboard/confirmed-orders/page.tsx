@@ -37,5 +37,5 @@ export default async function ConfirmedOrdersPage() {
         <ConfirmedOrdersClient orders={orders} />
       </Suspense>
     </div>
-  )
+  );
 }

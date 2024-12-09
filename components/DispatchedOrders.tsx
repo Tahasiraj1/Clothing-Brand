@@ -51,7 +51,7 @@ export default function DispatchedOrdersClient({ orders }: { orders: Order[] }) 
         <h2 className="text-xl font-semibold text-gray-600">No Dispatched Orders Found</h2>
         <p className="text-gray-500 mt-2">Dispatched orders will appear here.</p>
       </div>
-    )
+    );
   }
 
   return (

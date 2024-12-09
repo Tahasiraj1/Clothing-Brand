@@ -37,5 +37,5 @@ export default async function DispatchedOrdersPage() {
         <DispatchedOrdersClient orders={orders} />
       </Suspense>
     </div>
-  )
+  );
 }

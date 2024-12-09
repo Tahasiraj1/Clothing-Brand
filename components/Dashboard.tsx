@@ -77,7 +77,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
         <h2 className="text-xl font-semibold text-red-600">Error Loading Orders</h2>
         <p className="text-gray-500 mt-2">There was an error loading the orders. Please try again later.</p>
       </div>
-    )
+    );
   }
 
   if (orders.length === 0) {
