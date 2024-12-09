@@ -5,7 +5,7 @@ import { RiMenu3Line } from "react-icons/ri";
 import Link from 'next/link';
 import { Button } from './ui/button';
 // import { SignedIn, SignInButton, SignedOut, UserButton } from '@clerk/nextjs';
-import { useUser } from '@clerk/nextjs';
+// import { useUser } from '@clerk/nextjs';
 import {
   Sheet,
   SheetContent,
@@ -22,10 +22,10 @@ import { FaSearch } from "react-icons/fa";
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
-  const { user } = useUser();
+  // const { user } = useUser();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const role = user?.publicMetadata?.role;
+  // const role = user?.publicMetadata?.role;
 
   const router = useRouter();
 
@@ -92,13 +92,13 @@ const Header = () => {
               <li className='font-semibold text-lg'>CONTACT</li>
             </Link>
           </Button>
-          {role === 'admin' && (
+          {/* {role === 'admin' && ( */}
             <Button variant="linkHover2">
               <Link href="/dashboard">
                 <li className='font-semibold text-lg'>DASHBOARD</li>
               </Link>
             </Button>
-          )}
+          {/* )} */}
         </ul>
       </div>
       <div className='flex gap-2 items-center justify-center'>
@@ -173,13 +173,13 @@ const Header = () => {
                     <Link href="/cart">CART</Link>
                   </Button>
                 </li>
-                {role === 'admin' && (
+                {/* {role === 'admin' && ( */}
                   <li>
                     <Button variant="linkHover2" asChild className="w-full justify-start">
                       <Link href="/dashboard">DASHBOARD</Link>
                     </Button>
                   </li>
-                )}
+                {/* )} */}
               </ul>
             </nav>
           </SheetContent>
