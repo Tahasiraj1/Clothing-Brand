@@ -19,19 +19,23 @@ interface OrderItem {
   size: string;
 }
 
+interface CustomerDetails {
+  id: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  city: string;
+  houseNo: string;
+  postalCode: string;
+  country: string;
+}
+
 interface Order {
   id: string;
   totalAmount: number;
   createdAt: string;
-  customerDetails: {
-    city: string;
-    houseNo: string;
-    postalCode: number;
-    phoneNumber: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-  };
+  customerDetails: CustomerDetails;
   items: OrderItem[];
 }
 

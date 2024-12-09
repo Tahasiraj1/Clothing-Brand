@@ -7,7 +7,7 @@ async function getDispatchedOrders() {
     console.log('Fetching dispatched orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 
-      next: { revalidate: 60 }, // Cache for 60 seconds
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },

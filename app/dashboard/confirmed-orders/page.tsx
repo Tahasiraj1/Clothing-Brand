@@ -7,7 +7,7 @@ async function getConfirmedOrders() {
     console.log('Fetching confirmed orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 
-      next: { revalidate: 60 }, // Cache for 60 seconds
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },
