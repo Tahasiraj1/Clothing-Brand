@@ -16,7 +16,8 @@ import {
 import products from "@/lib/productsData";
 import { useRouter } from 'next/navigation'
 import { useState, useRef, useEffect } from "react";
-import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+// import {  FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
