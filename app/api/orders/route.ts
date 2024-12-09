@@ -35,10 +35,18 @@ export async function POST(request: Request) {
 
     const order = await prisma.order.create({
       data: {
-        customerDetails,
-        items,
+        customerDetails: {
+          create: customerDetails
+        },
+        items: {
+          create: items
+        },
         totalAmount,
-        // status: 'pending' // This should now work with the updated schema
+        status: 'pending'
+      },
+      include: {
+        customerDetails: true,
+        items: true
       }
     })
 
