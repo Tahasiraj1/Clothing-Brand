@@ -7,7 +7,7 @@ async function getOrders() {
     console.log('Fetching orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 
-      cache: 'no-store',
+      next: { revalidate: 60 }, // Cache for 60 seconds
       headers: {
         'Content-Type': 'application/json',
       },
@@ -30,7 +30,7 @@ export default async function DashboardPage() {
   const orders = await getOrders()
   console.log('Orders in DashboardPage:', JSON.stringify(orders, null, 2))
 
-  
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
