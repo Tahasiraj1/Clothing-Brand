@@ -4,7 +4,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { RiMenu3Line } from "react-icons/ri";
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { SignedIn, SignInButton, SignedOut, UserButton } from '@clerk/nextjs';
+// import { SignedIn, SignInButton, SignedOut, UserButton } from '@clerk/nextjs';
 import { useUser } from '@clerk/nextjs';
 import {
   Sheet,
@@ -183,7 +183,8 @@ const Header = () => {
             </nav>
           </SheetContent>
         </Sheet>
-        <span className='active:scale-95 transition-transform transform duration-300 font-semibold'>
+        {/* Commenting because of deployment issue */}
+        {/* <span className='active:scale-95 transition-transform transform duration-300 font-semibold'>
           <SignedOut>
             <SignInButton mode="modal">
               <Button
@@ -198,7 +199,7 @@ const Header = () => {
           <SignedIn>
             <UserButton />
           </SignedIn>
-        </span>
+        </span> */}
       </div>
     </div>
   )
