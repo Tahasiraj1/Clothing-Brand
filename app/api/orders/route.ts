@@ -38,7 +38,7 @@ export async function POST(request: Request) {
         customerDetails,
         items,
         totalAmount,
-        status: 'pending' // This should now work with the updated schema
+        // status: 'pending' // This should now work with the updated schema
       }
     })
 
