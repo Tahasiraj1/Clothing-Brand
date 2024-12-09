@@ -18,7 +18,7 @@ async function getConfirmedOrders() {
     }
     
     const data = await res.json()
-    console.log('Fetched confirmed orders:', JSON.stringify(data, null, 2))
+    // console.log('Fetched confirmed orders:', JSON.stringify(data, null, 2))
     return data.data
   } catch (error) {
     console.error('Error fetching confirmed orders:', error)

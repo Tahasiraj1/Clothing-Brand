@@ -18,7 +18,7 @@ async function getDispatchedOrders() {
     }
     
     const data = await res.json()
-    console.log('Fetched dispatched orders:', JSON.stringify(data, null, 2))
+    // console.log('Fetched dispatched orders:', JSON.stringify(data, null, 2))
     return data.data
   } catch (error) {
     console.error('Error fetching dispatched orders:', error)
