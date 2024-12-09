@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from "react"
-// import { useUser } from "@clerk/nextjs"
-// import { useRouter } from 'next/navigation'
+import { useUser } from "@clerk/nextjs"
+import { useRouter } from 'next/navigation'
 import { PackageSearch } from 'lucide-react'
 import {
   Table,
@@ -53,23 +53,23 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder)
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
-  // const { user, isLoaded } = useUser()
-  // const router = useRouter()
+  const { user, isLoaded } = useUser()
+  const router = useRouter()
 
-  // if (!isLoaded) {
-  //   return (
-  //     <div className="flex items-center justify-center min-h-screen">
-  //       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-  //     </div>
-  //   )
-  // }
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    )
+  }
 
-  // const role = user?.publicMetadata?.role
+  const role = user?.publicMetadata?.role
 
-  // if (role !== 'admin') {
-  //   router.push('/')
-  //   return null
-  // }
+  if (role !== 'admin') {
+    router.push('/')
+    return null
+  }
 
   if (!Array.isArray(orders)) {
     return (
