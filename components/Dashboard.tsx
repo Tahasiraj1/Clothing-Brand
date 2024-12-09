@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 // import { useUser } from "@clerk/nextjs"
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { PackageSearch } from 'lucide-react'
 import {
   Table,
@@ -54,7 +54,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
   // const { user, isLoaded } = useUser()
-  const router = useRouter()
+  // const router = useRouter()
 
   // if (!isLoaded) {
   //   return (
