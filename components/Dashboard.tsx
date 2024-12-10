@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/accordion"
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "./ui/button";
+import { useUser } from '@clerk/nextjs';
 
 interface OrderItem {
   id: string;
@@ -53,7 +54,23 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const ordersPerPage = 10
+  const { user, isLoaded } = useUser()
   const router = useRouter()
+
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    )
+  }
+
+  const role = user?.publicMetadata?.role
+
+  if (role !== 'admin') {
+    router.push('/')
+    return null
+  }
 
   const indexOfLastOrder = currentPage * ordersPerPage
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
