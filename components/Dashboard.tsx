@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react"
+import { useRouter } from 'next/navigation'
 import { PackageSearch } from 'lucide-react'
 import {
   Table,
@@ -16,6 +17,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "./ui/button";
 
 interface OrderItem {
   id: string;
@@ -47,14 +50,48 @@ interface Order {
 }
 
 export default function DashboardClient({ orders }: { orders: Order[] }) {
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const ordersPerPage = 10
+  const router = useRouter()
 
   const indexOfLastOrder = currentPage * ordersPerPage
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
   const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder)
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+
+  const handleOrderSelect = (orderId: string) => {
+    setSelectedOrders(prev => 
+      prev.includes(orderId) 
+        ? prev.filter(id => id !== orderId)
+        : [...prev, orderId]
+    )
+  }
+
+  const handleConfirmOrders = async () => {
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ids: selectedOrders,
+          status: 'confirmed',
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to confirm orders')
+      }
+
+      router.refresh()
+      setSelectedOrders([])
+    } catch (error) {
+      console.error('Error Confirming orders:', error)
+    }
+  }
 
   if (!Array.isArray(orders)) {
     return (
@@ -76,11 +113,19 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   }
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen py-4">
+      <Button 
+        onClick={handleConfirmOrders} 
+        disabled={selectedOrders.length === 0}
+        className="mb-4"
+      >
+        Confirm Selected Orders
+      </Button>
       <div className="overflow-x-auto">
         <Table className="border border-emerald-800 bg-lime-100 w-full">
           <TableHeader>
             <TableRow className="border border-emerald-800">
+              <TableHead>Select</TableHead>
               <TableHead className="hidden md:table-cell">Order ID</TableHead>
               <TableHead>Customer</TableHead>
               <TableHead className="hidden md:table-cell">Email</TableHead>
@@ -94,6 +139,12 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
           <TableBody>
             {currentOrders.map((order) => (
               <TableRow className="border-emerald-800 hover:bg-lime-200" key={order.id}>
+                <TableCell>
+                  <Checkbox
+                    checked={selectedOrders.includes(order.id)}
+                    onCheckedChange={() => handleOrderSelect(order.id)}
+                  />
+                </TableCell>
                 <TableCell className="hidden md:table-cell">{order.id}</TableCell>
                 <TableCell>{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
                 <TableCell className="hidden md:table-cell">{order.customerDetails.email}</TableCell>
