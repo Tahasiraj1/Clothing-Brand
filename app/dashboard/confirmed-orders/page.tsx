@@ -3,7 +3,7 @@ import ConfirmedOrdersClient from '@/components/ConfirmedOrders'
 
 async function getConfirmedOrders() {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || `https://clothing-brand-beige.vercel.app/api/orders?status=confirmed`
+    const apiUrl = process.env.NEXT_PUBLIC_CONFIRMED_API_URL || `https://clothing-brand-beige.vercel.app/api/orders?status=confirmed`
     console.log('Fetching confirmed orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 

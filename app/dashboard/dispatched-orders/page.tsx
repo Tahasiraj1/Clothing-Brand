@@ -3,7 +3,7 @@ import DispatchedOrdersClient from '@/components/DispatchedOrders'
 
 async function getDispatchedOrders() {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || `https://clothing-brand-beige.vercel.app/api/orders?status=dispatched`
+    const apiUrl = process.env.NEXT_PUBLIC_DISPATCHED_API_URL || `https://clothing-brand-beige.vercel.app/api/orders?status=dispatched`
     console.log('Fetching dispatched orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 

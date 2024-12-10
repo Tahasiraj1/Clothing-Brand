@@ -3,7 +3,7 @@ import DashboardClient from '@/components/Dashboard'
 
 async function getOrders() {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clothing-brand-beige.vercel.app/api/orders?status=pending'
+    const apiUrl = process.env.NEXT_PUBLIC_PENDING_API_URL || 'https://clothing-brand-beige.vercel.app/api/orders?status=pending'
     console.log('Fetching orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 
