@@ -107,7 +107,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
       <Button 
         onClick={handleDispatchOrders} 
         disabled={selectedOrders.length === 0}
-        className="mb-4"
+        className="mb-4 bg-emerald-800 text-white hover:bg-emerald-700"
       >
         Dispatch Selected Orders
       </Button>

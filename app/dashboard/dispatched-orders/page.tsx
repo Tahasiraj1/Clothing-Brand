@@ -1,5 +1,7 @@
 import { Suspense } from 'react'
 import DispatchedOrdersClient from '@/components/DispatchedOrders'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 async function getDispatchedOrders() {
   try {
@@ -32,10 +34,24 @@ export default async function DispatchedOrdersPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">Dispatched Orders</h1>
-      <Suspense fallback={<div>Loading orders...</div>}>
-        <DispatchedOrdersClient orders={orders} />
-      </Suspense>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold mb-4">Pending Orders</h1>
+          <div className='gap-4 flex'>
+            <Link href="/dashboard">
+              <Button className="bg-emerald-800 hover:bg-emerald-800 text-white">
+                Pending Orders
+              </Button>
+            </Link>
+            <Link href="/dashboard/confirmed-orders">
+              <Button className="bg-emerald-800 hover:bg-emerald-800 text-white">
+                Confirmed Orders
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <Suspense fallback={<div>Loading orders...</div>}>
+          <DispatchedOrdersClient orders={orders} />
+        </Suspense>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import { Suspense } from 'react'
 import ConfirmedOrdersClient from '@/components/ConfirmedOrders'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 async function getConfirmedOrders() {
   try {
@@ -32,7 +34,21 @@ export default async function ConfirmedOrdersPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">Confirmed Orders</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold mb-4">Pending Orders</h1>
+          <div className='gap-4 flex'>
+            <Link href="/dashboard">
+              <Button className="bg-emerald-800 hover:bg-emerald-800 text-white">
+                Pending Orders
+              </Button>
+            </Link>
+            <Link href="/dashboard/dispatched-orders">
+              <Button className="bg-emerald-800 hover:bg-emerald-800 text-white">
+                Dispatched Orders
+              </Button>
+            </Link>
+          </div>
+        </div>
       <Suspense fallback={<div>Loading orders...</div>}>
         <ConfirmedOrdersClient orders={orders} />
       </Suspense>

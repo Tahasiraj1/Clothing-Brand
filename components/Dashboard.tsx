@@ -123,8 +123,8 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
         <PackageSearch className="w-16 h-16 text-gray-400 mb-4" />
-        <h2 className="text-xl font-semibold text-gray-600">No Orders Found</h2>
-        <p className="text-gray-500 mt-2">Orders will appear here once customers start placing them.</p>
+        <h2 className="text-xl font-semibold text-gray-600">No Pending Orders Found</h2>
+        <p className="text-gray-500 mt-2">Pending Orders will appear here.</p>
       </div>
     )
   }
@@ -134,7 +134,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
       <Button 
         onClick={handleConfirmOrders} 
         disabled={selectedOrders.length === 0}
-        className="mb-4"
+        className="mb-4 bg-emerald-800 text-white hover:bg-emerald-700"
       >
         Confirm Selected Orders
       </Button>
