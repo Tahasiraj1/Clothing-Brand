@@ -1,29 +1,77 @@
-import Image from 'next/image'
 import React from 'react'
+import Image from 'next/image';
+import { Button } from './ui/button';
+import WhatMakesUsDiff from './WhatMakesUsDiff';
 
 const About = () => {
   return (
-    <div className='flex items-center justify-center py-20 px-20 bg-lime-50 min-h-screen'>
-      <div className='flex sm:flex-col lg:flex-row items-center sm:space-x-0 lg:space-x-20'>
-        <Image
-        src="/images/bestselling1.jpg"
-        alt='about us'
-        width={400}
-        height={300}
-        />
-        <p className='text-center sm:mt-10 lg:mt-0 font-mono text-lg'>
-        Welcome to &ldquo;Your Brand Name&ldquo;, where style meets substance. 
-        Founded with a passion for quality and a commitment to timeless 
-        design, we create clothing that reflects individuality and empowers 
-        self-expression. Each piece is crafted with attention to detail, 
-        using premium materials sourced responsibly, ensuring both comfort 
-        and durability. At &ldquo;Your Brand Name&ldquo;, we believe in celebrating 
-        diversity and inclusivity, embracing unique styles that resonate with 
-        every story. Whether you&apos;re seeking classic essentials or statement 
-        pieces, our collections are designed to elevate your everyday wardrobe 
-        with elegance and ease. Join us in redefining fashion, one piece at a time.
-        </p>
+    <div className='flex flex-col items-center justify-center font-clashDisplay'>
+      <h2 className='text-3xl py-20 px-5'>
+        A brand built on the love of craftmanship,<br />
+        quality and outstanding customer service
+      </h2>
+      <div className='flex flex-col md:flex-row items-center justify-between bg-white text-black w-full'>
+        <div className='flex flex-col gap-8 md:w-1/2 md:pr-8 px-4 md:px-8 pt-20 pb-10 md:py-20'>
+          <h2 className='text-2xl md:text-3xl'>
+            From a studio in London to a global brand with<br className='hidden md:inline' />
+            over 400 outlets
+          </h2>
+          <p className='text-sm md:text-base'>
+            When we started Avion, the idea was simple. Make high quality furniture
+            affordable and available for the mass market.
+            <br /><br />
+            Handmade, and lovingly crafted furniture and homeware is what we live,
+            breathe and design so our Chelsea boutique become the hotbed for the
+            London interior design community.
+          </p>
+          <Button
+            className='bg-gray-100 hover:bg-gray-200 py-4 px-6 rounded-none text-black w-full md:w-[150px] h-[56px]'
+          >
+            Get in touch
+          </Button>
+        </div>
+        <div className='md:w-1/2'>
+          <Image
+            src='/images/bestselling1.jpg'
+            alt='Hello'
+            width={1000}
+            height={1000}
+            className='w-full h-auto aspect-square object-cover'
+          />
+        </div>
       </div>
+
+      <div className='flex flex-col md:flex-row-reverse items-center justify-between bg-white text-black w-full'>
+        <div className='flex flex-col gap-8 md:w-1/2 md:pl-8 px-4 md:px-8 pt-20 pb-10 md:py-20'>
+          <h2 className='text-2xl md:text-3xl'>
+            From a studio in London to a global brand with<br className='hidden md:inline' />
+            over 400 outlets
+          </h2>
+          <p className='text-sm md:text-base'>
+            When we started Avion, the idea was simple. Make high quality furniture
+            affordable and available for the mass market.
+            <br /><br />
+            Handmade, and lovingly crafted furniture and homeware is what we live,
+            breathe and design so our Chelsea boutique become the hotbed for the
+            London interior design community.
+          </p>
+          <Button
+            className='bg-gray-100 hover:bg-gray-200 py-4 px-6 rounded-none text-black w-full md:w-[150px] h-[56px]'
+          >
+            Get in touch
+          </Button>
+        </div>
+        <div className='md:w-1/2'>
+          <Image
+            src='/images/bestselling1.jpg'
+            alt='Hello'
+            width={1000}
+            height={1000}
+            className='w-full h-auto aspect-square object-cover'
+          />
+        </div>
+      </div>
+      <WhatMakesUsDiff />
     </div>
   )
 }

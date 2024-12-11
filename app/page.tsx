@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import Bestselling from '@/components/Best-selling';
 import Products from '@/components/Products';
 import Testimonials from '@/components/Testimonials';
+import WhatMakesUsDiff from '@/components/WhatMakesUsDiff';
 
 const page = () => {
   return (
@@ -11,6 +12,7 @@ const page = () => {
       <Bestselling />
       <Products />
       <Testimonials />
+      <WhatMakesUsDiff />
     </>
   )
 }

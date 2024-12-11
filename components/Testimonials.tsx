@@ -16,7 +16,7 @@ const Testimonials = () => {
       )
 
   return (
-    <div className='bg-white pb-20 flex flex-col items-center text-center justify-center relative'>
+    <div className='bg-white pt-10 flex flex-col items-center text-center justify-center relative'>
       <h1 className='font-bold text-4xl mb-10 text-black'>
         Feedbacks Corner
       </h1>

@@ -45,11 +45,11 @@ const Header = () => {
     }
   }
 
-  // useEffect(() => {
-  //   if (showSearch && searchInputRef.current) {
-  //     searchInputRef.current.focus();
-  //   }
-  // }, [showSearch]);
+  useEffect(() => {
+    if (showSearch && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [showSearch]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -49,11 +49,11 @@ const ProductsPage = () => {
                         </div>
                     </div>
                     <div className='flex md:justify-between items-center px-2 flex-col md:flex-row gap-1 md:gap-0'>
-                        <h2 className='text-lg font-poppins mt-2'>
+                        <h2 className='mt-2'>
                             {product.name}
                         </h2>
                         <p>
-                            PKR <strong>{product.price}</strong>
+                            PKR {product.price}
                         </p>
                     </div>
                     <div className='flex justify-center md:justify-between items-center mt-4 mb-8 px-2'> 

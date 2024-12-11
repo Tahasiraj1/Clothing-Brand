@@ -17,6 +17,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Select, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, SelectContent } from '@/components/ui/select';
 import { useToast } from "@/hooks/use-toast";
+import WhatMakesUsDiff from '@/components/WhatMakesUsDiff';
 
 
 const ProductDetails = () => {
@@ -98,7 +99,7 @@ const ProductDetails = () => {
                     <ScrollBar orientation="horizontal" />
                 </ScrollArea>
             <div className='flex flex-col lg:pl-20 pr-5 w-full max-w-2xl'>
-                <h1 className='text-3xl mb-9 mt-5 font-bold'>
+                <h1 className='text-3xl mb-5 mt-5 font-bold'>
                     {product.name}
                 </h1>
                 <p className='text-lg font-bold mb-5'>
@@ -165,7 +166,7 @@ const ProductDetails = () => {
         <h1 className='py-2 text-3xl lg:text-4xl font-bold px-5 lg:px-40'>
                 You May Also Like
         </h1>
-        <div className='w-full px-5 py-10 flex justify-center'>
+        <div className='w-full px-5 pt-10 flex justify-center'>
             <Carousel className='w-full max-w-[90%] bg-white lg:max-w-[900px] sm:max-w-[290px] md:max-w-[700px] xl:max-w-[1300px]'
             opts={{
                 loop: true,
@@ -211,6 +212,7 @@ const ProductDetails = () => {
                 <CarouselNext className='absolute top-44 right-0 rounded-lg active:scale-95 transition-transform transform duration-300' />
             </Carousel>
         </div>
+        <WhatMakesUsDiff />
         </>
     )
 };

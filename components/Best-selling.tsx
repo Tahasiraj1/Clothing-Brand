@@ -20,7 +20,7 @@ const Bestselling = () => {
     return (
         <div className='py-10 px-5 flex flex-col items-center justify-center'>
             <h1 className='font-bold text-4xl mb-6'>
-                Best Selling
+                Best Sellers
             </h1>
             <p className='font-poppins mb-10'>
                 Get in on the trend with our curated selection of best-selling styles.
