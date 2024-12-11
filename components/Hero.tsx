@@ -15,7 +15,7 @@ const Hero = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className='font-clashDisplay text-5xl md:text-6xl lg:text-7xl mb-6 text-emerald-800 leading-tight'>
+        <h1 className='font-rufina text-5xl md:text-6xl lg:text-7xl mb-6 text-emerald-800 leading-tight'>
           Discover and<br /> Find Your Own<br /> 
           <span className='relative'>
             Fashion!

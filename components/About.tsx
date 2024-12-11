@@ -6,13 +6,13 @@ import WhatMakesUsDiff from './WhatMakesUsDiff';
 const About = () => {
   return (
     <div className='flex flex-col items-center justify-center font-clashDisplay'>
-      <h2 className='text-3xl py-20 px-5'>
+      <h2 className='text-3xl md:text-4xl font-bold py-20 px-5'>
         A brand built on the love of craftmanship,<br />
         quality and outstanding customer service
       </h2>
       <div className='flex flex-col md:flex-row items-center justify-between bg-white text-black w-full'>
-        <div className='flex flex-col gap-8 md:w-1/2 md:pr-8 px-4 md:px-8 pt-20 pb-10 md:py-20'>
-          <h2 className='text-2xl md:text-3xl'>
+        <div className='flex flex-col gap-8 md:w-1/2 md:pr-8 px-4 md:px-8 pt-5 md:pt-20 pb-10 md:py-20'>
+          <h2 className='text-2xl font-semibold'>
             From a studio in London to a global brand with<br className='hidden md:inline' />
             over 400 outlets
           </h2>
@@ -43,7 +43,7 @@ const About = () => {
 
       <div className='flex flex-col md:flex-row-reverse items-center justify-between bg-white text-black w-full'>
         <div className='flex flex-col gap-8 md:w-1/2 md:pl-8 px-4 md:px-8 pt-20 pb-10 md:py-20'>
-          <h2 className='text-2xl md:text-3xl'>
+          <h2 className='text-2xl font-semibold'>
             From a studio in London to a global brand with<br className='hidden md:inline' />
             over 400 outlets
           </h2>
