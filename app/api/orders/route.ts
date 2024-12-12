@@ -1,8 +1,32 @@
 import { NextResponse } from 'next/server'
+import { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma'
+import { getAuth } from '@clerk/nextjs/server';
+
+async function checkAdminRole(request: NextRequest) {
+  const { userId } = getAuth(request)
+  if (!userId) {
+    return false
+  }
+  
+  // Fetch user data from Clerk
+  const user = await fetch(`https://api.clerk.dev/v1/users/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+    },
+  }).then(res => res.json())
+
+  return user.publicMetadata?.role === 'admin'
+}
 
 
 export async function POST(request: Request) {
+  const nextRequest = new NextRequest(request.url, { headers: request.headers });
+
+  if (!await checkAdminRole(nextRequest)) {
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await request.json()
     console.log('Received order data:', JSON.stringify(body, null, 2))
@@ -69,6 +93,12 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
+  const nextRequest = new NextRequest(request.url, { headers: request.headers });
+
+  if (!await checkAdminRole(nextRequest)) {
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+
   console.log('GET request received for orders')
   try {
     const { searchParams } = new URL(request.url)
@@ -106,6 +136,12 @@ export async function GET(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  const nextRequest = new NextRequest(request.url, { headers: request.headers });
+
+  if (!await checkAdminRole(nextRequest)) {
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+  
   try {
     const body = await request.json()
     console.log('Received update data:', JSON.stringify(body, null, 2))
