@@ -5,7 +5,7 @@ import WhatMakesUsDiff from './WhatMakesUsDiff';
 
 const About = () => {
   return (
-    <div className='flex flex-col items-center justify-center font-clashDisplay'>
+    <div className='flex flex-col items-center justify-center'>
       <h2 className='text-3xl md:text-4xl font-bold py-20 px-5'>
         A brand built on the love of craftmanship,<br />
         quality and outstanding customer service
