@@ -60,7 +60,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   if (!isLoaded) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-700"></div>
       </div>
     )
   }
@@ -134,7 +134,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
       <Button 
         onClick={handleConfirmOrders} 
         disabled={selectedOrders.length === 0}
-        className="mb-4 bg-emerald-800 text-white hover:bg-emerald-700"
+        className="mb-4 rounded-full bg-emerald-800 text-white hover:bg-emerald-700"
       >
         Confirm Selected Orders
       </Button>

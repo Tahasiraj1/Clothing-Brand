@@ -15,6 +15,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 interface OrderItem {
   id: string;
@@ -48,12 +50,29 @@ interface Order {
 export default function DispatchedOrdersClient({ orders }: { orders: Order[] }) {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const ordersPerPage = 10
+  const { user, isLoaded } = useUser();
+  const router = useRouter();
 
   const indexOfLastOrder = currentPage * ordersPerPage
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
   const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder)
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-700"></div>
+      </div>
+    )
+  }
+
+  const role = user?.publicMetadata?.role
+
+  if (role !== 'admin') {
+    router.push('/')
+    return null
+  }
 
   if (!Array.isArray(orders) || orders.length === 0) {
     return (

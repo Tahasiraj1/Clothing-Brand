@@ -29,14 +29,14 @@ const OrdersTypeSelector = ({ currentPage }: { currentPage: string }) => {
     }
   return (
     <Select onValueChange={handleValueChange} value={currentPage}>
-        <SelectTrigger className="w-[180px] text-black">
+        <SelectTrigger className='w-[180px] rounded-full bg-lime-100 border-emerald-600 focus:ring-0'>
             <SelectValue placeholder='Select order type' />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-lime-200 rounded-xl border border-emerald-600 drop-shadow-2xl">
             <SelectGroup>
                 <SelectLabel>Order Types</SelectLabel>
                 {orderTypes.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
+                    <SelectItem key={type.value} value={type.value} className="hover:bg-lime-100">
                         {type.label}
                     </SelectItem>
                 ))}

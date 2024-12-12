@@ -18,6 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useUser } from "@clerk/nextjs"
 
 
 interface OrderItem {
@@ -54,6 +55,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const ordersPerPage = 10
   const router = useRouter()
+  const { user, isLoaded } = useUser();
 
   const indexOfLastOrder = currentPage * ordersPerPage
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
@@ -67,6 +69,21 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
         ? prev.filter(id => id !== orderId)
         : [...prev, orderId]
     )
+  }
+
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-700"></div>
+      </div>
+    )
+  }
+
+  const role = user?.publicMetadata?.role
+
+  if (role !== 'admin') {
+    router.push('/')
+    return null
   }
 
   const handleDispatchOrders = async () => {
@@ -107,7 +124,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
       <Button 
         onClick={handleDispatchOrders} 
         disabled={selectedOrders.length === 0}
-        className="mb-4 bg-emerald-800 text-white hover:bg-emerald-700"
+        className="mb-4 rounded-full bg-emerald-800 text-white hover:bg-emerald-700"
       >
         Dispatch Selected Orders
       </Button>
