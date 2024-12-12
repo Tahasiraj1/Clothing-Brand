@@ -1,7 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-// import { Input } from "@/components/ui/input"
-// import { Button } from "@/components/ui/button"
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
 
 const Footer = () => {
@@ -11,27 +9,27 @@ const Footer = () => {
         <div className="text-6xl sm:text-7xl md:text-8xl font-bold text-center mb-12 text-emerald-300 opacity-20">
             YOUR BRAND
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-xl font-bold mt-1.5">Your Brand</h3>
+            <h3 className="text-xl font-bold mt-1">Your Brand</h3>
             <p className="text-sm">Elevate your style with our curated collection of trendsetting fashion.</p>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-emerald-300 transition-colors">
+              <Link href="#" className="hover:text-emerald-300 transition-colors">
                 <FaFacebook size={24} />
                 <span className="sr-only">Facebook</span>
-              </a>
-              <a href="#" className="hover:text-emerald-300 transition-colors">
+              </Link>
+              <Link href="#" className="hover:text-emerald-300 transition-colors">
                 <FaTwitter size={24} />
                 <span className="sr-only">Twitter</span>
-              </a>
-              <a href="#" className="hover:text-emerald-300 transition-colors">
+              </Link>
+              <Link href="#" className="hover:text-emerald-300 transition-colors">
                 <FaInstagram size={24} />
                 <span className="sr-only">Instagram</span>
-              </a>
-              <a href="#" className="hover:text-emerald-300 transition-colors">
+              </Link>
+              <Link href="#" className="hover:text-emerald-300 transition-colors">
                 <FaYoutube size={24} />
                 <span className="sr-only">YouTube</span>
-              </a>
+              </Link>
             </div>
           </div>
           
@@ -55,20 +53,15 @@ const Footer = () => {
             </ul>
           </div>
           
-          {/* <div>
-            <h3 className="text-xl font-bold mb-4">Newsletter</h3>
-            <p className="text-sm mb-4">Stay updated with our latest trends and discounts!</p>
-            <form className="space-y-2">
-              <Input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="bg-lime-100 border-emerald-600 text-black placeholder-emerald-300"
-              />
-              <Button className="w-full bg-white text-emerald-800 hover:bg-emerald-100">
-                Subscribe
-              </Button>
-            </form>
-          </div> */}
+          <div>
+            <h2 className="text-xl font-bold mb-4">Visit Our Store</h2>
+            <p>
+              123 Fashion Street, Karachi, Pakistan
+            </p>
+            <p className='mt-4'>
+              Open Monday to Saturday, 10:00 AM - 9:00 PM
+            </p>
+          </div>
         </div>
         
         <div className="mt-12 pt-8 border-t border-emerald-700 text-center text-sm">
