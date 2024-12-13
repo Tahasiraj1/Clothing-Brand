@@ -1,9 +1,17 @@
 import { Suspense } from 'react'
 import DispatchedOrdersClient from '@/components/DispatchedOrders'
 import OrdersTypeSelector from '@/components/OrdersTypeSelector'
+import { auth } from '@clerk/nextjs/server';
 
 async function getDispatchedOrders() {
   try {
+    const { userId, getToken } = await auth();
+    const token = await getToken();
+
+    if (!userId) {
+      throw new Error('Unauthorized');
+    }
+
     const apiUrl = process.env.NEXT_PUBLIC_DISPATCHED_API_URL || `https://clothing-brand-beige.vercel.app/api/orders?status=dispatched`
     console.log('Fetching dispatched orders from:', apiUrl)
     
@@ -11,6 +19,7 @@ async function getDispatchedOrders() {
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
     })
     
