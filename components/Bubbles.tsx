@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const Bubble = ({ size, left, delay }: { size: number; left: string; delay: number }) => (
     <motion.div
-      className="absolute bottom-0 rounded-full bg-emerald-800 opacity-30"
+      className="absolute bottom-0 rounded-full bg-emerald-600 opacity-30"
       style={{
         width: size,
         height: size,
