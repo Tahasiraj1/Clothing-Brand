@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
+import { auth, clerkClient } from '@clerk/nextjs/server';
 
+async function isAdmin(userId: string) {
+  const client = await clerkClient();
+  const user = await client.users.getUser(userId);
+  return user.publicMetadata.role === 'admin';
+}
 
 export async function POST(request: Request) {
   try {
@@ -69,6 +75,16 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!await isAdmin(userId)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   console.log('GET request received for orders')
   try {
     const { searchParams } = new URL(request.url)
@@ -105,7 +121,17 @@ export async function GET(request: Request) {
   }
 }
 
-export async function PUT(request: Request) {    
+export async function PUT(request: Request) { 
+  const { userId } = await auth();
+
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!await isAdmin(userId)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  
   try {
     const body = await request.json()
     console.log('Received update data:', JSON.stringify(body, null, 2))

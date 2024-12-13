@@ -17,11 +17,12 @@ async function isAdmin(userId: string | null) {
 }
 
 export default clerkMiddleware(async (auth, req) => {
+    // Allow POST requests to /api/orders without authentication
+    if (req.method === 'POST' && req.nextUrl.pathname === '/api/orders') {
+      return NextResponse.next();
+    }
+
     const { userId } = await auth(); // Get the user ID from the request
-    // if (!userId) {
-    //   // If there's no user ID, return an Unauthorized response
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
   
     // Check if the user is an admin for specific routes (e.g., /orders)
     const isUserAdmin = await isAdmin(userId);
