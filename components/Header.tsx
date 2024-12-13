@@ -17,6 +17,7 @@ import products from "@/lib/productsData";
 import { useRouter } from 'next/navigation'
 import { useState, useRef, useEffect } from "react";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
@@ -65,42 +66,62 @@ const Header = () => {
   }, []);
 
   return (
-    <div className='font-poppins animate-in slide-in-from-top-full transition-transform transform duration-300 bg-emerald-800 text-xl w-full h-20 flex items-center justify-between drop-shadow-xl text-white px-4 md:px-8 sticky top-0 z-50 opacity-90'>
-      <h1 className='font-bold text-2xl'>
+    <div className='font-poppins bg-emerald-800 text-xl w-full h-20 flex items-center justify-between drop-shadow-xl text-white px-4 md:px-8 sticky top-0 z-50 opacity-90'>
+      <h1 className='font-bold text-2xl animate-in slide-in-from-left-full transition-transform transform duration-1000'>
         NAME
       </h1>
       <div className='hidden md:block font-semibold'>
         <ul className='flex'>
           <Button variant="linkHover2">
             <Link href="/">
-              <li className='font-semibold text-lg'>HOME</li>
+              <motion.li className='font-semibold text-lg'
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.1 }}
+              >HOME</motion.li>
             </Link>
           </Button>
           <Button variant="linkHover2">
             <Link href="/products">
-              <li className='font-semibold text-lg'>PRODUCTS</li>
+              <motion.li className='font-semibold text-lg'
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              >PRODUCTS</motion.li>
             </Link>
           </Button>
           <Button variant="linkHover2">
             <Link href="/about">
-              <li className='font-semibold text-lg'>ABOUT</li>
+              <motion.li className='font-semibold text-lg'
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              >ABOUT</motion.li>
             </Link>
           </Button>
           <Button variant="linkHover2">
             <Link href="/contact">
-              <li className='font-semibold text-lg'>CONTACT</li>
+              <motion.li className='font-semibold text-lg'
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              >CONTACT</motion.li>
             </Link>
           </Button>
           {role === 'admin' && (
             <Button variant="linkHover2">
               <Link href="/dashboard">
-                <li className='font-semibold text-lg'>DASHBOARD</li>
+                <motion.li className='font-semibold text-lg'
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9 }}
+                >DASHBOARD</motion.li>
               </Link>
             </Button>
           )}
         </ul>
       </div>
-      <div className='flex gap-2 items-center justify-center'>
+      <div className='flex gap-2 items-center justify-center animate-in slide-in-from-right-full transition-transform transform duration-1000'>
         <div className="relative">
           {showSearch && (
             <form

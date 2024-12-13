@@ -48,7 +48,7 @@ const WhatMakesUsDiff = () => {
             </h3>
             <p>
                 For our materials and quality you<br /> 
-                won’t find better prices anywhere
+                won&apos;t find better prices anywhere
             </p>
         </div>
         <div className='flex flex-col gap-4'>
