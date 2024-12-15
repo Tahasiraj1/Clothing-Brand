@@ -126,7 +126,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
         disabled={selectedOrders.length === 0}
         className="mb-4 rounded-full bg-emerald-800 text-white hover:bg-emerald-700"
       >
-        Dispatch Selected Orders
+        Dispatch
       </Button>
       <div className="overflow-x-auto">
         <Table className="border border-emerald-800 bg-lime-100 w-full">
