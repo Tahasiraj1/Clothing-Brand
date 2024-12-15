@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
 import { Button } from './ui/button';
@@ -6,6 +7,7 @@ import Link from 'next/link';
 import  products  from '@/lib/productsData';
 import { TiStar } from 'react-icons/ti';
 import { Badge } from '@/components/ui/badge';
+import { motion } from 'framer-motion';
 
 const getBadgeForTag = (tag: string) => {
     switch (tag) {
@@ -58,7 +60,12 @@ const Products = () => {
             </svg>
         </span>
         </h1>
-        <div className='py-10 px-2 md:px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-5'>
+        <motion.div className='py-10 px-2 md:px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-5'
+            initial={{ opacity: 0, y: 300 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+        >
             {products.slice(0, 8).map((product) => (
                 <div key={product.id}>
                         <div className="relative w-full overflow-hidden rounded-2xl">
@@ -106,7 +113,7 @@ const Products = () => {
                     </div>
                 </div>
             ))}
-        </div>
+        </motion.div>
         <Link href="/products">
             <Button  variant="expandIcon" Icon={FaArrowRightLong} iconPlacement="right"
             className='w-[180px] h-[60px] text-lg font-semibold hover:bg-emerald-800 hover:text-white bg-lime-100 border-2 border-emerald-800 drop-shadow-xl rounded-full text-emerald-800 transition-all duration-300 transform hover:scale-105'>

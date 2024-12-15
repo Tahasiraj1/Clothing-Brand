@@ -60,7 +60,7 @@ const Bestselling = () => {
             </p>
 
             <Carousel
-                className='w-full rounded-2xl items-center justify-center bg-white lg:max-w-[900px] sm:max-w-[290px] md:max-w-[700px]'
+                className='w-full rounded-2xl items-center justify-center bg-white lg:max-w-[900px] xl:max-w-[1200px] sm:max-w-[290px] md:max-w-[700px]'
                 opts={{
                     loop: true,
                 }}
@@ -70,7 +70,7 @@ const Bestselling = () => {
             >
                 <CarouselContent>
                     {bestSellingProducts.map((product) => (
-                        <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3">
+                        <CarouselItem key={product.id} className="md:basis-1/3 lg:basis-1/3">
                             <Link href={`/products/${product.id}`}>
                                 <div className='flex flex-col items-center justify-center relative'>
                                     <Image

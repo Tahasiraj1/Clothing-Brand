@@ -55,7 +55,7 @@ const Testimonials = () => {
       </h1>
 
       <Carousel
-      className='w-full bg-white lg:max-w-[1050px] sm:max-w-[300px] sm+:max-w-[400px] md:max-w-[680px]'
+      className='w-full bg-white lg:max-w-[1050px] xl:max-w-[1350px] sm:max-w-[300px] sm+:max-w-[400px] md:max-w-[680px]'
       opts={{
         loop: true,
       }}
