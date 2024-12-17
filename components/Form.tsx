@@ -58,7 +58,6 @@ export default function CheckoutForm() {
   const [windowSize, setWindowSize] = useState<confettiProps>({width: 0, height: 0});
   const [orderPlaced, setOrderPlaced] = useState<boolean>(false)
   const [orderId, setOrderId] = useState<string | null>(null);
-  const [orderDate, setOrderDate] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -119,7 +118,6 @@ export default function CheckoutForm() {
       const result = await response.json();
       console.log('Order placed successfully:', result);
       setOrderId(result.orderId);
-      setOrderDate(result.orderDate)
       setIsDialogOpen(true);
       setOrderPlaced(true);
       toast({
