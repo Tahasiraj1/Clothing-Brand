@@ -307,7 +307,7 @@ export default function CheckoutForm() {
         <OrderConfirmationDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        orderId={`${orderDate}-${orderId}`}
+        orderId={`${orderId}`}
         />
       )}
     </div>
