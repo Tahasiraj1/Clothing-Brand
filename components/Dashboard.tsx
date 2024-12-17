@@ -189,18 +189,22 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
       {searchError && (
         <div className="text-red-500 mb-4">{searchError}</div>
       )}
-      <Button 
-        onClick={handleConfirmOrders} 
-        disabled={selectedOrders.length === 0}
-        className="mb-4 rounded-full bg-emerald-700 text-white hover:bg-emerald-700"
-      >
-        Confirm
-      </Button>
+      {!searchResult && (
+        <Button 
+          onClick={handleConfirmOrders} 
+          disabled={selectedOrders.length === 0}
+          className="mb-4 rounded-full bg-emerald-700 text-white hover:bg-emerald-700"
+        >
+          Confirm
+        </Button>
+      )}
       <div className="w-full overflow-x-auto">
         <Table className="w-full border-collapse border border-emerald-400">
           <TableHeader>
             <TableRow className="border border-emerald-400">
-              <TableHead className="w-16 p-2 text-center">Select</TableHead>
+              {!searchResult && (
+                <TableHead className="w-16 p-2 text-center">Select</TableHead>
+              )}
               <TableHead className="p-2 hidden md:table-cell">Order ID</TableHead>
               <TableHead className="p-2">Customer</TableHead>
               <TableHead className="p-2 hidden lg:table-cell">Email</TableHead>
@@ -215,13 +219,15 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
           <TableBody>
             {currentOrders.map((order) => (
               <TableRow key={order.id} className="border-b border-emerald-200 hover:bg-lime-50">
-                <TableCell className="p-2 text-center">
-                  <Checkbox
-                    className="rounded-full"
-                    checked={selectedOrders.includes(order.id)}
-                    onCheckedChange={() => handleOrderSelect(order.id)}
-                  />
-                </TableCell>
+                {!searchResult && (
+                  <TableCell className="p-2 text-center">
+                    <Checkbox
+                      className="rounded-full"
+                      checked={selectedOrders.includes(order.id)}
+                      onCheckedChange={() => handleOrderSelect(order.id)}
+                    />
+                  </TableCell>
+                )}
                 <TableCell className="p-2 hidden md:table-cell">{order.id}</TableCell>
                 <TableCell className="p-2">{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
                 <TableCell className="p-2 hidden lg:table-cell">{order.customerDetails.email}</TableCell>
