@@ -45,6 +45,7 @@ interface Order {
   createdAt: string;
   customerDetails: CustomerDetails;
   items: OrderItem[];
+  status: string;
 }
 
 export default function DispatchedOrdersClient({ orders }: { orders: Order[] }) {
@@ -85,44 +86,55 @@ export default function DispatchedOrdersClient({ orders }: { orders: Order[] }) 
 
   return (
     <div className="min-h-screen py-4">
-      <div className="overflow-x-auto">
-        <Table className="border border-emerald-800 bg-lime-100 w-full">
+      <div className="w-full overflow-x-auto">
+        <Table className="w-full border-collapse border border-emerald-400">
           <TableHeader>
-            <TableRow className="border border-emerald-800">
-              <TableHead className="hidden md:table-cell">Order ID</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead className="hidden md:table-cell">Email</TableHead>
-              <TableHead className="hidden md:table-cell">Phone</TableHead>
-              <TableHead className="hidden md:table-cell">Address</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead className="hidden md:table-cell">Items</TableHead>
-              <TableHead className="hidden md:table-cell">Date</TableHead>
+            <TableRow className="border border-emerald-400">
+              <TableHead className="p-2 hidden md:table-cell">Order ID</TableHead>
+              <TableHead className="p-2">Customer</TableHead>
+              <TableHead className="p-2 hidden lg:table-cell">Email</TableHead>
+              <TableHead className="p-2 hidden lg:table-cell">Phone</TableHead>
+              <TableHead className="p-2 hidden lg:table-cell">Address</TableHead>
+              <TableHead className="p-2">Total</TableHead>
+              <TableHead className="p-2 hidden lg:table-cell">Items</TableHead>
+              <TableHead className="p-2">Date</TableHead>
+              <TableHead className="p-2 hidden lg:table-cell">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {currentOrders.map((order) => (
-              <TableRow className="border-emerald-800 hover:bg-lime-200" key={order.id}>
-                <TableCell className="hidden md:table-cell">{order.id}</TableCell>
-                <TableCell>{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
-                <TableCell className="hidden md:table-cell">{order.customerDetails.email}</TableCell>
-                <TableCell className="hidden md:table-cell">{order.customerDetails.phoneNumber}</TableCell>
-                <TableCell className="hidden md:table-cell">{`${order.customerDetails.city}, ${order.customerDetails.houseNo}, ${order.customerDetails.postalCode}`}</TableCell>
-                <TableCell>PKR {order.totalAmount.toFixed(2)}</TableCell>
-                <TableCell className="hidden md:table-cell">
-                  <ul>
+              <TableRow key={order.id} className="border-b border-emerald-200 hover:bg-lime-50">
+                <TableCell className="p-2 hidden md:table-cell">{order.id}</TableCell>
+                <TableCell className="p-2">{`${order.customerDetails.firstName} ${order.customerDetails.lastName}`}</TableCell>
+                <TableCell className="p-2 hidden lg:table-cell">{order.customerDetails.email}</TableCell>
+                <TableCell className="p-2 hidden lg:table-cell">{order.customerDetails.phoneNumber}</TableCell>
+                <TableCell className="p-2 hidden lg:table-cell">{`${order.customerDetails.city}, ${order.customerDetails.houseNo}, ${order.customerDetails.postalCode}`}</TableCell>
+                <TableCell className="p-2">PKR {order.totalAmount.toFixed(2)}</TableCell>
+                <TableCell className="p-2 hidden lg:table-cell">
+                  <ul className="list-disc list-inside">
                     {order.items.map((item, index) => (
                       <li key={index}>{`${item.name} (x${item.quantity})`}</li>
                     ))}
                   </ul>
                 </TableCell>
-                <TableCell className="hidden md:table-cell">{new Date(order.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell className="p-2">{new Date(order.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell className="p-2">
+                  <span className={`px-2 py-1 hidden lg:table-cell rounded-full text-xs font-semibold ${
+                    order.status === 'pending' ? 'bg-yellow-200 text-yellow-800' :
+                    order.status === 'confirmed' ? 'bg-green-200 text-green-800' :
+                    order.status === 'dispatched' ? 'bg-blue-200 text-blue-800' :
+                    'bg-gray-200 text-gray-800'
+                  }`}>
+                    {order.status}
+                  </span>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
 
-      <div className="mt-4 md:hidden">
+      <div className="mt-4 lg:hidden">
         <Accordion type="single" collapsible className="w-full">
           {currentOrders.map((order) => (
             <AccordionItem value={order.id} key={order.id}>
@@ -144,6 +156,17 @@ export default function DispatchedOrdersClient({ orders }: { orders: Order[] }) 
                       ))}
                     </ul>
                   </div>
+                  <p>
+                    <strong>Status:</strong>{' '}
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                      order.status === 'pending' ? 'bg-yellow-200 text-yellow-800' :
+                      order.status === 'confirmed' ? 'bg-green-200 text-green-800' :
+                      order.status === 'dispatched' ? 'bg-blue-200 text-blue-800' :
+                      'bg-gray-200 text-gray-800'
+                    }`}>
+                      {order.status}
+                    </span>
+                  </p>
                 </div>
               </AccordionContent>
             </AccordionItem>

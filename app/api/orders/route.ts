@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { auth, clerkClient } from '@clerk/nextjs/server';
 
-async function isAdmin(userId: string) {
+export async function isAdmin(userId: string) {
   const client = await clerkClient();
   const user = await client.users.getUser(userId);
   return user.publicMetadata.role === 'admin';
@@ -89,29 +89,48 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
+    const orderId = searchParams.get('id')
 
-    const where = status ? { status } : {}
+    if (orderId) {
+      const order = await prisma.order.findUnique({
+        where: { id: orderId },
+        include: {
+          customerDetails: true,
+          items: true
+        }
+      })
 
-    const orders = await prisma.order.findMany({
-      where,
-      include: {
-        customerDetails: true,
-        items: true
-      },
-      orderBy: {
-        createdAt: 'desc'
+      if (!order) {
+        console.log(`No order found with ID: ${orderId}`)
+        return NextResponse.json({ success: false, message: 'No order found' }, { status: 404 })
       }
-    })
 
-    console.log(`Found ${orders.length} orders:`, JSON.stringify(orders, null, 2))
+      console.log("Returning single order:", JSON.stringify(order, null, 2));
+      return NextResponse.json({ success: true, data: order })
+    } else {
+      const where = status ? { status } : {}
 
-    if (!orders || orders.length === 0) {
-      console.log('No orders found')
-      return NextResponse.json({ success: false, message: 'No orders found' }, { status: 404 })
+      const orders = await prisma.order.findMany({
+        where,
+        include: {
+          customerDetails: true,
+          items: true
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      })
+  
+      console.log(`Found ${orders.length} orders:`, JSON.stringify(orders, null, 2))
+  
+      if (!orders || orders.length === 0) {
+        console.log('No orders found')
+        return NextResponse.json({ success: false, message: 'No orders found' }, { status: 404 })
+      }
+  
+      console.log('Returning orders')
+      return NextResponse.json({ success: true, data: orders })
     }
-
-    console.log('Returning orders')
-    return NextResponse.json({ success: true, data: orders })
   } catch (error) {
     console.error('Error fetching orders:', error)
     return NextResponse.json(
