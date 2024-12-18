@@ -42,8 +42,8 @@ export default async function DashboardPage() {
   
   return (
     <div className="w-full px-4 py-8">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold mb-4">Pending Orders</h1>
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-2xl font-bold">Pending Orders</h1>
           <OrdersTypeSelector currentPage="pending" />
         </div>
       <Suspense fallback={<div>Loading orders...</div>}>

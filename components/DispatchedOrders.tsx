@@ -180,7 +180,7 @@ export default function DispatchedOrdersClient({ orders }: { orders: Order[] }) 
             key={i}
             onClick={() => paginate(i + 1)}
             className={`mx-1 px-3 py-1 border rounded-full ${
-              currentPage === i + 1 ? 'bg-lime-200 text-black' : 'bg-lime-100 text-black'
+              currentPage === i + 1 ? 'bg-emerald-200 text-black' : 'bg-emerald-100 text-black'
             }`}
           >
             {i + 1}

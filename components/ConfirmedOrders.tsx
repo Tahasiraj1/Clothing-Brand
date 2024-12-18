@@ -54,6 +54,7 @@ interface Order {
 export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [isDispatching, setIsDispatching] = useState<boolean>(false);
   const ordersPerPage = 10
   const router = useRouter()
   const { user, isLoaded } = useUser();
@@ -89,6 +90,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
 
   const handleDispatchOrders = async () => {
     try {
+      setIsDispatching(true);
       const response = await fetch('/api/orders', {
         method: 'PUT',
         headers: {
@@ -99,6 +101,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
           status: 'dispatched',
         }),
       })
+      setIsDispatching(false);
 
       if (!response.ok) {
         throw new Error('Failed to dispatch orders')
@@ -127,7 +130,11 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
         disabled={selectedOrders.length === 0}
         className="mb-4 rounded-full bg-emerald-800 text-white hover:bg-emerald-700"
       >
-        Dispatch
+        {isDispatching ? (
+          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-400"></div>
+        ) : (
+          'Dispatch'
+        )}
       </Button>
       <div className="w-full overflow-x-auto">
         <Table className="w-full border-collapse border border-emerald-400">
@@ -231,7 +238,7 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
             key={i}
             onClick={() => paginate(i + 1)}
             className={`mx-1 px-3 py-1 border rounded-full ${
-              currentPage === i + 1 ? 'bg-lime-200 text-black' : 'bg-lime-100 text-black'
+              currentPage === i + 1 ? 'bg-emerald-200 text-black' : 'bg-emerald-100 text-black'
             }`}
           >
             {i + 1}

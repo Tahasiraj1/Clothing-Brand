@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from 'next/navigation'
-import { PackageSearch } from 'lucide-react'
+import { PackageSearch, X } from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -22,6 +22,7 @@ import { Button } from "./ui/button";
 import { useUser } from '@clerk/nextjs';
 import { Input } from "./ui/input"
 import { searchOrder } from '@/lib/action'
+import { FaSearch } from "react-icons/fa";
 
 interface OrderItem {
   id: string;
@@ -60,6 +61,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   const [searchResult, setSearchResult] = useState<Order | null>(null)
   const [isSearching, setIsSearching] = useState(false)
   const [searchError, setSearchError] = useState<string | null>(null)
+  const [isConfirming, setIsConfirming] = useState<boolean>(false);
   const ordersPerPage = 10
   const { user, isLoaded } = useUser()
   const router = useRouter()
@@ -95,6 +97,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
 
   const handleConfirmOrders = async () => {
     try {
+      setIsConfirming(true);
       const response = await fetch('/api/orders', {
         method: 'PUT',
         headers: {
@@ -105,6 +108,7 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
           status: 'confirmed',
         }),
       })
+      setIsConfirming(false);
 
       if (!response.ok) {
         throw new Error('Failed to confirm orders')
@@ -170,33 +174,47 @@ export default function DashboardClient({ orders }: { orders: Order[] }) {
   return (
     <div className="w-full py-4">
       <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
-        <div className="flex items-center space-x-4 w-full sm:w-auto">
-          <Input
-            type="text"
-            placeholder="Search by Order ID"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            className="w-full sm:w-64"
-          />
-          <Button onClick={handleSearch} disabled={isSearching}>
-            {isSearching ? 'Searching...' : 'Search'}
+        <div className="flex items-center justify-between space-x-4 w-full sm:w-auto">
+          {!searchResult && (
+          <Button 
+            onClick={handleConfirmOrders} 
+            disabled={selectedOrders.length === 0}
+            className="rounded-full bg-emerald-700 text-white hover:bg-emerald-700"
+          >
+            {isConfirming ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-400"></div>
+            ) : (
+              "Confirm"
+            )}
           </Button>
+          )}
+          <div className="relative w-full sm+:w-64">
+            <Input
+              type="text"
+              placeholder="Search by Order ID"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="w-full pr-10 rounded-full"
+            />
+            <Button 
+              variant="ghost"
+              className="absolute right-0 top-0 hover:bg-emerald-100 rounded-full"
+              onClick={searchResult ? clearSearch : handleSearch}
+              disabled={isSearching}
+            >
+              {isSearching ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-700"></div>
+              ) : searchResult ? (
+                <X className="h-4 w-4" />
+              ) : (
+                <FaSearch className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
         </div>
-        {searchResult && (
-          <Button onClick={clearSearch}>Clear Search</Button>
-        )}
       </div>
       {searchError && (
         <div className="text-red-500 mb-4">{searchError}</div>
-      )}
-      {!searchResult && (
-        <Button 
-          onClick={handleConfirmOrders} 
-          disabled={selectedOrders.length === 0}
-          className="mb-4 rounded-full bg-emerald-700 text-white hover:bg-emerald-700"
-        >
-          Confirm
-        </Button>
       )}
       <div className="w-full overflow-x-auto">
         <Table className="w-full border-collapse border border-emerald-400">
