@@ -74,7 +74,7 @@ const Testimonials = () => {
                     <p className='mb-10'>
                     Whitepate is designed as a collaboration tool for businesses that is a full project management solution.
                     </p>
-                    <hr className='w-full mb-10 h-0.5 bg-emerald-600 px-2' />
+                    <hr className='w-full mb-10 h-1 rounded-full bg-emerald-600 px-2' />
                     <div className='flex flex-col items-center gap-4'>
                         <Image
                         src="/images/Avater.png"
@@ -103,7 +103,7 @@ const Testimonials = () => {
                     <p className='mb-10'>
                         Whitepate is designed as a collaboration tool for businesses that is a full project management solution.
                     </p>
-                    <hr className='w-full mb-10 h-0.5 bg-emerald-600 px-2' />
+                    <hr className='w-full mb-10 h-1 rounded-full bg-emerald-600 px-2' />
                     <div className='flex flex-col items-center gap-4'>
                         <Image
                         src="/images/Avater.png"
@@ -132,7 +132,7 @@ const Testimonials = () => {
                     <p className='mb-10'>
                     Whitepate is designed as a collaboration tool for businesses that is a full project management solution.
                     </p>
-                    <hr className='w-full mb-10 h-0.5 bg-emerald-600 px-2' />
+                    <hr className='w-full mb-10 h-1 rounded-full bg-emerald-600 px-2' />
                     <div className='flex flex-col items-center gap-4'>
                         <Image
                         src="/images/Avater.png"
@@ -161,7 +161,7 @@ const Testimonials = () => {
                     <p className='mb-10'>
                     Whitepate is designed as a collaboration tool for businesses that is a full project management solution.
                     </p>
-                    <hr className='w-full mb-10 h-0.5 bg-emerald-600 px-2' />
+                    <hr className='w-full mb-10 h-1 rounded-full bg-emerald-600 px-2' />
                     <div className='flex flex-col items-center gap-4'>
                         <Image
                         src="/images/Avater.png"
@@ -190,7 +190,7 @@ const Testimonials = () => {
                     <p className='mb-10'>
                     Whitepate is designed as a collaboration tool for businesses that is a full project management solution.
                     </p>
-                    <hr className='w-full mb-10 h-0.5 bg-emerald-600 px-2' />
+                    <hr className='w-full mb-10 h-1 rounded-full bg-emerald-600 px-2' />
                     <div className='flex flex-col items-center gap-4'>
                         <Image
                         src="/images/Avater.png"
