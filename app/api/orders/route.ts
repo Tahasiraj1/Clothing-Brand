@@ -79,9 +79,9 @@ export async function POST(request: Request) {
       }
     })
 
-    for (const item of items) {
-      await decrementProductQuantity(item.id, item.quantity)
-    }
+    // for (const item of items) {
+    //   await decrementProductQuantity(item.id, item.quantity)
+    // }
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
 
