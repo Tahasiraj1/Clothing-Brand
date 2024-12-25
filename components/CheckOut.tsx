@@ -10,7 +10,6 @@ import CheckoutForm from '@/components/Form';
 // import { useAuth } from '@clerk/nextjs';
 // import { useRouter } from 'next/navigation';
 import { urlFor } from '@/sanity/lib/image';
-import { Image as SanityImage } from '@sanity/types';
 
 const Checkout = () => {
     const { cart, clearCart, removeFromCart } = useCart();
