@@ -10,6 +10,7 @@ import { Minus } from 'lucide-react';
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { urlFor } from '@/sanity/lib/image';
 
 const Cart = () => {
     const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useCart();
@@ -45,7 +46,7 @@ const Cart = () => {
                         <div className='flex justify-between w-full pl-5'>
                             <div className='flex sm:flex-col md:flex-row items-center justify-center py-5 sm:gap-y-3 md:gap-y-0 w-full'>
                                 <Image
-                                src={item.image}
+                                src={urlFor(item.image).url()}
                                 alt={item.name}
                                 width={150}
                                 height={150}

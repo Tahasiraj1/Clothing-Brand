@@ -1,10 +1,12 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import products from "./productsData";
+import { client } from '@/sanity/lib/client';
+import { Image as SanityImage } from '@sanity/types';
+
 
 export interface CartItem {
-    image: string;
+    image: SanityImage;
     id: string;
     name: string;
     price: number;
@@ -22,10 +24,46 @@ interface CartContextType {
     decrementQuantity: (item: CartItem) => void;
 }
 
+interface Product {
+    id: string;
+    name: string;
+    quantity: number;
+    price: number;
+    images: { asset: { url: string } }[];
+    ratings: string;
+    sizes: string[];
+    colors: string[];
+    tags: string[];
+    description: string;
+}  
+
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export default function CartProvider ({ children }: { children: ReactNode }) {
     const [cart, setCart] = useState<CartItem[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const query = `
+            *[_type == "product"] {
+            id,
+            name,
+            quantity,
+            price,
+            "images": images[].asset->url,
+            ratings,
+            sizes,
+            colors,
+            tags,
+            description
+            }`;
+
+            const products = await client.fetch(query);
+            setProducts(products);
+        };
+        fetchProducts();
+    }, []);
 
     useEffect(() => {
         const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -38,7 +76,7 @@ export default function CartProvider ({ children }: { children: ReactNode }) {
 
 
     const getProductStock = (id: string) => {
-        const product = products.find((p) => p.id === id);
+        const product = products.find((p: Product) => p.id === id);
         return product ? product.quantity : 0; // Return 0 if the product is not found
     };
 

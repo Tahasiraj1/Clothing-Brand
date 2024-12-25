@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react";
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,14 +9,53 @@ import { TiStar } from "react-icons/ti";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from './ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
-import products from '@/lib/productsData';
+// import products from '@/lib/productsData';
+import { client } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
+import { Image as SanityImage } from '@sanity/types';
+
+interface Product {
+    id: string;
+    name: string;
+    quantity: number;
+    price: number;
+    images: SanityImage[];
+    ratings: string;
+    sizes: string[];
+    colors: string[];
+    tags: string[];
+    description: string;
+}  
 
 const Bestselling = () => {
     const plugin = React.useRef(
         Autoplay({ delay: 2000, stopOnInteraction: true })
     )
+    const [products, setProducts] = useState<Product[]>([]);
 
-    const bestSellingProducts = products.filter(product => product.tags.includes('Best Selling'));
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const query = `
+            *[_type == "product"] {
+            id,
+            name,
+            quantity,
+            price,
+            "images": images[].asset->url,
+            ratings,
+            sizes,
+            colors,
+            tags,
+            description
+            }`;
+
+            const products = await client.fetch(query);
+            setProducts(products);
+        };
+        fetchProducts();
+    }, []);
+
+    const bestSellingProducts = products.filter((product: Product) => product.tags.includes('Best Selling'));
 
     return (
         <div className='py-10 px-5 flex flex-col items-center justify-center'>
@@ -69,12 +109,12 @@ const Bestselling = () => {
                 onMouseLeave={plugin.current.reset}
             >
                 <CarouselContent>
-                    {bestSellingProducts.map((product) => (
+                    {bestSellingProducts.map((product: Product) => (
                         <CarouselItem key={product.id} className="md:basis-1/3 lg:basis-1/3">
                             <Link href={`/products/${product.id}`}>
                                 <div className='flex flex-col items-center justify-center relative'>
                                     <Image
-                                        src={product.images[0]}
+                                        src={urlFor(product.images[0]).url()}
                                         alt={product.name}
                                         width={1000}
                                         height={1000}

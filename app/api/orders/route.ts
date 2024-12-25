@@ -1,6 +1,20 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { auth, clerkClient } from '@clerk/nextjs/server';
+import { decrementProductQuantity } from '@/lib/productsData';
+
+interface Product {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  images: { asset: { url: string } }[];
+  ratings: string;
+  sizes: string[];
+  colors: string[];
+  tags: string[];
+  description: string;
+}  
 
 async function isAdmin(userId: string) {
   const client = await clerkClient();
@@ -45,7 +59,11 @@ export async function POST(request: Request) {
           create: customerDetails
         },
         items: {
-          create: items
+          create: items.map((item: Product) => ({
+            productId: item.id,
+            quantity: item.quantity,
+            price: item.price
+          }))
         },
         totalAmount,
         status: 'pending'
@@ -55,6 +73,10 @@ export async function POST(request: Request) {
         items: true
       }
     })
+
+    for (const item of items) {
+      await decrementProductQuantity(item.id, item.quantity)
+    }
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
 

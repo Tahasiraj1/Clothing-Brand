@@ -13,17 +13,54 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import products from "@/lib/productsData";
+// import products from "@/lib/productsData";
 import { useRouter } from 'next/navigation'
 import { useState, useRef, useEffect } from "react";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { client } from '@/sanity/lib/client';
+
+interface Product {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  images: { asset: { url: string } }[];
+  ratings: string;
+  sizes: string[];
+  colors: string[];
+  tags: string[];
+  description: string;
+}
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const { user } = useUser();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+      const fetchProducts = async () => {
+          const query = `
+          *[_type == "product"] {
+          id,
+          name,
+          quantity,
+          price,
+          "images": images[].asset->url,
+          ratings,
+          sizes,
+          colors,
+          tags,
+          description
+          }`;
+
+          const products = await client.fetch(query);
+          setProducts(products);
+      };
+      fetchProducts();
+  }, []);
 
   const role = user?.publicMetadata?.role;
 

@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useState } from 'react';
-import products from '@/lib/productsData';
+import React, { useState, useEffect } from 'react';
+// import products from '@/lib/productsData';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,24 +18,64 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Select, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, SelectContent } from '@/components/ui/select';
 import { useToast } from "@/hooks/use-toast";
 import WhatMakesUsDiff from '@/components/WhatMakesUsDiff';
+import { client } from '@/sanity/lib/client';
+import { urlFor } from "@/sanity/lib/image";
+import { Image as SanityImage } from '@sanity/types';
+
+interface Product {
+    id: string;
+    name: string;
+    quantity: number;
+    price: number;
+    images: SanityImage[];
+    ratings: string;
+    sizes: string[];
+    colors: string[];
+    tags: string[];
+    description: string;
+}  
+
 
 
 const ProductDetails = () => {
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
     const [selectedSize, setSelectedSize] = useState<string | null>(null)
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const query = `
+            *[_type == "product"] {
+            id,
+            name,
+            quantity,
+            price,
+            "images": images[].asset->url,
+            ratings,
+            sizes,
+            colors,
+            tags,
+            description
+            }`;
+
+            const products = await client.fetch(query);
+            setProducts(products);
+        };
+        fetchProducts();
+    }, []);
 
     const plugin = React.useRef(
         Autoplay({ delay: 2000, stopOnInteraction: true })
-      )
+    )
 
-      const { toast } = useToast();
-      const { addToCart } = useCart();
+    const { toast } = useToast();
+    const { addToCart } = useCart();
 
-      const handleAddToCart = () => {
-        if (selectedColor && selectedSize) {
+    const handleAddToCart = () => {
+        if (selectedColor && selectedSize && product) {
             addToCart({
                 id: product?.id as string,
-                image: product?.images ? product.images[0] : '',
+                image: product?.images?.[0],
                 name: product?.name as string,
                 price: product?.price as number,
                 quantity: 1,
@@ -46,7 +86,7 @@ const ProductDetails = () => {
                 title: "Success!",
                 description: "Item is added to cart.",
                 duration: 5000,
-              });
+            });
         } else {
             // alert('Please select a size and color.');
             toast({
@@ -54,13 +94,13 @@ const ProductDetails = () => {
                 description: "Please select a size and color.",
                 variant: "destructive",
                 duration: 5000,
-              });
+            });
         }
-      };
+    };
 
     const params = useParams();
     const productId = params.id;
-    const product = products.find((product) => product.id === productId);
+    const product = products.find((product: Product) => product.id === productId);
 
     if (!product) return (
         <div className='h-screen items-center flex flex-col gap-2 justify-center'>
@@ -85,10 +125,10 @@ const ProductDetails = () => {
         <div className='flex lg:flex-row sm:flex-col pt-10 pb-20 px-5'>
                 <ScrollArea className='drop-shadow-lg rounded-2xl'>
                 <div className='flex space-x-2'>
-                    {product.images.map((image, index) => (
+                    {product.images.map((image, index: number) => (
                         <Image
                         key={index}
-                        src={image}
+                        src={urlFor(image).url()}
                         alt={`Image ${index + 1} of ${product.name}`}
                         width={1000}
                         height={1000}
@@ -119,7 +159,7 @@ const ProductDetails = () => {
                         <SelectContent className='bg-gradient-to-br from-lime-200 to-emerald-200  rounded-xl border border-emerald-600 drop-shadow-2xl'>
                             <SelectGroup>
                                 <SelectLabel>Colors</SelectLabel>
-                                {product.colors.map((color) => (
+                                {product.colors.map((color: string) => (
                                     <SelectItem key={color} value={color}>
                                         {color}
                                     </SelectItem>
@@ -136,7 +176,7 @@ const ProductDetails = () => {
                         <SelectContent className='bg-gradient-to-br from-lime-200 to-emerald-200 rounded-xl border border-emerald-600 drop-shadow-2xl'>
                             <SelectGroup>
                                 <SelectLabel>Sizes</SelectLabel>
-                                {product.sizes.map((size) => (
+                                {product.sizes.map((size: string) => (
                                     <SelectItem key={size} value={size}>
                                         {size}
                                     </SelectItem>
@@ -209,10 +249,10 @@ const ProductDetails = () => {
             onMouseLeave={plugin.current.reset}
             >
                 <CarouselContent>
-                        {products.slice(0, 6).map((product, index) => (
+                        {products.slice(0, 6).map((product: Product, index: number) => (
                             <CarouselItem key={index} className='flex flex-col md:basis-1/2 lg:basis-1/3 xl:basis-1/4'>
                                 <Image
-                                src={product.images[0]}
+                                src={urlFor(product.images[0]).url()}
                                 alt='product'
                                 width={1000}
                                 height={1000}

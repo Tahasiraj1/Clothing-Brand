@@ -1,13 +1,17 @@
 "use client"
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Button } from './ui/button';
 import { FaArrowRightLong } from "react-icons/fa6";
 import Link from 'next/link';
-import  products  from '@/lib/productsData';
+// import  products  from '@/lib/productsData';
 import { TiStar } from 'react-icons/ti';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
+import { client } from '@/sanity/lib/client';
+import { urlFor } from "@/sanity/lib/image";
+import { Image as SanityImage } from '@sanity/types';
 
 const getBadgeForTag = (tag: string) => {
     switch (tag) {
@@ -22,7 +26,44 @@ const getBadgeForTag = (tag: string) => {
     }
 };
 
+interface Product {
+    id: string;
+    name: string;
+    quantity: number;
+    price: number;
+    images: SanityImage[];
+    ratings: string;
+    sizes: string[];
+    colors: string[];
+    tags: string[];
+    description: string;
+}  
+
 const Products = () => {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const query = `
+            *[_type == "product"] {
+            id,
+            name,
+            quantity,
+            price,
+            "images": images[].asset->url,
+            ratings,
+            sizes,
+            colors,
+            tags,
+            description
+            }`;
+
+            const products = await client.fetch(query);
+            setProducts(products);
+        };
+        fetchProducts();
+    }, []);
+
   return (
     <div className='w-full flex flex-col pb-10 items-center justify-center'>
         <h1 className='text-3xl font-bold'>Featured 
@@ -66,18 +107,18 @@ const Products = () => {
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
         >
-            {products.slice(0, 8).map((product) => (
+            {products.slice(0, 8).map((product: Product) => (
                 <div key={product.id}>
                         <div className="relative w-full overflow-hidden rounded-2xl">
                             <Image 
-                                src={product.images[0]} 
+                                src={urlFor(product.images[0]).url()}
                                 alt={product.name}
                                 width={1000}
                                 height={1000}
                                 className="w-full h-auto object-cover opacity-100 hover:opacity-0 duration-300 hover:scale-110 transition-transform transform"
                             />
                             <Image 
-                                src={product.images[1]} 
+                                src={urlFor(product.images[1]).url()}
                                 alt={product.name}
                                 width={1000}
                                 height={1000}

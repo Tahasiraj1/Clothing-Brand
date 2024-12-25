@@ -9,6 +9,8 @@ import { X } from 'lucide-react';
 import CheckoutForm from '@/components/Form';
 // import { useAuth } from '@clerk/nextjs';
 // import { useRouter } from 'next/navigation';
+import { urlFor } from '@/sanity/lib/image';
+import { Image as SanityImage } from '@sanity/types';
 
 const Checkout = () => {
     const { cart, clearCart, removeFromCart } = useCart();
@@ -54,7 +56,7 @@ const Checkout = () => {
                             </button>
                         </div>
                             <Image
-                                src={item.image}
+                                src={urlFor(item.image).url()}
                                 alt={item.name}
                                 width={100}
                                 height={100}
