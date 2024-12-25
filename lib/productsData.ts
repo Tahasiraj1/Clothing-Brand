@@ -1,15 +1,5 @@
 import { client } from '@/sanity/lib/client';
 
-export async function getProducts() {
-  try {
-    const products = await client.fetch('*[_type == "product"]')
-    return products
-  } catch (error) {
-    console.error('Error fetching products:', error)
-    return []
-  }
-}
-
 export async function decrementProductQuantity(productId: string, amount: number) {
   try {
     const updatedProduct = await client
@@ -19,7 +9,7 @@ export async function decrementProductQuantity(productId: string, amount: number
     return updatedProduct
   } catch (error) {
     console.error('Error decrementing product quantity:', error)
-    return null
+    throw error; // Propagate the error
   }
 }
 
