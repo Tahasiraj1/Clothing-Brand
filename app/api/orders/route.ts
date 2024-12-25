@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { auth, clerkClient } from '@clerk/nextjs/server';
-import { decrementProductQuantity } from '@/lib/productsData';
+// import { decrementProductQuantity } from '@/lib/productsData';
 // import { Image as SanityImage } from '@sanity/types';
 
 // interface Product {
