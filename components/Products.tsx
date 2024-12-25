@@ -44,19 +44,7 @@ const Products = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const query = `
-            *[_type == "product"] {
-            id,
-            name,
-            quantity,
-            price,
-            "images": images[].asset->url,
-            ratings,
-            sizes,
-            colors,
-            tags,
-            description
-            }`;
+            const query = '*[_type == "product"]';
 
             const products = await client.fetch(query);
             setProducts(products);
