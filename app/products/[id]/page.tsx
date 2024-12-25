@@ -72,7 +72,7 @@ const ProductDetails = () => {
     const { addToCart } = useCart();
 
     const handleAddToCart = () => {
-        if (selectedColor && selectedSize && product) {
+        if (selectedColor && selectedSize && product && product.images.length > 0) {
             addToCart({
                 id: product?.id as string,
                 image: product?.images?.[0],
@@ -100,7 +100,7 @@ const ProductDetails = () => {
 
     const params = useParams();
     const productId = params.id;
-    const product = products.find((product: Product) => product.id === productId);
+    const product = products.find((product) => product.id === productId);
 
     if (!product) return (
         <div className='h-screen items-center flex flex-col gap-2 justify-center'>
