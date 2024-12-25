@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import { decrementProductQuantity } from '@/lib/productsData';
+import { Image as SanityImage } from '@sanity/types';
 
 interface Product {
   id: string;
   name: string;
   quantity: number;
   price: number;
-  images: { asset: { url: string } }[];
+  images: SanityImage[];
   ratings: string;
   sizes: string[];
   colors: string[];
