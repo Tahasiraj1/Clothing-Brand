@@ -21,32 +21,32 @@ async function isAdmin(userId: string) {
 async function decrementProductQuantity(productId: string, amount: number) {
   try {
     console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
-    
-    // First, check if the product exists and has sufficient quantity
-    const product = await client.fetch(`*[_type == "product" && id == $"productId"][0]`, { productId });
-    
+
+    // Fetch the product from Sanity using the provided productId
+    const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId });
+
     if (!product) {
-      throw new Error(`Product with ID ${productId} not found`);
+      throw new Error(`Product with ID ${productId} not found in Sanity`);
     }
 
     if (product.quantity < amount) {
       throw new Error(`Insufficient quantity for product ${productId}. Available: ${product.quantity}, Requested: ${amount}`);
     }
 
-    console.log(`Found product:`, product);
+    console.log(`Found product in Sanity:`, product);
 
-    // If the product exists and has sufficient quantity, proceed with the update
+    // Decrement the quantity using the _id of the document
     const updatedProduct = await client
-      .patch(product._id)
+      .patch(product._id) // Patch using _id
       .dec({ quantity: amount })
-      .commit()
-    
-    console.log(`Updated product:`, updatedProduct);
-    
-    return updatedProduct
+      .commit();
+
+    console.log(`Updated product in Sanity:`, updatedProduct);
+
+    return updatedProduct;
   } catch (error) {
-    console.error('Error decrementing product quantity:', error)
-    throw error; // Propagate the error
+    console.error('Error decrementing product quantity:', error);
+    throw error; // Re-throw the error to be caught in the main POST handler
   }
 }
 
@@ -81,6 +81,17 @@ export async function POST(request: Request) {
       }
     }
 
+        // Check product quantities before creating the order
+        for (const item of items) {
+          const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId: item.productId });
+          if (!product || product.quantity < item.quantity) {
+            return NextResponse.json(
+              { success: false, error: `Insufficient quantity for product ${item.name}` },
+              { status: 400 }
+            )
+          }
+        }
+
     const order = await prisma.order.create({
       data: {
         customerDetails: {
@@ -105,16 +116,17 @@ export async function POST(request: Request) {
       }
     })
 
-    // Update product quantities in Sanity
-    const updatePromises = items.map((item: OrderItem) => 
-      decrementProductQuantity(item.productId, item.quantity)
-        .catch(error => {
+    await Promise.all(
+      order.items.map(async (item) => {
+        try {
+          await decrementProductQuantity(item.productId, item.quantity);
+        } catch (error) {
           console.error(`Failed to update quantity for product ${item.productId}:`, error);
-          return null; // Continue with other updates even if one fails
-        })
+          // Handle the error appropriately, e.g., revert the order, notify the user, etc.
+          // For now, we'll just log the error and continue with other updates.
+        }
+      })
     );
-
-    await Promise.all(updatePromises);
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
 
