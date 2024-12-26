@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { auth, clerkClient } from '@clerk/nextjs/server';
-// import { decrementProductQuantity } from '@/lib/productsData';
+import { client } from '@/sanity/lib/client';
 
 interface OrderItem {
   productId: string
@@ -16,6 +16,19 @@ async function isAdmin(userId: string) {
   const client = await clerkClient();
   const user = await client.users.getUser(userId);
   return user.publicMetadata.role === 'admin';
+}
+
+export async function decrementProductQuantity(productId: string, amount: number) {
+  try {
+    const updatedProduct = await client
+      .patch(productId)
+      .dec({ quantity: amount })
+      .commit()
+    return updatedProduct
+  } catch (error) {
+    console.error('Error decrementing product quantity:', error)
+    throw error; // Propagate the error
+  }
 }
 
 export async function POST(request: Request) {
@@ -73,9 +86,9 @@ export async function POST(request: Request) {
       }
     })
 
-    // for (const item of items) {
-    //   await decrementProductQuantity(item.productId, item.quantity)
-    // }
+    for (const item of items) {
+      await decrementProductQuantity(item.productId, item.quantity)
+    }
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
 
