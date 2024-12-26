@@ -23,11 +23,16 @@ async function decrementProductQuantity(productId: string, amount: number) {
     console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
 
     // Fetch the product from Sanity using the provided productId
-    const product = await client.fetch(`*[_type == "product" && id == $productId][0]{_id, id, quantity}`, { productId });
+    const product = await client.fetch(`*[_type == "product" && id == $productId][0]{_id, id, quantity}`, 
+      { productId: String(productId) }
+    );
 
     if (!product) {
       throw new Error(`Product with ID ${productId} not found in Sanity`);
     }
+
+    console.log(`Fetched product:`, product);
+    console.log(`Product ID to decrement:`, product._id);
 
     if (product.quantity < amount) {
       throw new Error(`Insufficient quantity for product ${productId}. Available: ${product.quantity}, Requested: ${amount}`);
