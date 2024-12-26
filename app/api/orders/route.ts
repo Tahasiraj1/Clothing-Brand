@@ -23,7 +23,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
     console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
     
     // First, check if the product exists and has sufficient quantity
-    const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId });
+    const product = await client.fetch(`*[_type == "product" && id == $"productId"][0]`, { productId });
     
     if (!product) {
       throw new Error(`Product with ID ${productId} not found`);
@@ -76,17 +76,6 @@ export async function POST(request: Request) {
       if (!customerDetails[field]) {
         return NextResponse.json(
           { success: false, error: `Missing required field: ${field}` },
-          { status: 400 }
-        )
-      }
-    }
-
-    // Check product quantities before creating the order
-    for (const item of items) {
-      const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId: item.productId });
-      if (!product || product.quantity < item.quantity) {
-        return NextResponse.json(
-          { success: false, error: `Insufficient quantity for product ${item.name}` },
           { status: 400 }
         )
       }
