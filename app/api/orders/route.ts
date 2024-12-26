@@ -18,7 +18,7 @@ async function isAdmin(userId: string) {
   return user.publicMetadata.role === 'admin';
 }
 
-export async function decrementProductQuantity(productId: string, amount: number) {
+async function decrementProductQuantity(productId: string, amount: number) {
   try {
     const updatedProduct = await client
       .patch(productId)
