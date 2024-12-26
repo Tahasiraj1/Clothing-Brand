@@ -88,6 +88,10 @@ export async function POST(request: Request) {
       errorMessage = error.message
     }
 
+      // Log additional information that might be helpful
+      console.error('Prisma Client:', prisma)
+      console.error('Environment variables:', process.env)
+
     return NextResponse.json(
       { success: false, error: 'Failed to create order', details: errorMessage },
       { status: 500 }
