@@ -23,7 +23,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
     console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
 
     // Fetch the product from Sanity using the provided productId
-    const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId });
+    const product = await client.fetch(`*[_type == "product" && id == $productId][0]{_id, id, quantity}`, { productId });
 
     if (!product) {
       throw new Error(`Product with ID ${productId} not found in Sanity`);
@@ -37,7 +37,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
 
     // Decrement the quantity using the _id of the document
     const updatedProduct = await client
-      .patch(product.productId)
+      .patch(product._id)
       .dec({ quantity: amount })
       .commit();
 
