@@ -20,6 +20,14 @@ async function isAdmin(userId: string) {
 
 async function decrementProductQuantity(productId: string, amount: number) {
   try {
+    // First, check if the product exists
+    const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId });
+    
+    if (!product) {
+      throw new Error(`Product with ID ${productId} not found`);
+    }
+
+    // If the product exists, proceed with the update
     const updatedProduct = await client
       .patch(productId)
       .dec({ quantity: amount })
@@ -86,9 +94,16 @@ export async function POST(request: Request) {
       }
     })
 
-    for (const item of items) {
-      await decrementProductQuantity(item.productId, item.quantity)
-    }
+    // Update product quantities in Sanity
+    const updatePromises = items.map((item: OrderItem) => 
+      decrementProductQuantity(item.productId, item.quantity)
+        .catch(error => {
+          console.error(`Failed to update quantity for product ${item.productId}:`, error);
+          return null; // Continue with other updates even if one fails
+        })
+    );
+
+    await Promise.all(updatePromises);
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
 
