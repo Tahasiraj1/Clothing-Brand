@@ -29,7 +29,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
 
     // If the product exists, proceed with the update
     const updatedProduct = await client
-      .patch(product.id)
+      .patch(product.productId)
       .dec({ quantity: amount })
       .commit()
     return updatedProduct
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
         },
         items: {
           create: items.map((item: OrderItem) => ({
-            id: item.productId, // Use the product ID as the item ID (for easier reference)
+            productId: item.productId, // Use the product ID as the item ID (for easier reference)
             name: item.name,
             quantity: item.quantity,
             price: item.price,
