@@ -1,17 +1,17 @@
-import { client } from '@/sanity/lib/client';
+// import { client } from '@/sanity/lib/client';
 
-export async function decrementProductQuantity(productId: string, amount: number) {
-  try {
-    const updatedProduct = await client
-      .patch(productId)
-      .dec({ quantity: amount })
-      .commit()
-    return updatedProduct
-  } catch (error) {
-    console.error('Error decrementing product quantity:', error)
-    throw error; // Propagate the error
-  }
-}
+// export async function decrementProductQuantity(productId: string, amount: number) {
+//   try {
+//     const updatedProduct = await client
+//       .patch(productId)
+//       .dec({ quantity: amount })
+//       .commit()
+//     return updatedProduct
+//   } catch (error) {
+//     console.error('Error decrementing product quantity:', error)
+//     throw error; // Propagate the error
+//   }
+// }
 
 
 
