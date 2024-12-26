@@ -129,7 +129,10 @@ export async function POST(request: Request) {
 
     try {
       await Promise.all(updatePromises);
-    } catch (error: unknown) {
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error; // Propagate the error
+      }
       // If any product update fails, delete the created order and throw an error
       await prisma.order.delete({ where: { id: order.id } });
       throw new Error('Failed to update product quantities. Order has been cancelled.');
