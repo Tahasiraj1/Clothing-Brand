@@ -37,7 +37,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
 
     // Decrement the quantity using the _id of the document
     const updatedProduct = await client
-      .patch(product.id)
+      .patch(product.productId)
       .dec({ quantity: amount })
       .commit();
 
