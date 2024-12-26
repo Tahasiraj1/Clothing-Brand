@@ -20,18 +20,29 @@ async function isAdmin(userId: string) {
 
 async function decrementProductQuantity(productId: string, amount: number) {
   try {
-    // First, check if the product exists
+    console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
+    
+    // First, check if the product exists and has sufficient quantity
     const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId });
     
     if (!product) {
       throw new Error(`Product with ID ${productId} not found`);
     }
 
-    // If the product exists, proceed with the update
+    if (product.quantity < amount) {
+      throw new Error(`Insufficient quantity for product ${productId}. Available: ${product.quantity}, Requested: ${amount}`);
+    }
+
+    console.log(`Found product:`, product);
+
+    // If the product exists and has sufficient quantity, proceed with the update
     const updatedProduct = await client
-      .patch(product.productId)
+      .patch(product._id)  // Use _id for patching, not productId
       .dec({ quantity: amount })
       .commit()
+    
+    console.log(`Updated product:`, updatedProduct);
+    
     return updatedProduct
   } catch (error) {
     console.error('Error decrementing product quantity:', error)
@@ -70,6 +81,17 @@ export async function POST(request: Request) {
       }
     }
 
+    // Check product quantities before creating the order
+    for (const item of items) {
+      const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId: item.productId });
+      if (!product || product.quantity < item.quantity) {
+        return NextResponse.json(
+          { success: false, error: `Insufficient quantity for product ${item.name}` },
+          { status: 400 }
+        )
+      }
+    }
+
     const order = await prisma.order.create({
       data: {
         customerDetails: {
@@ -94,16 +116,24 @@ export async function POST(request: Request) {
       }
     })
 
+    console.log('Order created, now updating product quantities');
+
     // Update product quantities in Sanity
     const updatePromises = items.map((item: OrderItem) => 
       decrementProductQuantity(item.productId, item.quantity)
         .catch(error => {
           console.error(`Failed to update quantity for product ${item.productId}:`, error);
-          return null; // Continue with other updates even if one fails
+          throw error; // Propagate the error to trigger order rollback
         })
     );
 
-    await Promise.all(updatePromises);
+    try {
+      await Promise.all(updatePromises);
+    } catch (error) {
+      // If any product update fails, delete the created order and throw an error
+      await prisma.order.delete({ where: { id: order.id } });
+      throw new Error('Failed to update product quantities. Order has been cancelled.');
+    }
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
 
