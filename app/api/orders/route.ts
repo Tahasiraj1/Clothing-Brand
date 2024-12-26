@@ -21,7 +21,7 @@ async function isAdmin(userId: string) {
 async function decrementProductQuantity(productId: string, amount: number) {
   try {
     // First, check if the product exists
-    const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId });
+    const product = await client.fetch(`*[_type == "product" && _id == $productId][0]`, { productId });
     
     if (!product) {
       throw new Error(`Product with ID ${productId} not found`);
@@ -115,10 +115,6 @@ export async function POST(request: Request) {
     if (error instanceof Error) {
       errorMessage = error.message
     }
-
-      // Log additional information that might be helpful
-      console.error('Prisma Client:', prisma)
-      console.error('Environment variables:', process.env)
 
     return NextResponse.json(
       { success: false, error: 'Failed to create order', details: errorMessage },
