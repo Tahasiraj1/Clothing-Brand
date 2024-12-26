@@ -37,7 +37,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
 
     // If the product exists and has sufficient quantity, proceed with the update
     const updatedProduct = await client
-      .patch(product._id)  // Use _id for patching, not productId
+      .patch(product.productId)  // Use _id for patching, not productId
       .dec({ quantity: amount })
       .commit()
     
