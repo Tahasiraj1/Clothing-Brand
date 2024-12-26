@@ -21,7 +21,7 @@ async function isAdmin(userId: string) {
 async function decrementProductQuantity(productId: string, amount: number) {
   try {
     // First, check if the product exists
-    const product = await client.fetch(`*[_type == "product" && _id == $productId][0]`, { productId });
+    const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId });
     
     if (!product) {
       throw new Error(`Product with ID ${productId} not found`);
@@ -29,7 +29,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
 
     // If the product exists, proceed with the update
     const updatedProduct = await client
-      .patch(product._id)
+      .patch(product.id)
       .dec({ quantity: amount })
       .commit()
     return updatedProduct
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
         },
         items: {
           create: items.map((item: OrderItem) => ({
-            productId: item.productId, // Use the Sanity product ID
+            id: item.productId, // Use the product ID as the item ID (for easier reference)
             name: item.name,
             quantity: item.quantity,
             price: item.price,
