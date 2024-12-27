@@ -25,21 +25,23 @@ export async function POST(request: Request) {
 
     const updates = items.map(item => ({
       patch: {
-        id: `*[_type == "product" && id == "${item.productId}"][0]._id`,
+        query: `*[_type == "product" && id == "${item.productId}"][0]`,
         dec: { quantity: item.quantity }
       }
     }));
 
     const result = await client.transaction(updates).commit();
-    console.log('Sanity update result:', result);
+    console.log('Sanity update result:', JSON.stringify(result, null, 2));
 
     return NextResponse.json({ success: true, result }, { status: 200 });
   } catch (error) {
     console.error('Error updating Sanity:', error);
-    return NextResponse.json({ error: 'Failed to update Sanity' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to update Sanity', details: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
   }
 }
 
 export const dynamic = 'force-dynamic';
+
+
 
 
