@@ -20,20 +20,28 @@ async function isAdmin(userId: string) {
 
 async function triggerSanityWebhook(items: OrderItem[]) {
   const webhookUrl = process.env.SANITY_WEBHOOK_URL;
+  const webhookSecret = process.env.SANITY_WEBHOOK_SECRET;
+
   if (!webhookUrl) {
     throw new Error('SANITY_WEBHOOK_URL is not set');
+  }
+
+  if (!webhookSecret) {
+    throw new Error('SANITY_WEBHOOK_SECRET is not set');
   }
 
   const response = await fetch(webhookUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${webhookSecret}`,
     },
     body: JSON.stringify({ items }),
   });
 
   if (!response.ok) {
-    throw new Error(`Webhook call failed: ${response.statusText}`);
+    const errorBody = await response.text();
+    throw new Error(`Webhook call failed: ${response.status} ${response.statusText}\nBody: ${errorBody}`);
   }
 
   return await response.json();
@@ -97,10 +105,12 @@ export async function POST(request: Request) {
 
     // Trigger Sanity webhook to update product quantities
     try {
-      await triggerSanityWebhook(order.items);
+      const webhookResult = await triggerSanityWebhook(order.items);
+      console.log('Sanity webhook result:', webhookResult);
     } catch (webhookError) {
       console.error('Failed to update Sanity via webhook:', webhookError);
-      // You might want to implement some retry logic or alert system here
+      // Here you might want to implement a retry mechanism or alert an admin
+      // For now, we'll just log the error and continue
     }
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
