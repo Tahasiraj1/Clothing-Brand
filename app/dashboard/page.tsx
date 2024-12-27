@@ -3,7 +3,6 @@ import DashboardClient from '@/components/Dashboard'
 import OrdersTypeSelector from '@/components/OrdersTypeSelector'
 import { auth } from '@clerk/nextjs/server';
 
-export const dynamic = 'force-dynamic'
 
 async function getOrders() {
   try {

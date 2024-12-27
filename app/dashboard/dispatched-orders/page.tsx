@@ -3,7 +3,6 @@ import DispatchedOrdersClient from '@/components/DispatchedOrders'
 import OrdersTypeSelector from '@/components/OrdersTypeSelector'
 import { auth } from '@clerk/nextjs/server';
 
-export const dynamic = 'force-dynamic'
 
 async function getDispatchedOrders() {
   try {

@@ -3,7 +3,6 @@ import ConfirmedOrdersClient from '@/components/ConfirmedOrders'
 import OrdersTypeSelector from '@/components/OrdersTypeSelector'
 import { auth } from '@clerk/nextjs/server';
 
-export const dynamic = 'force-dynamic'
 
 async function getConfirmedOrders() {
   try {
