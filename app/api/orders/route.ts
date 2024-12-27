@@ -1,15 +1,14 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { auth, clerkClient } from '@clerk/nextjs/server';
-import { client } from '@/sanity/lib/client';
 
 interface OrderItem {
   productId: string
   name: string
   quantity: number
   price: number
-  color?: string
-  size?: string
+  color?: string | null;
+  size?: string | null;
 }
 
 async function isAdmin(userId: string) {
@@ -19,22 +18,25 @@ async function isAdmin(userId: string) {
 }
 
 
-
-async function decrementProductQuantity(productId: string, amount: number) {
-  try {
-    console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
-
-    const result = await client
-      .patch(`*[_type == "product" && id == $productId][0]._id`)
-      .dec({ quantity: amount })
-      .commit();
-
-    console.log(`Updated product in Sanity:`, result);
-    return result;
-  } catch (error) {
-    console.error('Error decrementing product quantity:', error);
-    throw error;
+async function triggerSanityWebhook(items: OrderItem[]) {
+  const webhookUrl = process.env.SANITY_WEBHOOK_URL;
+  if (!webhookUrl) {
+    throw new Error('SANITY_WEBHOOK_URL is not set');
   }
+
+  const response = await fetch(webhookUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ items }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Webhook call failed: ${response.statusText}`);
+  }
+
+  return await response.json();
 }
 
 export async function POST(request: Request) {
@@ -68,58 +70,37 @@ export async function POST(request: Request) {
       }
     }
 
-    // Check product quantities before creating the order
-    for (const item of items) {
-      const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId: item.productId });
-      if (!product || product.quantity < item.quantity) {
-        return NextResponse.json(
-          { success: false, error: `Insufficient quantity for product ${item.name}` },
-          { status: 400 }
-        )
-      }
-    }
-
-    // Start a transaction
-    const [order, updateResults] = await prisma.$transaction(async (prismaClient) => {
-      // Create the order
-      const newOrder = await prismaClient.order.create({
-        data: {
-          customerDetails: {
-            create: customerDetails
-          },
-          items: {
-            create: items.map((item: OrderItem) => ({
-              productId: item.productId,
-              name: item.name,
-              quantity: item.quantity,
-              price: item.price,
-              color: item.color,
-              size: item.size,
-            }))
-          },
-          totalAmount,
-          status: 'pending'
+    // Create the order
+    const order = await prisma.order.create({
+      data: {
+        customerDetails: {
+          create: customerDetails
         },
-        include: {
-          customerDetails: true,
-          items: true
-        }
-      });
-
-      // Update product quantities in Sanity
-      const results = await Promise.allSettled(
-        newOrder.items.map(item => decrementProductQuantity(item.productId, item.quantity))
-      );
-
-      return [newOrder, results];
+        items: {
+          create: items.map((item: OrderItem) => ({
+            productId: item.productId,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            color: item.color,
+            size: item.size,
+          }))
+        },
+        totalAmount,
+        status: 'pending'
+      },
+      include: {
+        customerDetails: true,
+        items: true
+      }
     });
 
-    // Check for any failed updates
-    const failedUpdates = updateResults.filter(result => result.status === 'rejected');
-    if (failedUpdates.length > 0) {
-      console.error('Some product quantities failed to update:', failedUpdates);
-      // Here you might want to implement a rollback mechanism or alert an admin
-      // For now, we'll just log the error
+    // Trigger Sanity webhook to update product quantities
+    try {
+      await triggerSanityWebhook(order.items);
+    } catch (webhookError) {
+      console.error('Failed to update Sanity via webhook:', webhookError);
+      // You might want to implement some retry logic or alert system here
     }
 
     console.log('Order created successfully:', JSON.stringify(order, null, 2))
@@ -141,138 +122,6 @@ export async function POST(request: Request) {
 }
 
 
-// async function decrementProductQuantity(productId: string, amount: number) {
-//   try {
-//     console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
-
-//     // Fetch the product from Sanity using the provided productId
-//     const product = await client.fetch(`*[_type == "product" && id == $productId][0]{_id, id, quantity}`, 
-//       { productId: String(productId) }
-//     );
-
-//     if (!product) {
-//       throw new Error(`Product with ID ${productId} not found in Sanity`);
-//     }
-
-//     console.log(`Fetched product:`, product);
-//     console.log(`Product ID to decrement:`, product._id);
-
-//     if (product.quantity < amount) {
-//       throw new Error(`Insufficient quantity for product ${productId}. Available: ${product.quantity}, Requested: ${amount}`);
-//     }
-
-//     console.log(`Found product in Sanity:`, product);
-
-//     // Decrement the quantity using the _id of the document
-//     const updatedProduct = await client
-//       .patch(product._id)
-//       .dec({ quantity: amount })
-//       .commit();
-
-//     console.log(`Updated product in Sanity:`, updatedProduct);
-
-//     return updatedProduct;
-//   } catch (error) {
-//     console.error('Error decrementing product quantity:', error);
-//     throw error; // Re-throw the error to be caught in the main POST handler
-//   }
-// }
-
-// export async function POST(request: Request) {
-//   try {
-//     const body = await request.json()
-//     console.log('Received order data:', JSON.stringify(body, null, 2))
-
-//     if (!body || typeof body !== 'object') {
-//       return NextResponse.json(
-//         { success: false, error: 'Invalid request body' },
-//         { status: 400 }
-//       )
-//     }
-
-//     const { customerDetails, items, totalAmount } = body
-
-//     if (!customerDetails || !items || typeof totalAmount !== 'number') {
-//       return NextResponse.json(
-//         { success: false, error: 'Invalid order data' },
-//         { status: 400 }
-//       )
-//     }
-
-//     const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email', 'city', 'houseNo', 'postalCode', 'country']
-//     for (const field of requiredFields) {
-//       if (!customerDetails[field]) {
-//         return NextResponse.json(
-//           { success: false, error: `Missing required field: ${field}` },
-//           { status: 400 }
-//         )
-//       }
-//     }
-
-//         // Check product quantities before creating the order
-//         for (const item of items) {
-//           const product = await client.fetch(`*[_type == "product" && id == $productId][0]`, { productId: item.productId });
-//           if (!product || product.quantity < item.quantity) {
-//             return NextResponse.json(
-//               { success: false, error: `Insufficient quantity for product ${item.name}` },
-//               { status: 400 }
-//             )
-//           }
-//         }
-
-//     const order = await prisma.order.create({
-//       data: {
-//         customerDetails: {
-//           create: customerDetails
-//         },
-//         items: {
-//           create: items.map((item: OrderItem) => ({
-//             productId: item.productId, // Use the product ID as the item ID (for easier reference)
-//             name: item.name,
-//             quantity: item.quantity,
-//             price: item.price,
-//             color: item.color,
-//             size: item.size,
-//           }))
-//         },
-//         totalAmount,
-//         status: 'pending'
-//       },
-//       include: {
-//         customerDetails: true,
-//         items: true
-//       }
-//     })
-
-//     await Promise.all(
-//       order.items.map(async (item) => {
-//         try {
-//           await decrementProductQuantity(item.productId, item.quantity);
-//         } catch (error) {
-//           console.error(`Failed to update quantity for product ${item.productId}:`, error);
-//           // Handle the error appropriately, e.g., revert the order, notify the user, etc.
-//           // For now, we'll just log the error and continue with other updates.
-//         }
-//       })
-//     );
-
-//     console.log('Order created successfully:', JSON.stringify(order, null, 2))
-
-//     return NextResponse.json({ success: true, data: order, orderId: order.id }, { status: 201 })
-//   } catch (error) {
-//     console.error('Error creating order:', error)
-    
-//     let errorMessage = 'An unexpected error occurred'
-//     if (error instanceof Error) {
-//       errorMessage = error.message
-//     }
-
-//     return NextResponse.json(
-//       { success: false, error: 'Failed to create order', details: errorMessage },
-//       { status: 500 }
-//     )
-//   }
-// }
 
 export async function GET(request: Request) {
   const { userId } = await auth();
