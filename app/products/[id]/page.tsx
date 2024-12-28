@@ -186,15 +186,21 @@ const ProductDetails = () => {
                     </Select>
                 </div>
                 <div className='flex items-center justify-center mt-10 gap-2'>
-                    <Button
-                    variant="expandIcon"
-                    Icon={RiShoppingCart2Line}
-                    iconPlacement='right'
-                    className='border text-lg rounded-full font-semibold border-emerald-600 w-full bg-lime-100 hover:bg-emerald-700 active:bg-emerald-900 active:scale-95 duration-300 transition-transform transform text-black hover:text-white drop-shadow-xl'
-                    onClick={handleAddToCart}
-                    >
-                        ADD TO CART
-                    </Button>
+                    {product.quantity > 0 ? (
+                        <Button
+                        variant="expandIcon"
+                        Icon={RiShoppingCart2Line}
+                        iconPlacement='right'
+                        className='border text-lg rounded-full font-semibold border-emerald-600 w-full bg-lime-100 hover:bg-emerald-700 active:bg-emerald-900 active:scale-95 duration-300 transition-transform transform text-black hover:text-white drop-shadow-xl'
+                        onClick={handleAddToCart}
+                        >
+                            ADD TO CART
+                        </Button>
+                    ) : (
+                        <p className='text-white font-semibold w-full bg-red-500 h-10 rounded-full text-center flex items-center justify-center'>
+                            Out of Stock
+                        </p>
+                    )}
                     <Button
                     className='w-18 border rounded-full border-emerald-600 bg-lime-100 hover:bg-gray-200 text-black drop-shadow-xl'
                     >

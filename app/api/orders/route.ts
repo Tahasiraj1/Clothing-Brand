@@ -75,7 +75,7 @@ export async function POST(request: Request) {
       const product = await client.fetch(`*[_type == "product" && id == "${item.productId}"][0]`, { productId: item.productId });
       if (!product || product.quantity < item.quantity) {
         return NextResponse.json(
-          { success: false, error: `Insufficient quantity for product ${item.name}` },
+          { success: false, error: `Insufficient quantity for product ${item.name}, Available stock ${item.quantity}` },
           { status: 400 }
         )
       }
@@ -141,129 +141,6 @@ export async function POST(request: Request) {
     )
   }
 }
-
-// interface UpdateResult {
-//   success: boolean;
-//   updatedItems: string[];
-//   errors: { productId: string; error: string }[];
-// }
-
-
-// async function updateSanityProductQuantities(items: OrderItem[]): Promise<UpdateResult> {
-//   const result: UpdateResult = {
-//     success: true,
-//     updatedItems: [],
-//     errors: [],
-//   };
-
-//   for (const item of items) {
-//     try {
-//       const res = await client
-//         .patch(item.id)  // Use item.id instead of item.productId
-//         .dec({ quantity: item.quantity })
-//         .commit();
-      
-//       result.updatedItems.push(item.id);
-//       console.log(`Updated product ${item.id}: ${JSON.stringify(res)}`);
-//     } catch (error) {
-//       result.success = false;
-//       result.errors.push({
-//         productId: item.id,  // Use item.id here as well
-//         error: error instanceof Error ? error.message : String(error),
-//       });
-//       console.error(`Failed to update product ${item.id}:`, error);
-//     }
-//   }
-
-//   console.log('Sanity update result:', JSON.stringify(result, null, 2));
-
-//   return result;
-// }
-
-
-// export async function POST(request: Request) {
-//   try {
-//     const body = await request.json()
-//     console.log('Received order data:', JSON.stringify(body, null, 2))
-
-//     if (!body || typeof body !== 'object') {
-//       return NextResponse.json(
-//         { success: false, error: 'Invalid request body' },
-//         { status: 400 }
-//       )
-//     }
-
-//     const { customerDetails, items, totalAmount } = body
-
-//     if (!customerDetails || !items || typeof totalAmount !== 'number') {
-//       return NextResponse.json(
-//         { success: false, error: 'Invalid order data' },
-//         { status: 400 }
-//       )
-//     }
-
-//     const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email', 'city', 'houseNo', 'postalCode', 'country']
-//     for (const field of requiredFields) {
-//       if (!customerDetails[field]) {
-//         return NextResponse.json(
-//           { success: false, error: `Missing required field: ${field}` },
-//           { status: 400 }
-//         )
-//       }
-//     }
-
-//     // Create the order
-//     const order = await prisma.order.create({
-//       data: {
-//         customerDetails: {
-//           create: customerDetails
-//         },
-//         items: {
-//           create: items.map((item: OrderItem) => ({
-//             sanityId: item.id,
-//             productId: item.productId,
-//             name: item.name,
-//             quantity: item.quantity,
-//             price: item.price,
-//             color: item.color,
-//             size: item.size,
-//           }))
-//         },
-//         totalAmount,
-//         status: 'pending'
-//       },
-//       include: {
-//         customerDetails: true,
-//         items: true
-//       }
-//     });
-
-//     // Update Sanity product quantities
-//     try {
-//       await updateSanityProductQuantities(order.items);
-//     } catch (sanityError) {
-//       console.error('Failed to update Sanity product quantities:', sanityError);
-//       // You might want to implement some retry logic or alert system here
-//     }
-
-//     console.log('Order created successfully:', JSON.stringify(order, null, 2))
-
-//     return NextResponse.json({ success: true, data: order, orderId: order.id }, { status: 201 })
-//   } catch (error) {
-//     console.error('Error creating order:', error)
-    
-//     let errorMessage = 'An unexpected error occurred'
-//     if (error instanceof Error) {
-//       errorMessage = error.message
-//     }
-
-//     return NextResponse.json(
-//       { success: false, error: 'Failed to create order', details: errorMessage },
-//       { status: 500 }
-//     )
-//   }
-// }
-
 
 
 export async function GET(request: Request) {
