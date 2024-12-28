@@ -22,27 +22,28 @@ async function isAdmin(userId: string) {
 async function updateSanityProductQuantities(items: OrderItem[]) {
   try {
     const transaction = items.reduce((tx, item) => {
-      return tx
-        .createIfNotExists({
-          _type: 'product',
-          _id: `product-${item.productId}`, // Create a unique _id for Sanity
-          id: item.productId, // Use the 'id' field as in your schema
-          name: item.name,
-          quantity: 0 // Default quantity if the product doesn't exist
-        })
-        .patch(`product-${item.productId}`, {
+      return tx.patch(
+        item.productId,
+        {
           dec: { quantity: item.quantity }
         });
     }, client.transaction());
 
     const result = await transaction.commit();
     console.log('Sanity update result:', JSON.stringify(result, null, 2));
+
+    // Check if all products were updated
+    if (result.results.length !== items.length) {
+      console.warn('Not all products were updated in Sanity. This could be due to missing products.');
+    }
+
     return result;
   } catch (error) {
     console.error('Error updating Sanity:', error);
     throw error;
   }
 }
+
 
 export async function POST(request: Request) {
   try {
