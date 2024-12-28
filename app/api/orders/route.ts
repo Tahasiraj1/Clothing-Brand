@@ -23,8 +23,11 @@ async function decrementProductQuantity(productId: string, amount: number) {
   try {
     console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
 
+    const query = `*[_type == "product" && id == $productId][0]`;
+    const documentId = await client.fetch(query, { productId });
+
     const result = await client
-      .patch(`*[_type == "product" && id == "${productId}"][0]._id`)
+      .patch(documentId._id)
       .dec({ quantity: amount })
       .commit();
 
