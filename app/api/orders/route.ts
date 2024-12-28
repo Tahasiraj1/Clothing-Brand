@@ -19,30 +19,42 @@ async function isAdmin(userId: string) {
   return user.publicMetadata.role === 'admin';
 }
 
+interface UpdateResult {
+  success: boolean;
+  updatedItems: string[];
+  errors: { productId: string; error: string }[];
+}
 
-async function updateSanityProductQuantities(items: OrderItem[]) {
-  try {
-    const transaction = items.reduce((tx, item) => {
-      return tx.patch(
-        item.id,
-        {
-          dec: { quantity: item.quantity }
-        });
-    }, client.transaction());
 
-    const result = await transaction.commit();
-    console.log('Sanity update result:', JSON.stringify(result, null, 2));
+async function updateSanityProductQuantities(items: OrderItem[]): Promise<UpdateResult> {
+  const result: UpdateResult = {
+    success: true,
+    updatedItems: [],
+    errors: [],
+  };
 
-    // Check if all products were updated
-    if (result.results.length !== items.length) {
-      console.warn('Not all products were updated in Sanity. This could be due to missing products.');
+  for (const item of items) {
+    try {
+      const res = await client
+        .patch(item.id)  // Use item.id instead of item.productId
+        .dec({ quantity: item.quantity })
+        .commit();
+      
+      result.updatedItems.push(item.id);
+      console.log(`Updated product ${item.id}: ${JSON.stringify(res)}`);
+    } catch (error) {
+      result.success = false;
+      result.errors.push({
+        productId: item.id,  // Use item.id here as well
+        error: error instanceof Error ? error.message : String(error),
+      });
+      console.error(`Failed to update product ${item.id}:`, error);
     }
-
-    return result;
-  } catch (error) {
-    console.error('Error updating Sanity:', error);
-    throw error;
   }
+
+  console.log('Sanity update result:', JSON.stringify(result, null, 2));
+
+  return result;
 }
 
 
