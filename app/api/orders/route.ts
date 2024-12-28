@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { auth, clerkClient } from '@clerk/nextjs/server';
+import { client } from '@/sanity/lib/client';
 
 interface OrderItem {
   productId: string
@@ -18,25 +19,24 @@ async function isAdmin(userId: string) {
 }
 
 
-async function triggerSanityWebhook(items: OrderItem[]) {
-  const webhookUrl = process.env.SANITY_WEBHOOK_URL;
-  if (!webhookUrl) {
-    throw new Error('SANITY_WEBHOOK_URL is not set');
+async function updateSanityProductQuantities(items: OrderItem[]) {
+  try {
+    const transaction = items.reduce((tx, item) => {
+      return tx.patch(
+        `*[_type == "product" && id == "${item.productId}"][0]._id`,
+        {
+          dec: { quantity: item.quantity }
+        }
+      )
+    }, client.transaction());
+
+    const result = await transaction.commit();
+    console.log('Sanity update result:', JSON.stringify(result, null, 2));
+    return result;
+  } catch (error) {
+    console.error('Error updating Sanity:', error);
+    throw error;
   }
-
-  const response = await fetch(webhookUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ items }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Webhook call failed: ${response.statusText}`);
-  }
-
-  return await response.json();
 }
 
 export async function POST(request: Request) {
@@ -95,11 +95,11 @@ export async function POST(request: Request) {
       }
     });
 
-    // Trigger Sanity webhook to update product quantities
+    // Update Sanity product quantities
     try {
-      await triggerSanityWebhook(order.items);
-    } catch (webhookError) {
-      console.error('Failed to update Sanity via webhook:', webhookError);
+      await updateSanityProductQuantities(order.items);
+    } catch (sanityError) {
+      console.error('Failed to update Sanity product quantities:', sanityError);
       // You might want to implement some retry logic or alert system here
     }
 
