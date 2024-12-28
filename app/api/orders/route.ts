@@ -23,7 +23,7 @@ async function updateSanityProductQuantities(items: OrderItem[]) {
   try {
     const transaction = items.reduce((tx, item) => {
       return tx.patch(
-        `*[_type == "product" && id == "${item.productId}"][0]._id`,
+        `*[_type == "product" && id == "${item.productId}"][0]`,
         {
           dec: { quantity: item.quantity }
         }
