@@ -4,6 +4,7 @@ import { auth, clerkClient } from '@clerk/nextjs/server';
 import { client } from '@/sanity/lib/client';
 
 interface OrderItem {
+  id: string
   productId: string
   name: string
   quantity: number
@@ -23,7 +24,7 @@ async function updateSanityProductQuantities(items: OrderItem[]) {
   try {
     const transaction = items.reduce((tx, item) => {
       return tx.patch(
-        item.productId,
+        item.id,
         {
           dec: { quantity: item.quantity }
         });
@@ -84,6 +85,7 @@ export async function POST(request: Request) {
         },
         items: {
           create: items.map((item: OrderItem) => ({
+            sanityId: item.id,
             productId: item.productId,
             name: item.name,
             quantity: item.quantity,
