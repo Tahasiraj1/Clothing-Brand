@@ -5,6 +5,7 @@ import { auth } from '@clerk/nextjs/server';
 
 export const dynamic = 'force-dynamic'
 
+
 async function getConfirmedOrders() {
   try {
     const { userId, getToken } = await auth();
