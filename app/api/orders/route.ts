@@ -22,12 +22,17 @@ async function isAdmin(userId: string) {
 async function updateSanityProductQuantities(items: OrderItem[]) {
   try {
     const transaction = items.reduce((tx, item) => {
-      return tx.patch(
-        `*[_type == "product" && id == "${item.productId}"][0]`,
-        {
+      return tx
+        .createIfNotExists({
+          _type: 'product',
+          _id: `product-${item.productId}`, // Create a unique _id for Sanity
+          id: item.productId, // Use the 'id' field as in your schema
+          name: item.name,
+          quantity: 0 // Default quantity if the product doesn't exist
+        })
+        .patch(`product-${item.productId}`, {
           dec: { quantity: item.quantity }
-        }
-      )
+        });
     }, client.transaction());
 
     const result = await transaction.commit();
