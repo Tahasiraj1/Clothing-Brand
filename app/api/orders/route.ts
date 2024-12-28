@@ -24,7 +24,7 @@ async function decrementProductQuantity(productId: string, amount: number) {
     console.log(`Attempting to decrement quantity for product ${productId} by ${amount}`);
 
     const result = await client
-      .patch(`*[_type == "product" && id == ${"productId"}][0]._id`)
+      .patch(`*[_type == "product" && id == "${productId}"][0]._id`)
       .dec({ quantity: amount })
       .commit();
 
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
 
     // Check product quantities before creating the order
     for (const item of items) {
-      const product = await client.fetch(`*[_type == "product" && id == ${"productId"}][0]`, { productId: item.productId });
+      const product = await client.fetch(`*[_type == "product" && id == "${item.productId}"][0]`, { productId: item.productId });
       if (!product || product.quantity < item.quantity) {
         return NextResponse.json(
           { success: false, error: `Insufficient quantity for product ${item.name}` },
